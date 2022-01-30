@@ -272,8 +272,8 @@ namespace Equipment_rebalance
             {
                 PassiveBasePatch.InitStub(__instance);
                 __instance.PlusStat.cri = 10f;
-                __instance.PlusStat.PlusCriDmg = 30f;
-                __instance.PlusStat.PlusCriHeal = 30f;
+                __instance.PlusStat.PlusCriDmg = 35f;
+                __instance.PlusStat.PlusCriHeal = 35f;
 
                 return false;
             }
@@ -774,7 +774,7 @@ namespace Equipment_rebalance
             {
                 PassiveBasePatch.InitStub(__instance);
                 __instance.PlusPerStat.Damage = 15;
-                __instance.PlusStat.hit = 7f;
+                __instance.PlusStat.hit = 12f;
 
                 return false;
             }
@@ -839,5 +839,31 @@ namespace Equipment_rebalance
             }
         }
 
+        [HarmonyPatch(typeof(VikingsBlood), "Init")]
+        class BerserkersBloodPatch
+        {
+            static bool Prefix(VikingsBlood __instance)
+            {
+                __instance.PlusStat.def = 12f;
+                __instance.PlusStat.cri = 8f;
+                PassiveBasePatch.InitStub(__instance);
+
+                return false;
+            }
+        }
+
+
+        [HarmonyPatch(typeof(PoisonousBottle), "Init")]
+        class BottleOfPoisondPatch
+        {
+            static bool Prefix(PoisonousBottle __instance)
+            {
+                __instance.PlusStat.HIT_DOT = 20f;
+                __instance.PlusStat.RES_DOT = 20f;
+                PassiveBasePatch.InitStub(__instance);
+
+                return false;
+            }
+        }
     }
 }
