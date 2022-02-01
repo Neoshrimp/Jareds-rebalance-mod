@@ -444,6 +444,8 @@ namespace Equipment_rebalance
             }
         }
 
+
+        //TODO update description 
         [HarmonyPatch(typeof(EndlessScroll), "Enchent")]
         class MagicParchmentPatch
         {
@@ -601,7 +603,7 @@ namespace Equipment_rebalance
                 __instance.PlusStat.cri = 3f;
                 __instance.PlusStat.HIT_DEBUFF = 20f;
                 __instance.PlusStat.HIT_DOT = -25f;
-                __instance.PlusStat.hit = 7f;
+                __instance.PlusStat.hit = 3f;
 
                 return false;
             }
