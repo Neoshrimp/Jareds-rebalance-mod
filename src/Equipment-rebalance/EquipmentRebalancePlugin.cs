@@ -1,4 +1,4 @@
-﻿using BepInEx;
+using BepInEx;
 using EItem;
 using HarmonyLib;
 using System.Collections.Generic;
@@ -125,20 +125,6 @@ namespace Equipment_rebalance
             }
         }
 
-        [HarmonyPatch(typeof(PrayersHand), "Init")]
-        class HandOfPrayerPatch
-        {
-            static bool Prefix(PrayersHand __instance)
-            {
-                __instance.PlusPerStat.Heal = 20;
-                __instance.PlusPerStat.Damage = -15;
-                __instance.PlusStat.RES_DOT = 10f;
-                PassiveBasePatch.InitStub(__instance);
-
-                return false;
-            }
-        }
-
         [HarmonyPatch(typeof(CeremonialGloves), "Init")]
         class CeremonialGlovesPatch
         {
@@ -146,6 +132,7 @@ namespace Equipment_rebalance
             {
                 __instance.PlusPerStat.MaxHP = -10;
                 __instance.PlusPerStat.Heal = 20;
+                __instance.PlusStat.RES_DEBUFF = 10;
                 PassiveBasePatch.InitStub(__instance);
 
                 return false;
@@ -172,7 +159,7 @@ namespace Equipment_rebalance
             {
                 __instance.PlusStat.dod = 10f;
                 __instance.PlusStat.cri = 15f;
-                __instance.PlusStat.hit = -3f;
+                __instance.PlusStat.hit = -5f;
                 PassiveBasePatch.InitStub(__instance);
 
                 return false;
@@ -188,7 +175,6 @@ namespace Equipment_rebalance
                 __instance.PlusPerStat.MaxHP = 20;
                 __instance.PlusStat.HIT_CC = 15f;
                 __instance.PlusStat.RES_DOT = -10f;
-                __instance.PlusStat.dod = -5f;
 
                 return false;
             }
@@ -209,7 +195,6 @@ namespace Equipment_rebalance
             }
         }
 
-
         [HarmonyPatch(typeof(AmuletofAnger), "Init")]
         class AmuletOfAngerPatch
         {
@@ -219,6 +204,21 @@ namespace Equipment_rebalance
                 __instance.PlusStat.def = 12f;
                 __instance.PlusPerStat.MaxHP = 15;
                 __instance.PlusStat.AggroPer = 50;
+                __instance.PlusStat.atk = 1f;
+
+                return false;
+            }
+        }
+
+        [HarmonyPatch(typeof(AmuletofStability), "Init")]
+        class AmuletOfCalmPatch
+        {
+            static bool Prefix(AmuletofStability __instance)
+            {
+                PassiveBasePatch.InitStub(__instance);
+                __instance.PlusStat.maxhp = 5;
+                __instance.PlusStat.reg = 2f;
+                __instance.PlusStat.AggroPer = -25;
 
                 return false;
             }
@@ -245,7 +245,36 @@ namespace Equipment_rebalance
             {
                 PassiveBasePatch.InitStub(__instance);
                 __instance.PlusPerStat.Damage = 18;
-                __instance.PlusStat.HEALTaken = -15f;
+                __instance.PlusStat.HEALTaken = -25f;
+
+                return false;
+            }
+        }
+
+        [HarmonyPatch(typeof(NecklaceofLife), "Init")]
+        class LifeStoneNecklacePatch
+        {
+            static bool Prefix(NecklaceofLife __instance)
+            {
+                PassiveBasePatch.InitStub(__instance);
+                __instance.PlusPerStat.MaxHP = 20;
+                __instance.PlusStat.RES_CC = 5f;
+                __instance.PlusStat.RES_DEBUFF = 5f;
+                __instance.PlusStat.RES_DOT = 5f;
+                __instance.PlusStat.dod = -5f;
+                return false;
+            }
+        }
+
+        [HarmonyPatch(typeof(PrayersHand), "Init")]
+        class HandsOfPrayerPatch
+        {
+            static bool Prefix(PrayersHand __instance)
+            {
+                PassiveBasePatch.InitStub(__instance);
+                __instance.PlusPerStat.Heal = 20;
+                __instance.PlusPerStat.Damage = -25;
+                __instance.PlusStat.RES_DOT = 10f;
 
                 return false;
             }
@@ -259,7 +288,7 @@ namespace Equipment_rebalance
                 PassiveBasePatch.InitStub(__instance);
                 __instance.PlusPerStat.MaxHP = 12;
                 __instance.PlusStat.dod = -8f;
-                __instance.PlusStat.hit = 6f;
+                __instance.PlusStat.hit = 4f;
 
                 return false;
             }
@@ -271,9 +300,9 @@ namespace Equipment_rebalance
             static bool Prefix(RustyHammer __instance)
             {
                 PassiveBasePatch.InitStub(__instance);
-                __instance.PlusStat.cri = 10f;
-                __instance.PlusStat.PlusCriDmg = 35f;
-                __instance.PlusStat.PlusCriHeal = 35f;
+                __instance.PlusStat.cri = 5f;
+                __instance.PlusStat.PlusCriDmg = 33f;
+                __instance.PlusStat.PlusCriHeal = 33f;
 
                 return false;
             }
@@ -287,9 +316,33 @@ namespace Equipment_rebalance
                 PassiveBasePatch.InitStub(__instance);
                 __instance.PlusStat.def = 10f;
                 __instance.PlusStat.cri = 35f;
-                __instance.PlusStat.PlusCriDmg = -25f;
+                __instance.PlusStat.PlusCriDmg = -50f;
                 __instance.PlusStat.RES_DEBUFF = 20f;
 
+                return false;
+            }
+        }
+
+        [HarmonyPatch(typeof(RabbitMask), "Init")]
+        class DodoRabbitPatch
+        {
+            static bool Prefix(RabbitMask __instance)
+            {
+                PassiveBasePatch.InitStub(__instance);
+                if (__instance.MyItem != null)
+                {
+                    __instance.MyItem.Curse = new EquipCurse();
+                    ItemEnchant.RandomEnchant(__instance.MyItem, string.Empty, true, false);
+                    __instance.PlusStat += __instance.MyItem.Enchant.EnchantData.PlusStat;
+                    __instance.PlusPerStat += __instance.MyItem.Enchant.EnchantData.PlusPerStat;
+
+                    ItemEnchant.RandomEnchant(__instance.MyItem, string.Empty, true, false);
+                    __instance.PlusStat += __instance.MyItem.Enchant.EnchantData.PlusStat;
+                    __instance.PlusPerStat += __instance.MyItem.Enchant.EnchantData.PlusPerStat;
+
+                    __instance.MyItem.Enchant = ItemEnchant.RandomCurseEnchant(__instance.MyItem);
+                    __instance.MyItem._Isidentify = true;
+                }
                 return false;
             }
         }
@@ -314,8 +367,8 @@ namespace Equipment_rebalance
             static bool Prefix(RingofBlood __instance)
             {
 
-                __instance.PlusStat.hit = -3f;
-                __instance.PlusStat.cri = 15f;
+                __instance.PlusStat.hit = -5f;
+                __instance.PlusStat.cri = 10f;
                 __instance.PlusPerStat.Damage = 15;
                 PassiveBasePatch.InitStub(__instance);
 
@@ -330,7 +383,7 @@ namespace Equipment_rebalance
             {
                 PassiveBasePatch.InitStub(__instance);
                 __instance.PlusStat.hit = 15f;
-                __instance.PlusStat.cri = 8f;
+                __instance.PlusStat.cri = 4f;
 
                 return false;
             }
@@ -351,6 +404,63 @@ namespace Equipment_rebalance
             }
         }
 
+        [HarmonyPatch(typeof(SceptreofLife), "Init")]
+        class LifeStoneScepterPatch
+        {
+            static bool Prefix(VikingsMace __instance)
+            {
+                __instance.PlusPerStat.Heal = 20;
+                __instance.PlusStat.RES_DOT = 20f;
+                __instance.PlusStat.RES_CC = -15f;
+                return false;
+            }
+        }
+
+        [HarmonyPatch(typeof(Taegeukring), "Init")]
+        class TaegukringPatch
+        {
+            static bool Prefix(Taegeukring __instance)
+            {
+                __instance.PlusStat.atk = 3f;
+                __instance.PlusStat.reg = 3f;
+                __instance.PlusStat.cri = -9f;
+                return false;
+            }
+        }
+
+        [HarmonyPatch(typeof(RingofDeath), "Init")]
+        class AssassinRingPatch
+        {
+            static bool Prefix(RingofDeath __instance)
+            {
+                __instance.PlusStat.PlusCriDmg = 15f;
+                __instance.PlusStat.cri = 10f;
+                __instance.PlusPerStat.MaxHP = -10;
+                __instance.PlusStat.HIT_DOT = 10f;
+                return false;
+            }
+        }
+
+        [HarmonyPatch(typeof(EndlessScroll), "Enchent")]
+        class MagicParchmentPatch
+        {
+            static bool Prefix(EndlessScroll __instance)
+            {
+                __instance.PlusStat += __instance.MyItem.Enchant.EnchantData.PlusStat;
+                __instance.PlusPerStat += __instance.MyItem.Enchant.EnchantData.PlusPerStat;
+                __instance.EnchantNames += __instance.MyItem.Enchant.Name;
+
+                __instance.PlusStat += __instance.MyItem.Enchant.EnchantData.PlusStat;
+                __instance.PlusPerStat += __instance.MyItem.Enchant.EnchantData.PlusPerStat;
+                __instance.EnchantNames += __instance.MyItem.Enchant.Name;
+
+                __instance.MyItem.Enchant.EnchantData.PlusStat = default(Stat);
+                __instance.MyItem.Enchant.EnchantData.PlusPerStat = default(PerStat);
+                __instance.MyItem.Enchant.Name = __instance.EnchantNames;
+                return false;
+            }
+        }
+
         [HarmonyPatch(typeof(Featheroflife), "Init")]
         class BurningFeatherPatch
         {
@@ -365,6 +475,20 @@ namespace Equipment_rebalance
             }
         }
 
+        [HarmonyPatch(typeof(GuardsCertificate), "Init")]
+        class GuardsDeedPatch
+        {
+            static bool Prefix(GuardsCertificate __instance)
+            {
+                PassiveBasePatch.InitStub(__instance);
+                __instance.PlusStat.def = 15f;
+                __instance.PlusStat.atk = 2f;
+                __instance.PlusStat.HIT_CC = 20f;
+                __instance.PlusStat.RES_CC = 20f;
+                __instance.PlusStat.dod = -10f;
+                return false;
+            }
+        }
 
         [HarmonyPatch(typeof(StickofFaith), "Init")]
         class RodOfFaithPatch
@@ -415,7 +539,7 @@ namespace Equipment_rebalance
             static bool Prefix(LastStand __instance)
             {
                 PassiveBasePatch.InitStub(__instance);
-                __instance.PlusStat.atk = 2;
+                __instance.PlusStat.atk = 1;
                 __instance.PlusStat.def = 10f;
                 __instance.PlusStat.RES_DEBUFF = -20f;
 
@@ -443,7 +567,7 @@ namespace Equipment_rebalance
             static bool Prefix(FrozenShuriken __instance)
             {
                 PassiveBasePatch.InitStub(__instance);
-                __instance.PlusPerStat.Damage = 17;
+                __instance.PlusPerStat.Damage = 15;
                 __instance.PlusStat.DeadImmune = 15;
 
                 return false;
@@ -471,7 +595,7 @@ namespace Equipment_rebalance
                 PassiveBasePatch.InitStub(__instance);
                 __instance.PlusPerStat.Damage = 15;
                 __instance.PlusPerStat.Heal = 10;
-                __instance.PlusStat.cri = 5f;
+                __instance.PlusStat.cri = 3f;
                 __instance.PlusStat.HIT_DEBUFF = 20f;
                 __instance.PlusStat.HIT_DOT = -25f;
                 __instance.PlusStat.hit = 7f;
@@ -488,7 +612,7 @@ namespace Equipment_rebalance
             {
                 PassiveBasePatch.InitStub(__instance);
                 __instance.PlusPerStat.Heal = 12;
-                __instance.PlusStat.hit = 5f;
+                __instance.PlusStat.hit = 3f;
                 __instance.PlusStat.atk = 2f;
 
                 return false;
@@ -501,7 +625,7 @@ namespace Equipment_rebalance
             static bool Prefix(TheEquability __instance)
             {
                 __instance.PlusStat.def = 15f;
-                __instance.PlusStat.hit = 8f;
+                __instance.PlusStat.hit = 5f;
                 PassiveBasePatch.InitStub(__instance);
 
                 return false;
@@ -514,9 +638,9 @@ namespace Equipment_rebalance
         {
             static bool Prefix(OrderofSacrifice __instance)
             {
-                __instance.PlusPerStat.Heal = 20;
-                __instance.PlusStat.dod = 10f;
-                __instance.PlusStat.RES_CC = 30f;
+                __instance.PlusPerStat.Heal = 18;
+                __instance.PlusStat.dod = 7f;
+                __instance.PlusStat.RES_CC = 33f;
                 PassiveBasePatch.InitStub(__instance);
 
                 return false;
@@ -593,9 +717,25 @@ namespace Equipment_rebalance
         {
             static bool Prefix(OrderofEgis __instance)
             {
+                __instance.PlusStat.maxhp = __instance.PlusStat.maxhp + 3;
                 __instance.PlusStat.def = 20f;
                 __instance.PlusStat.DeadImmune = 20;
                 __instance.PlusStat.HIT_CC = 30f;
+                PassiveBasePatch.InitStub(__instance);
+
+                return false;
+            }
+        }
+
+        [HarmonyPatch(typeof(OrderofHonor), "Init")]
+        class TokenOfExecutionerPatch
+        {
+            static bool Prefix(OrderofHonor __instance)
+            {
+                __instance.PlusStat.atk = 1f;
+                __instance.PlusStat.reg = 1f;
+                __instance.PlusStat.crihit = 5;
+                __instance.PlusStat.Penetration = 15f;
                 PassiveBasePatch.InitStub(__instance);
 
                 return false;
@@ -622,7 +762,7 @@ namespace Equipment_rebalance
             static bool Prefix(Deadeye __instance)
             {
                 PassiveBasePatch.InitStub(__instance);
-                __instance.PlusStat.cri = 10f;
+                __instance.PlusStat.cri = 12f;
                 __instance.PlusStat.PlusCriDmg = 25f;
                 __instance.PlusStat.hit = 7f;
 
@@ -639,7 +779,7 @@ namespace Equipment_rebalance
             {
 
                 __instance.PlusPerStat.Damage = 20;
-                __instance.PlusStat.cri = 10f;
+                __instance.PlusStat.cri = 5f;
                 __instance.PlusStat.spd = 1;
                 PassiveBasePatch.InitStub(__instance);
 
@@ -732,8 +872,7 @@ namespace Equipment_rebalance
             {
                 PassiveBasePatch.InitStub(__instance);
                 __instance.PlusStat.atk = 2f;
-                //TODO jeez leaving eagle eye in the dust
-                __instance.PlusStat.hit = 12f;
+                __instance.PlusStat.hit = 5f;
                 __instance.PlusStat.dod = 8f;
 
                 return false;
@@ -773,7 +912,7 @@ namespace Equipment_rebalance
             static bool Prefix(Analyticalscope __instance)
             {
                 PassiveBasePatch.InitStub(__instance);
-                __instance.PlusPerStat.Damage = 15;
+                __instance.PlusPerStat.Damage = 12;
                 __instance.PlusStat.hit = 12f;
 
                 return false;
@@ -787,7 +926,7 @@ namespace Equipment_rebalance
             {
                 PassiveBasePatch.InitStub(__instance);
                 //TODO come on
-                __instance.PlusStat.reg = 3f;
+                __instance.PlusStat.reg = 1f;
                 __instance.PlusStat.HIT_DOT = 10f;
 
                 return false;
