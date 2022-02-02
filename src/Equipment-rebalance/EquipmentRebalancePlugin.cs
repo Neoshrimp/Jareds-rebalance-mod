@@ -36,7 +36,7 @@ namespace Equipment_rebalance
 
 
         [HarmonyPatch(typeof(PassiveBase))]
-        class PassiveBasePatch
+        public class PassiveBasePatch
         {
             [HarmonyReversePatch]
             [HarmonyPatch(nameof(PassiveBase.Init))]
@@ -346,7 +346,6 @@ namespace Equipment_rebalance
         }
 
 
-        //TODO revert golden enchants
         [HarmonyPatch(typeof(RabbitMask), "Init")]
         class DodoRabbitPatch
         {
@@ -356,6 +355,7 @@ namespace Equipment_rebalance
                 if (__instance.MyItem != null)
                 {
                     __instance.MyItem.Curse = new EquipCurse();
+
                     ItemEnchant.RandomEnchant(__instance.MyItem, string.Empty, true, false);
                     __instance.PlusStat += __instance.MyItem.Enchant.EnchantData.PlusStat;
                     __instance.PlusPerStat += __instance.MyItem.Enchant.EnchantData.PlusPerStat;
@@ -485,6 +485,7 @@ namespace Equipment_rebalance
                 if (enchantDepth < 1)
                 {
                     enchantDepth++;
+
                     ItemEnchant.RandomEnchant(__instance.MyItem, string.Empty, true, false);
                 }
 
@@ -607,8 +608,7 @@ namespace Equipment_rebalance
             }
         }
 
-        // removed from game in 1.7 global beta?
-/*        [HarmonyPatch(typeof(FrozenShuriken), "Init")]
+        [HarmonyPatch(typeof(FrozenShuriken), "Init")]
         class FrozenCommendationPatch
         {
             static bool Prefix(FrozenShuriken __instance)
@@ -619,7 +619,7 @@ namespace Equipment_rebalance
 
                 return false;
             }
-        }*/
+        }
 
         [HarmonyPatch(typeof(ScalesArmor), "Init")]
         class ScaleVestPatch

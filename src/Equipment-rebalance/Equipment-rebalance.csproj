@@ -58,6 +58,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GoldenEnchantsTweaks.cs" />
+    <Compile Include="RelicRebalance.cs" />
     <Compile Include="EquipmentRebalancePlugin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
