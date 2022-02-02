@@ -91,7 +91,7 @@ namespace Equipment_rebalance
         {
             static bool Prefix(TargetBadge __instance)
             {
-                __instance.PlusStat.hit = 10f;
+                __instance.PlusStat.hit = 6f;
                 __instance.PlusStat.RES_DEBUFF = 20f;
                 PassiveBasePatch.InitStub(__instance);
 
@@ -105,7 +105,7 @@ namespace Equipment_rebalance
             static bool Prefix(WoodenBat __instance)
             {
                 __instance.PlusPerStat.Damage = 24;
-                __instance.PlusStat.hit = -8f;
+                __instance.PlusStat.hit = -10f;
                 PassiveBasePatch.InitStub(__instance);
 
                 return false;
@@ -146,7 +146,7 @@ namespace Equipment_rebalance
             static bool Prefix(RingofStupidman __instance)
             {
                 __instance.PlusStat.def = 20f;
-                __instance.PlusStat.dod = -10f;
+                __instance.PlusStat.dod = -20f;
                 PassiveBasePatch.InitStub(__instance);
 
                 return false;
@@ -240,7 +240,7 @@ namespace Equipment_rebalance
         }
 
         [HarmonyPatch(typeof(BastardSword), "Init")]
-        class BastardSwordPatch
+        class BluntSwordPatch
         {
             static bool Prefix(BastardSword __instance)
             {
@@ -282,16 +282,35 @@ namespace Equipment_rebalance
         }
 
 
-        //TODO fix bug
-        [HarmonyPatch(typeof(CharginTarge), "Init")]
+        [HarmonyPatch(typeof(CharginTarge))]
         class AssaultShieldPatch
         {
-            static bool Prefix(CharginTarge __instance)
+            [HarmonyPatch("Init")]
+            [HarmonyPrefix]
+            static bool InitPrefix(CharginTarge __instance)
             {
                 PassiveBasePatch.InitStub(__instance);
                 __instance.PlusPerStat.MaxHP = 12;
                 __instance.PlusStat.dod = -8f;
                 __instance.PlusStat.hit = 4f;
+
+                return false;
+            }
+
+            //bug fix
+            [HarmonyPatch("FixedUpdate")]
+            [HarmonyPrefix]
+            static bool FixedUpdatePrefix(CharginTarge __instance)
+            {
+                PassiveBasePatch.FixedUpdateStub(__instance);
+                if (BattleSystem.instance != null && __instance.BChar != null && __instance.BChar.GetStat.Strength)
+                {
+                    __instance.PlusPerStat.Damage = 15;
+                }
+                else
+                {
+                    __instance.PlusPerStat.Damage = 0;
+                }
 
                 return false;
             }
@@ -326,6 +345,8 @@ namespace Equipment_rebalance
             }
         }
 
+
+        //TODO revert golden enchants
         [HarmonyPatch(typeof(RabbitMask), "Init")]
         class DodoRabbitPatch
         {
@@ -449,12 +470,10 @@ namespace Equipment_rebalance
         [HarmonyPatch(typeof(EndlessScroll), "Enchent")]
         class MagicParchmentPatch
         {
+            //it would probably break if 2 > magic parchments are enchanted at the same time
+            static int enchantDepth = 0;
             static bool Prefix(EndlessScroll __instance)
             {
-                __instance.PlusStat += __instance.MyItem.Enchant.EnchantData.PlusStat;
-                __instance.PlusPerStat += __instance.MyItem.Enchant.EnchantData.PlusPerStat;
-                __instance.EnchantNames += __instance.MyItem.Enchant.Name;
-
                 __instance.PlusStat += __instance.MyItem.Enchant.EnchantData.PlusStat;
                 __instance.PlusPerStat += __instance.MyItem.Enchant.EnchantData.PlusPerStat;
                 __instance.EnchantNames += __instance.MyItem.Enchant.Name;
@@ -462,9 +481,20 @@ namespace Equipment_rebalance
                 __instance.MyItem.Enchant.EnchantData.PlusStat = default(Stat);
                 __instance.MyItem.Enchant.EnchantData.PlusPerStat = default(PerStat);
                 __instance.MyItem.Enchant.Name = __instance.EnchantNames;
+
+                if (enchantDepth < 1)
+                {
+                    enchantDepth++;
+                    ItemEnchant.RandomEnchant(__instance.MyItem, string.Empty, true, false);
+                }
+
+                enchantDepth = 0;
+
                 return false;
             }
+
         }
+
 
         [HarmonyPatch(typeof(Featheroflife), "Init")]
         class BurningFeatherPatch
@@ -552,7 +582,7 @@ namespace Equipment_rebalance
             }
         }
 
-        //TODO test
+        //TODO discuss implementation 
         //TODO change description
         [HarmonyPatch(typeof(Extended_ForbiddenLibram), nameof(Extended_ForbiddenLibram.SkillUseSingle))]
         class ForbiddenBibleExtendPatch
@@ -560,13 +590,25 @@ namespace Equipment_rebalance
             static bool Prefix(Extended_ForbiddenLibram __instance, Skill SkillD, List<BattleChar> Targets)
             {
                 int heal = 50 * Random.Range(0, 6) - 100;
-                __instance.PlusSkillPerStat.Heal = heal;
+                //incorrect
+                int baseHeal = __instance.MySkill.MySkill.Effect_Target.HEAL_Per;
+                float mul = 0.5f * Random.Range(0, 6);
+                Debug.Log(baseHeal);
+                Debug.Log(mul);
+
+                __instance.PlusSkillPerStat.Heal = Mathf.Max((int)(baseHeal*mul - baseHeal), -baseHeal);
+                Debug.Log(__instance.PlusSkillPerStat.Heal);
+
+
+                //__instance.PlusSkillPerStat.Heal = heal; 
+
 
                 return false;
             }
         }
 
-        [HarmonyPatch(typeof(FrozenShuriken), "Init")]
+        // removed from game in 1.7 global beta?
+/*        [HarmonyPatch(typeof(FrozenShuriken), "Init")]
         class FrozenCommendationPatch
         {
             static bool Prefix(FrozenShuriken __instance)
@@ -577,7 +619,7 @@ namespace Equipment_rebalance
 
                 return false;
             }
-        }
+        }*/
 
         [HarmonyPatch(typeof(ScalesArmor), "Init")]
         class ScaleVestPatch
@@ -776,7 +818,6 @@ namespace Equipment_rebalance
         }
 
         //TODO reconsider stats
-        //TODO make discard first action on stack
         [HarmonyPatch(typeof(Dooooooom), "Init")]
         class DemonHunterPatch
         {
@@ -784,26 +825,58 @@ namespace Equipment_rebalance
             {
 
                 __instance.PlusPerStat.Damage = 20;
-                __instance.PlusStat.cri = 5f;
-                __instance.PlusStat.spd = 1;
+                __instance.PlusStat.cri = -5f;
+                __instance.PlusStat.hit = 5f;
                 PassiveBasePatch.InitStub(__instance);
 
                 return false;
             }
         }
 
-        [HarmonyPatch(typeof(CrownofThorns), "Init")]
+        //TODO test for unexpected behavior. Works with shadow orb
+        [HarmonyPatch(typeof(DemonHunter_Ex), nameof(DemonHunter_Ex.SkillUseHand))]
+        class DemonHunter_ExPatch
+        {
+            static bool Prefix(DemonHunter_Ex __instance)
+            {
+                while (BattleSystem.instance.AllyTeam.Skills.Count > 0)
+                {
+                    BattleSystem.instance.AllyTeam.Skills[0].MyButton.Waste();
+                }
+
+                return false;
+            }
+        }
+
+
+        //TODO update description
+        [HarmonyPatch(typeof(CrownofThorns))]
         class CrownOfThornsPatch
         {
-            static bool Prefix(CrownofThorns __instance)
+            [HarmonyPatch("Init")]
+            [HarmonyPrefix]
+            static bool InitPrefix(CrownofThorns __instance)
             {
 
-                __instance.PlusPerStat.Heal = 20;
-                __instance.PlusStat.dod = 10f;
-                __instance.PlusStat.DeadImmune = 30;
+                __instance.PlusPerStat.Heal = 18;
+                __instance.PlusStat.DeadImmune = 25;
                 PassiveBasePatch.InitStub(__instance);
 
                 return false;
+            }
+
+            [HarmonyPatch("FixedUpdate")]
+            [HarmonyPostfix]
+            static void FixedUpdatePostfix(CrownofThorns __instance)
+            {
+                if (__instance.BChar != null && __instance.BChar.HP <= 0)
+                {
+                    __instance.PlusStat.dod = 25f;
+                }
+                else
+                {
+                    __instance.PlusStat.dod = 0f;
+                }
             }
         }
 
