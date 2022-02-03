@@ -10,7 +10,7 @@ namespace Equipment_rebalance
     class RelicRebalance
     {
 
-        [HarmonyPatch(typeof(PassiveItemBase), nameof(ShadowOrb.ShinyEffect))]
+        [HarmonyPatch(typeof(PassiveItemBase), nameof(PassiveItemBase.ShinyEffect))]
 
         class PIBReversePatch
         {
