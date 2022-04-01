@@ -3,7 +3,7 @@ using System.Runtime.CompilerServices;
 using PItem;
 using System.Collections;
 using UnityEngine;
-
+using System.Collections.Generic;
 
 namespace Equipment_rebalance
 {
@@ -23,9 +23,12 @@ namespace Equipment_rebalance
         [HarmonyPatch(typeof(ShadowOrb), nameof(ShadowOrb.SKillUseHand_Team))]
         class ShadowOrbPatch
         {
+            // this might not work if source of discard is a source of player playing a skill
             static bool Prefix(Skill skill, ShadowOrb __instance)
             {
-                if (BattleSystem.instance.AllyTeam.Skills.Count <= 1)
+                int skillInhand = BattleSystem.instance.AllyTeam.Skills.Contains(skill) ? 1 : 0;
+
+                if (BattleSystem.instance.AllyTeam.Skills.Count-skillInhand == 0)
                 {
                     // perhaps BattleSystem.DelayInput?
                     BattleSystem.DelayInputAfter(DrawWhenEmpty(__instance));

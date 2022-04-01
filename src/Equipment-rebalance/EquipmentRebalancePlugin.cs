@@ -349,6 +349,8 @@ namespace Equipment_rebalance
         [HarmonyPatch(typeof(RabbitMask), "Init")]
         class DodoRabbitPatch
         {
+
+            
             static bool Prefix(RabbitMask __instance)
             {
                 PassiveBasePatch.InitStub(__instance);
@@ -364,7 +366,12 @@ namespace Equipment_rebalance
                     __instance.PlusStat += __instance.MyItem.Enchant.EnchantData.PlusStat;
                     __instance.PlusPerStat += __instance.MyItem.Enchant.EnchantData.PlusPerStat;
 
-                    __instance.MyItem.Enchant = ItemEnchant.RandomCurseEnchant(__instance.MyItem);
+                    var goldenEchantMethod = AccessTools.Method(typeof(ItemEnchant), "RandomCurseEnchant");
+                    goldenEchantMethod.Invoke(__instance, new object[] { __instance.MyItem });
+
+
+                    // for whatever reason this gives MissingMethodException
+                    // ItemEnchant.RandomCurseEnchant(__instance.MyItem);
                     __instance.MyItem._Isidentify = true;
                 }
                 return false;
@@ -1023,6 +1030,7 @@ namespace Equipment_rebalance
             }
         }
 
+        // TODO change description 
         [HarmonyPatch(typeof(FoxOrb), "KillEffect")]
         class SealedOrbPatch
         {
