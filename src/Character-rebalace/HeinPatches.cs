@@ -51,6 +51,7 @@ namespace Character_rebalance
                     __instance.UseAp = 3;
 
                     string ogDesc = LocalizeManager.DBFile.GetTranslation(string.Concat(GDESchemaKeys.Skill, "/", GDEItemKeys.Skill_S_Hein_11, "_Description"));
+                    //2do. load localization from external resource
                     __instance.Description = ogDesc + "\nGains <b>Swiftness</b> and cost is reduced by <b>2</b> when bonus damage is at maximum.";
 
                 }
