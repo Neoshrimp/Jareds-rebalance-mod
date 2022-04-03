@@ -61,6 +61,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CharacterRebalancePlugin.cs" />
+    <Compile Include="JoeyPatches.cs" />
+    <Compile Include="CustomGdeKeys.cs" />
     <Compile Include="DebugDeez.cs" />
     <Compile Include="HeinPatches.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

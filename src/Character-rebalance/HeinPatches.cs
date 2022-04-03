@@ -52,7 +52,8 @@ namespace Character_rebalance
                     //string ogDesc = LocalizeManager.DBFile.GetTranslation(string.Concat(GDESchemaKeys.Skill, "/", GDEItemKeys.Skill_S_Hein_11, "_Description"));
                     // gets original value of the description. Changes here should never be incremental to current values as that will make them grow indefinitely 
                     dict.TryGetString("Description", out string ogDesc, GDEItemKeys.Skill_S_Hein_11);
-                    string exDesc = CustomLocalization.MainFile.GetTranslation(string.Concat(GDESchemaKeys.Skill, "/", GDEItemKeys.Skill_S_Hein_11, "_ExDesc"));
+                    string exDesc = CustomLocalization.MainFile.GetTranslation(CustomLocalization.TermKey(GDESchemaKeys.Skill, GDEItemKeys.Skill_S_Hein_11, CustomLocalization.TermType.ExDesc));
+                        //string.Concat(GDESchemaKeys.Skill, "/", GDEItemKeys.Skill_S_Hein_11, "_ExDesc"));
                     __instance.Description = string.Concat(ogDesc, exDesc);
 
                 }
@@ -133,10 +134,7 @@ namespace Character_rebalance
                     if (__instance.Key == GDEItemKeys.Buff_B_Hein_6_S)
                     {
                         __instance.LifeTime = 2;
-                    }
-                    else if (__instance.Key == "B_Hein_7_S")
-                    {
-
+                        __instance.Description = __instance.Description.Replace("50%", (hpDrain * 100).ToString() + "%");
                     }
                 }
             }

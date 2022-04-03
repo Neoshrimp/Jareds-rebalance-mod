@@ -1,3 +1,4 @@
 Key,Type,Desc,Korean,English,Japanese,Chinese,Chinese-TW [zh-tw]
 Skill/S_Hein_11_ExDesc,Text,,," 
 Gains <b>Swiftness</b> and cost is reduced by <b>2</b> when bonus damage is at maximum.",,,
+Skill/Joey_CP_ExtraPot_Name,Text,,,Chugging Dust,,,

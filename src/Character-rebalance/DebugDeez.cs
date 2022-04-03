@@ -78,5 +78,38 @@ namespace Character_rebalance
             }
         }
 
+
+        [HarmonyPatch(typeof(GDESkillData), nameof(GDESkillData.LoadFromDict))]
+        class GdeSkillPatch
+        {
+            static void Postfix(GDESkillData __instance, Dictionary<string, object> dict)
+            {
+                
+                if (__instance.Key == GDEItemKeys.Skill_S_Joey_7_1 || __instance.Key == CustomGdeKeys.Skill_Joey_CP_ExtraPot)
+                {
+                    logger.LogInfo($"{__instance.Key}");
+                    var newT = Traverse.Create(__instance);
+                    newT.Fields().ForEach(f => logger.LogInfo($"{f} = {newT.Field(f).GetValue()}"));
+                }
+            }
+        }
+
+
+        [HarmonyPatch(typeof(GDESkillData), nameof(GDESkillData.LoadFromSavedData))]
+        class dd5
+        {
+            static void Postfix(GDESkillData __instance)
+            {
+
+                if (__instance.Key == CustomGdeKeys.Skill_Joey_CP_ExtraPot)
+                {
+                    logger.LogInfo($"{__instance.Key}");
+                    var newT = Traverse.Create(__instance);
+                    newT.Fields().ForEach(f => logger.LogInfo($"{f} = {newT.Field(f).GetValue()}"));
+                }
+            }
+        }
+
+
     }
 }

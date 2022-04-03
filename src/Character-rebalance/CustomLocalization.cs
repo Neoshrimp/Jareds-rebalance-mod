@@ -13,6 +13,15 @@ namespace Character_rebalance
     class CustomLocalization
 
     {
+		public enum TermType
+		{
+			Name,
+			Desc,
+			ExDesc,
+		}
+
+		//private static string[] termTypes = new string[] {"Name", "Desc", "exDesc"};
+
 		public static void InitLocalizationCSV()
 		{
 			// need to add EmbeddedResource tag to project config to work
@@ -21,6 +30,11 @@ namespace Character_rebalance
 				string csv = sr.ReadToEnd();
 				MainFile.Import_CSV("", csv, eSpreadsheetUpdateMode.Replace, ',');
 			}
+		}
+
+		public static string TermKey(string schema, string key, TermType tt)
+		{
+			return string.Concat(schema, "/", key, "_", tt);
 		}
 
 		public static LanguageSourceData MainFile = new LanguageSourceData();
