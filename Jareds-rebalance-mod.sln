@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.32002.261
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Equipment-rebalance", "src\Equipment-rebalance\Equipment-rebalance.csproj", "{05BA66AE-609C-4D8B-BB83-A1F4BFD523EA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Character-rebalance", "src\Character-rebalace\Character-rebalance.csproj", "{4B1DCFFE-58D8-40E8-8BC1-9286BB4CEB0B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Character-rebalance", "src\Character-rebalance\Character-rebalance.csproj", "{4B1DCFFE-58D8-40E8-8BC1-9286BB4CEB0B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
