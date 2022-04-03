@@ -31,8 +31,7 @@ namespace Character_rebalance
 
         void Awake()
         {
-            var rm = Properties.Resources.ResourceManager;
-            Debug.Log(Properties.Resources.localization);
+            CustomLocalization.InitLocalizationCSV();
             logger = Logger;
             harmony.PatchAll();
         }
