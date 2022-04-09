@@ -34,7 +34,9 @@ namespace Character_rebalance
 
 		public static string TermKey(string schema, string key, TermType tt)
 		{
-			return string.Concat(schema, "/", key, "_", tt);
+			int gul = CharacterRebalancePlugin.GUID.Length;
+			// +1 because of _ separator
+			return string.Concat(schema, "/", key.Substring(gul+1, key.Length-gul-1), "_", tt);
 		}
 
 		public static LanguageSourceData MainFile = new LanguageSourceData();
