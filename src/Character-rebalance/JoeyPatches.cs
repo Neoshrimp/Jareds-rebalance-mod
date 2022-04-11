@@ -13,7 +13,7 @@ using Debug = UnityEngine.Debug;
 
 namespace Character_rebalance
 {
-    class JoeyPatches
+    public class JoeyPatches
     {
         //2do. delete
         public static BepInEx.Logging.ManualLogSource logger = CharacterRebalancePlugin.logger;
@@ -26,14 +26,19 @@ namespace Character_rebalance
             {
                 if (__instance.Key == CustomKeys.Skill_Joey_CP_ExtraPot)
                 {
+
                     __instance.ViewBuff = true;
-                    __instance.Name = CustomLocalization.MainFile.GetTranslation(CustomLocalization.TermKey(
-                        GDESchemaKeys.Skill, CustomKeys.Skill_Joey_CP_ExtraPot, CustomLocalization.TermType.Name));
+                    __instance.Name = CustomLoc.MainFile.GetTranslation(CustomLoc.TermKey(
+                        GDESchemaKeys.Skill, CustomLoc.StripGuid(CustomKeys.Skill_Joey_CP_ExtraPot), CustomLoc.TermType.Name));
                     __instance.Description = "";
+
+                    __instance.KeyID = "";
+                    __instance.User = "";
+                    __instance.LucyPartyDraw = "";
+                    __instance.PlusSkillView = "";
 
                     __instance.Target = new GDEs_targettypeData("null");
 
-                    __instance.Target = new GDEs_targettypeData(GDEItemKeys.s_targettype_ally);
 
                     __instance.Effect_Target = new GDESkillEffectData("null");
                     __instance.Effect_Self = new GDESkillEffectData("null");
@@ -41,15 +46,21 @@ namespace Character_rebalance
 
 
                     // optional or required?
-                    /*                    ____PathParticle = "Particle/impact";
-                                        ____Particle = Resources.Load<GameObject>(____PathParticle);*/
+                    //____PathParticle = "Particle/impact";
+                    //____Particle = Resources.Load<GameObject>(____PathParticle);
+
+                    // 2do. add immage
+                    //__instance.Image_0 = GDEDataManager.GetUnityObject<Sprite>(GDEItemKeys.Skill_S_Joey_7_1, "Image_0", null, GDESchemaKeys.Skill);
+                    //__instance.Image_0 = new GDESkillData(GDEItemKeys.Skill_S_Joey_7_1).Image_0
+                    //__instance.Image_1 = ???;
 
 
+                    // list of SkillExtends which have their own GDE schema data
                     __instance.SKillExtendedItem = new List<GDESkillExtendedData>() { new GDESkillExtendedData(CustomKeys.SkillExtended_Joey_CP_ExtraPot_Ex) };
+                    
 
-                    // is actually a list of GDESkillExtendedData.ClassName
+                    // list of Skill_Extended classes directly associated with the skill. Should NEVER refer to the same classes as the ones in SkillExtendedItem List
                     __instance.SkillExtended = new List<string>();
-                    __instance.SKillExtendedItem.ForEach(se => __instance.SkillExtended.Add(se.ClassName));
 
                     __instance.PlusViewBuffList = new List<GDEBuffData>();
                     __instance.PlusKeyWords = new List<GDESkillKeywordData>();
@@ -57,63 +68,65 @@ namespace Character_rebalance
             }
         }
 
-        [HarmonyPatch(typeof(GDESkillExtendedData), nameof(GDESkillData.LoadFromSavedData))]
+        [HarmonyPatch(typeof(GDESkillExtendedData), nameof(GDESkillExtendedData.LoadFromSavedData))]
         class ExtraPotEXtendedSkillPatch
         {
-            static void Postfix(GDESkillExtendedData __instance)
+            static void Postfix(GDESkillExtendedData __instance, ref string ____PathParticle)
             {
                 if (__instance.Key == CustomKeys.SkillExtended_Joey_CP_ExtraPot_Ex)
                 {
 
-                    //__instance.Image = null;
+                    __instance.Name = "";
+                    __instance.EnforceString = "";
+                    __instance.NeedCharacter = "";
+                    ____PathParticle = "";
 
-                    // 2do make description add itself
-                    // maybe it's a buff description?
-                    __instance.Des = "deeznuts";
+                    __instance.Des = CustomLoc.MainFile.GetTranslation(CustomLoc.TermKey(
+                        GDESchemaKeys.SkillExtended, CustomLoc.StripGuid(CustomKeys.SkillExtended_Joey_CP_ExtraPot_Ex), CustomLoc.TermType.Desc));
 
                     __instance.ClassName = CustomKeys.ClassName_Joey_CP_ExtraPot_Ex;
 
-                    
-
-
                 }
             }
-
         }
 
 
-        // 2do. use transpiler
         [HarmonyPatch(typeof(Extended_Joey_7))]
         class CreatePotionPatch
         {
 
             [HarmonyPatch(nameof(Extended_Joey_7.SkillUseSingle))]
-            [HarmonyPrefix]
-            static bool SkillUseSinglePrefix(Extended_Joey_7 __instance, Skill SkillD, List<BattleChar> Targets, ref Skill ___OutPutSkill)
+            [HarmonyTranspiler]
+
+            static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
             {
-
-                
-                List<Skill> list = new List<Skill>();
-                ___OutPutSkill = Skill.TempSkill(GDEItemKeys.Skill_S_Joey_7_Final, __instance.BChar, __instance.BChar.MyTeam);
-
-                list.Add(Skill.TempSkill(CustomKeys.Skill_Joey_CP_ExtraPot, __instance.BChar, __instance.BChar.MyTeam));
-
-                list.Add(Skill.TempSkill(GDEItemKeys.Skill_S_Joey_7_0, __instance.BChar, __instance.BChar.MyTeam));
-                list.Add(Skill.TempSkill(GDEItemKeys.Skill_S_Joey_7_1, __instance.BChar, __instance.BChar.MyTeam));
-/*                list.Add(Skill.TempSkill(GDEItemKeys.Skill_S_Joey_7_2, __instance.BChar, __instance.BChar.MyTeam));
-                list.Add(Skill.TempSkill(GDEItemKeys.Skill_S_Joey_7_3, __instance.BChar, __instance.BChar.MyTeam));
-                list.Add(Skill.TempSkill(GDEItemKeys.Skill_S_Joey_7_4, __instance.BChar, __instance.BChar.MyTeam));
-                list.Add(Skill.TempSkill(GDEItemKeys.Skill_S_Joey_7_5, __instance.BChar, __instance.BChar.MyTeam));
-                list.Add(Skill.TempSkill(GDEItemKeys.Skill_S_Joey_7_6, __instance.BChar, __instance.BChar.MyTeam));
-                list.Add(Skill.TempSkill(GDEItemKeys.Skill_S_Joey_7_7, __instance.BChar, __instance.BChar.MyTeam));
-                list.Add(Skill.TempSkill(GDEItemKeys.Skill_S_Joey_7_8, __instance.BChar, __instance.BChar.MyTeam));
-                list.Add(Skill.TempSkill(GDEItemKeys.Skill_S_Joey_7_9, __instance.BChar, __instance.BChar.MyTeam));*/
-                for (int i = 0; i < 2; i++)
+                bool injected = false;
+                foreach (var ci in instructions)
                 {
-                    BattleSystem.DelayInput(BattleSystem.I_OtherSkillSelect(list.Random(3), new SkillButton.SkillClickDel(__instance.Del), ScriptLocalization.System_SkillSelect.Joey_7, false, false, true, false, true));
+                    if (ci.opcode == OpCodes.Stfld && ((FieldInfo)ci.operand).Equals(AccessTools.Field(typeof(Extended_Joey_7), "OutPutSkill")) && !injected)
+                    {
+                        injected = true;
+                        // adds our ExtraPot skill to selection of possible effects
+                        yield return ci;
+                        yield return new CodeInstruction(OpCodes.Ldloc_0);
+                        yield return new CodeInstruction(OpCodes.Ldsfld, AccessTools.Field(typeof(CustomKeys),"Skill_Joey_CP_ExtraPot"));
+                        yield return new CodeInstruction(OpCodes.Ldarg_0);
+                        yield return new CodeInstruction(OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(Passive_Char), "BChar"));
+                        yield return new CodeInstruction(OpCodes.Ldarg_0);
+                        yield return new CodeInstruction(OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(Passive_Char), "BChar"));
+                        yield return new CodeInstruction(OpCodes.Ldfld, AccessTools.Field(typeof(BattleChar), "MyTeam"));
+                        yield return new CodeInstruction(OpCodes.Call, AccessTools.Method(typeof(Skill), "TempSkill", new Type[] { typeof(string), typeof(BattleChar), typeof(BattleTeam)}));
+                        yield return new CodeInstruction(OpCodes.Callvirt, AccessTools.Method(typeof(List<Skill>), "Add"));
+                    }
+                    else 
+                    {
+                        yield return ci;
+                    }
                 }
-                return false;
             }
+
+
+
         }
 
     }

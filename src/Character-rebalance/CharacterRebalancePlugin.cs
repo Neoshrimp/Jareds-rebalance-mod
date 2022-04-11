@@ -31,8 +31,9 @@ namespace Character_rebalance
 
         void Awake()
         {
-            CustomLocalization.InitLocalizationCSV();
+            CustomLoc.InitLocalizationCSV();
             logger = Logger;
+            Harmony.DEBUG = true;
             harmony.PatchAll();
         }
         void OnDestroy()

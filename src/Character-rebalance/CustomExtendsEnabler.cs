@@ -1,24 +1,15 @@
-﻿using BepInEx;
-using GameDataEditor;
+﻿using GameDataEditor;
 using HarmonyLib;
-using I2.Loc;
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
 using System.Reflection;
-using System.Reflection.Emit;
-using UnityEngine;
-using Debug = UnityEngine.Debug;
 
 
-class CustomExtendsEnabler
+public class CustomExtendsEnabler
 {
-    [HarmonyPatch(typeof(Skill_Extended))]
-    class DateToExtenedPatches
+	[HarmonyPatch(typeof(Skill_Extended))]
+	class DateToExtenedPatches
 	{
 		static AccessTools.FieldRef<Skill_Extended, string> _DesRef = AccessTools.FieldRefAccess<Skill_Extended, string>("_Des");
-
 
 		[HarmonyPatch(nameof(Skill_Extended.DataToExtended), new Type[] { typeof(GDESkillExtendedData) })]
 		[HarmonyPrefix]

@@ -10,8 +10,7 @@ using UnityEngine;
 
 namespace Character_rebalance
 {
-    class CustomLocalization
-
+    public class CustomLoc
     {
 		public enum TermType
 		{
@@ -20,7 +19,6 @@ namespace Character_rebalance
 			ExDesc,
 		}
 
-		//private static string[] termTypes = new string[] {"Name", "Desc", "exDesc"};
 
 		public static void InitLocalizationCSV()
 		{
@@ -32,11 +30,17 @@ namespace Character_rebalance
 			}
 		}
 
-		public static string TermKey(string schema, string key, TermType tt)
+		public static string StripGuid(string key)
 		{
 			int gul = CharacterRebalancePlugin.GUID.Length;
 			// +1 because of _ separator
-			return string.Concat(schema, "/", key.Substring(gul+1, key.Length-gul-1), "_", tt);
+			return key.Substring(gul + 1, key.Length - gul - 1);
+		}
+
+		public static string TermKey(string schema, string key, TermType tt)
+		{
+
+			return string.Concat(schema, "/", key, "_", tt);
 		}
 
 		public static LanguageSourceData MainFile = new LanguageSourceData();

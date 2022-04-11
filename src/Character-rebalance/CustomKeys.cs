@@ -13,12 +13,12 @@ using Debug = UnityEngine.Debug;
 
 namespace Character_rebalance
 {
-    class CustomKeys
+    public class CustomKeys
     {
-        static public string Skill_Joey_CP_ExtraPot = CharacterRebalancePlugin.GUID + "_" + "Joey_CP_ExtraPot";
+        static public readonly string Skill_Joey_CP_ExtraPot = CharacterRebalancePlugin.GUID + "_" + "Joey_CP_ExtraPot";
         
-        static public string SkillExtended_Joey_CP_ExtraPot_Ex = CharacterRebalancePlugin.GUID + "_" + "Joey_CP_ExtraPot_Ex";
+        static public readonly string SkillExtended_Joey_CP_ExtraPot_Ex = CharacterRebalancePlugin.GUID + "_" + "Joey_CP_ExtraPot_Ex";
         // Skill_Extended class name    
-        static public string ClassName_Joey_CP_ExtraPot_Ex = "Extended_Joey_CP_ExtraPot";
+        static public readonly string ClassName_Joey_CP_ExtraPot_Ex = "Extended_Joey_CP_ExtraPot";
     }
 }

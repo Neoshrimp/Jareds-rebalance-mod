@@ -85,18 +85,17 @@ namespace Character_rebalance
             static void Postfix(GDESkillData __instance, Dictionary<string, object> dict)
             {
                 
-                if (__instance.Key == GDEItemKeys.Skill_S_Joey_7_1 || __instance.Key == CustomKeys.Skill_Joey_CP_ExtraPot)
+                if (__instance.Key.StartsWith("S_Joey_7"))
                 {
-                    logger.LogInfo($"{__instance.Key}");
+                    logger.LogInfo($"{__instance.Key}: {__instance.Description}");
                     var newT = Traverse.Create(__instance);
                     newT.Fields().ForEach(f => {
                         var fval = newT.Field(f).GetValue();
-/*                        if (fval.GetType().BaseType.Equals(typeof(IGDEData)))
                         {
-                            logger.LogInfo($"{f} = {AccessTools.Field(fval.GetType(), "Key")?.GetValue(fval)}");
-                        }
-                        else*/
-                        {
+                            if (fval == null)
+                                fval = "is null";
+                            if (fval is string && (string)fval == string.Empty)
+                                fval = "\"\"";
                             logger.LogInfo($"{f} = {fval}");
                         }
                     });
@@ -117,12 +116,11 @@ namespace Character_rebalance
                     var newT = Traverse.Create(__instance);
                     newT.Fields().ForEach(f => {
                         var fval = newT.Field(f).GetValue();
-/*                        if (fval.GetType().BaseType.Equals(typeof(IGDEData)))
                         {
-                            logger.LogInfo($"{f} = {AccessTools.Field(fval.GetType(), "Key").GetValue(fval)}");
-                        }
-                        else*/
-                        { 
+                            if (fval == null)
+                                fval = "is null";
+                            if (fval is string && (string)fval == string.Empty)
+                                fval = "\"\"";
                             logger.LogInfo($"{f} = {fval}");
                         }
                     });
@@ -131,22 +129,35 @@ namespace Character_rebalance
                 }
             }
 
-/*            void NestedPrint(object fval)
+
+        }
+
+
+        //[HarmonyPatch(typeof(GDESkillExtendedData), nameof(GDESkillExtendedData.LoadFromSavedData))]
+        class whatever
+        {
+            static void Postfix(GDESkillExtendedData __instance)
             {
-                
-                logger.LogInfo($"{f} = ");
-                if (fval.GetType().BaseType == typeof(IGDEData))
+
+                if (__instance.Key == CustomKeys.SkillExtended_Joey_CP_ExtraPot_Ex)
                 {
-                    logger.LogInfo($"key = {AccessTools.Field(fval.GetType(), "Key").GetValue(fval)}");
+                    logger.LogInfo($"{__instance.Key}");
+                    var newT = Traverse.Create(__instance);
+                    newT.Fields().ForEach(f => {
+                        var fval = newT.Field(f).GetValue();
+                        {
+                            if (fval == null)
+                                fval = "is null";
+                            if (fval is string && (string)fval == string.Empty)
+                                fval = "\"\"";
+                            logger.LogInfo($"{f} = {fval}");
+                        }
+                    });
+
+
                 }
-                if (fval.GetType().BaseType == typeof(List<>))
-                {
-                    foreach (var v in new List(fval))
-                    {
-                        
-                    }
-                }
-            }*/
+            }
+
 
         }
 
@@ -157,13 +168,19 @@ namespace Character_rebalance
             static void Postfix(GDESkillExtendedData __instance, Dictionary<string, object> dict)
             {
 
-                if (__instance.Key == GDEItemKeys.SkillExtended_Joey_7_1_Ex)
+                if (__instance.Key.StartsWith("Joey_7"))
                 {
-                    logger.LogInfo($"{__instance.Key}");
+                    logger.LogInfo($"{__instance.Key}: {__instance.Des}");
+                    //__instance.Des = "suk on deeznuts";
                     var newT = Traverse.Create(__instance);
-                    newT.Fields().ForEach(f => {
+                    newT.Fields().ForEach(f =>
+                    {
                         var fval = newT.Field(f).GetValue();
                         {
+                            if (fval == null)
+                                fval = "is null";
+                            if (fval is string && (string)fval == string.Empty)
+                                fval = "\"\"";
                             logger.LogInfo($"{f} = {fval}");
                         }
                     });
@@ -171,8 +188,51 @@ namespace Character_rebalance
             }
         }
 
+        //[HarmonyPatch(typeof(Skill_Extended), nameof(Skill_Extended.Init))]
+        class skExPatch
+        {
+            static void Postfix(Skill_Extended __instance, string ____Des, GDESkillExtendedData ___Data)
+            {
+                //Debug.Log(__instance == null);
+                if (__instance.Data != null)
+                {
+                    Debug.Log(__instance.Data);
+                }
+                //logger.LogInfo(____Des);
+            }
+        }
 
 
+
+        public static string debug_Skill_Ex = "debug_Skill_Ex";
+
+        //[HarmonyPatch(typeof(GDESkillData), nameof(GDESkillData.LoadFromDict))]
+        class gdeSkillPatch
+        {
+            static void Postfix(GDESkillData __instance)
+            {
+                if (__instance.Key == GDEItemKeys.Skill_S_DefultSkill_1)
+                {
+                    var newEx = new GDESkillExtendedData(debug_Skill_Ex);
+                    __instance.SkillExtended.Add(newEx.ClassName);
+                    __instance.SKillExtendedItem.Add(newEx);
+                }
+            }
+        }
+
+        //[HarmonyPatch(typeof(GDESkillExtendedData), nameof(GDESkillExtendedData.LoadFromSavedData))]
+        class gdeSkillExPatch
+        {
+            static void Postfix(GDESkillExtendedData __instance)
+            {
+                if (__instance.Key == debug_Skill_Ex)
+                {
+                    __instance.Des = "heal deeznuts";
+                    //__instance.ClassName = "Debug_Playground.debug_Skill_Ex,Debug-Playground";
+                    __instance.ClassName = "debug_Skill_Ex";
+                }
+            }
+        }
 
     }
 }
