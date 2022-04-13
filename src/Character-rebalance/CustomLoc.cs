@@ -17,6 +17,7 @@ namespace Character_rebalance
 			Name,
 			Desc,
 			ExDesc,
+			Tooltip
 		}
 
 

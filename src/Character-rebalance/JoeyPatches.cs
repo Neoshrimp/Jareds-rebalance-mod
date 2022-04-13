@@ -15,12 +15,138 @@ namespace Character_rebalance
 {
     public class JoeyPatches
     {
-        //2do. delete
-        public static BepInEx.Logging.ManualLogSource logger = CharacterRebalancePlugin.logger;
+        [HarmonyPatch(typeof(GDECharacterData), nameof(GDECharacterData.LoadFromDict))]
+        class GdeCharactersPatch
+        {
+            static void Postfix(GDECharacterData __instance)
+            {
+                if (__instance.Key == GDEItemKeys.Character_Joey)
+                {
+                    __instance.DODGE = new Vector2(8, __instance.DODGE.y);
+                }
+            }
+        }
+
+        public static float healingDroneDmg = 0.4f;
+        public static float healingDroneHeal = 0.55f;
+
+        [HarmonyPatch(typeof(GDESkillData), nameof(GDESkillData.LoadFromDict))]
+        class GdeSkillPatch
+        {
+            static void Postfix(GDESkillData __instance, Dictionary<string, object> dict, ref GameObject ____Particle, ref string ____PathParticle)
+            {
+                // chemical substance
+                if (__instance.Key == GDEItemKeys.Skill_S_Joey_0)
+                {
+                    __instance.Basic = true;
+                }
+                // weakening smog
+                else if (__instance.Key == GDEItemKeys.Skill_S_Joey_8)
+                {
+                    __instance.NotCount = true;
+                }
+                // healing drone
+                else if (__instance.Key == GDEItemKeys.Skill_S_Joey_11)
+                {
+                    __instance.Target = new GDEs_targettypeData(GDEItemKeys.s_targettype_enemy);
+                    __instance.IgnoreTaunt = true;
+
+                    __instance.SkillExtended = new List<string>() { CustomKeys.ClassName_Joey_HealingDrone_Ex };
+                    __instance.Description = CustomLoc.MainFile.GetTranslation(CustomLoc.TermKey(
+                        GDESchemaKeys.Skill, GDEItemKeys.Skill_S_Joey_11, CustomLoc.TermType.Desc));
+
+
+                    ____PathParticle = "Particle/Joey/Joey_5";
+                    ____Particle = new GDESkillData(GDEItemKeys.Skill_S_Joey_5).Particle;
+                }
+            }
+        }
+
+
+
+        [HarmonyPatch(typeof(GDESkillEffectData), nameof(GDESkillEffectData.LoadFromDict))]
+        class GdeSkillEffectPatch
+        {
+            static void Postfix(GDESkillEffectData __instance)
+            {
+                // chemical substance
+                if (__instance.Key == GDEItemKeys.SkillEffect_SE_Joey_T_2)
+                {
+                    __instance.DMG_Per = 50;
+                }
+                // weakening smog
+                else if (__instance.Key == GDEItemKeys.SkillEffect_SE_Joey_T_8)
+                {
+                    __instance.DMG_Per = 80;
+                }
+                // healing drone
+                else if (__instance.Key == GDEItemKeys.SkillEffect_SE_Joey_11_T)
+                {
+                    __instance.HEAL_Per = 0;
+                    __instance.DMG_Per = 0;
+                    __instance.DMG_Base = 1;
+                }
+
+            }
+        }
+
+        [HarmonyPatch(typeof(GDEBuffData), nameof(GDEBuffData.LoadFromDict))]
+        class GdeBuffPatch
+        {
+            static void Postfix(GDEBuffData __instance)
+            {
+                if (__instance.Key == GDEItemKeys.Buff_B_Joey_T_8)
+                {
+                    __instance.TagPer = 100;
+                }
+            
+            }
+        }
+
+
+        [HarmonyPatch(typeof(Extended_Joey_11_0), nameof(Extended_Joey_11_0.Init))]
+        class HealingDroneDamageExtendedPatch
+        {
+            static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
+            {
+                foreach (var ci in instructions)
+                {
+                    if (ci.opcode == OpCodes.Ldc_R4 && (float)ci.operand == 0.5f)
+                    {
+                        yield return new CodeInstruction(OpCodes.Ldc_R4, healingDroneDmg);
+                    }
+                    else
+                    {
+                        yield return ci;
+                    }
+                }
+            }
+        }
+
+        [HarmonyPatch(typeof(B_Joey_T_8), nameof(B_Joey_T_8.Init))]
+        class WeakeningSmogDebuffPatch
+        {
+            static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
+            {
+                foreach (var ci in instructions)
+                {
+                    if (ci.opcode == OpCodes.Ldc_I4_S && (sbyte)ci.operand == -4)
+                    {
+                        yield return new CodeInstruction(OpCodes.Ldc_I4_S, -10);
+                    }
+                    else
+                    {
+                        yield return ci;
+                    }
+                }
+            }
+
+        }
+
 
 
         [HarmonyPatch(typeof(GDESkillData), nameof(GDESkillData.LoadFromSavedData))]
-        class ExtraPotSkillPatch
+        class CustomSkillPatch
         {
             static void Postfix(GDESkillData __instance, ref GameObject ____Particle, ref string ____PathParticle)
             {
@@ -57,7 +183,7 @@ namespace Character_rebalance
 
                     // list of SkillExtends which have their own GDE schema data
                     __instance.SKillExtendedItem = new List<GDESkillExtendedData>() { new GDESkillExtendedData(CustomKeys.SkillExtended_Joey_CP_ExtraPot_Ex) };
-                    
+
 
                     // list of Skill_Extended classes directly associated with the skill. Should NEVER refer to the same classes as the ones in SkillExtendedItem List
                     __instance.SkillExtended = new List<string>();
@@ -65,11 +191,67 @@ namespace Character_rebalance
                     __instance.PlusViewBuffList = new List<GDEBuffData>();
                     __instance.PlusKeyWords = new List<GDESkillKeywordData>();
                 }
+                else if (__instance.Key == CustomKeys.Skill_Joey_HealingDrone_HealAllies)
+                {
+                    __instance.Name = "";
+                    __instance.Description = "";
+
+                    __instance.KeyID = "";
+                    __instance.User = "";
+                    __instance.LucyPartyDraw = "";
+                    __instance.PlusSkillView = "";
+
+                    __instance.Target = new GDEs_targettypeData(GDEItemKeys.s_targettype_all_ally);
+
+
+                    __instance.Effect_Target = new GDESkillEffectData(CustomKeys.SkillEffect_Joey_HealingDrone_HealAllies_Effect);
+                    __instance.Effect_Self = new GDESkillEffectData("null");
+                    __instance.Category = new GDESkillCategoryData("null");
+
+                    ____PathParticle = "Particle/Joey/Joey_4";
+                    ____Particle = new GDESkillData(GDEItemKeys.Skill_S_Joey_11).Particle;
+
+                    __instance.SKillExtendedItem = new List<GDESkillExtendedData>();
+                    __instance.SkillExtended = new List<string>();
+                    __instance.PlusViewBuffList = new List<GDEBuffData>();
+                    __instance.PlusKeyWords = new List<GDESkillKeywordData>();
+
+                }
             }
         }
 
+        [HarmonyPatch(typeof(GDESkillEffectData), nameof(GDESkillEffectData.LoadFromSavedData))]
+        class CustomSkillEffectPatch
+        {
+            static void Postfix(GDESkillEffectData __instance)
+            {
+                if (__instance.Key == CustomKeys.SkillEffect_Joey_HealingDrone_HealAllies_Effect)
+                {
+                    __instance.DMG_Per = 0;
+                    __instance.DMG_Base = 0;
+                    __instance.HEAL_Per = (int)(healingDroneHeal * 100);
+                    __instance.HEAL_Base = 0;
+
+                    __instance.Buffs = new List<GDEBuffData>();
+                    __instance.CRI = 0;
+                    __instance.HIT = 100;
+                    __instance.AP = 0;
+                    __instance.HEAL_MaxHpPer = 0;
+                    __instance.Horror = 0;
+
+                    __instance.BuffPlusTagPer = new List<int>();
+                    __instance.ForceHeal = false;
+                    __instance.ChainHeal = false;
+
+
+                }
+            }
+        }
+
+
+
         [HarmonyPatch(typeof(GDESkillExtendedData), nameof(GDESkillExtendedData.LoadFromSavedData))]
-        class ExtraPotEXtendedSkillPatch
+        class CustomSkillExtendedPatch
         {
             static void Postfix(GDESkillExtendedData __instance, ref string ____PathParticle)
             {

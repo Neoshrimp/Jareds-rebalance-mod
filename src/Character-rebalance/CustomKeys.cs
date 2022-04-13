@@ -20,5 +20,13 @@ namespace Character_rebalance
         static public readonly string SkillExtended_Joey_CP_ExtraPot_Ex = CharacterRebalancePlugin.GUID + "_" + "Joey_CP_ExtraPot_Ex";
         // Skill_Extended class name    
         static public readonly string ClassName_Joey_CP_ExtraPot_Ex = "Extended_Joey_CP_ExtraPot";
+
+        static public readonly string ClassName_Joey_HealingDrone_Ex = "Extended_Joey_HealingDrone_Ex";
+
+        static public readonly string Skill_Joey_HealingDrone_HealAllies = CharacterRebalancePlugin.GUID + "_" + "Joey_HealingDrone_HealEAllies";
+
+        static public readonly string SkillEffect_Joey_HealingDrone_HealAllies_Effect = CharacterRebalancePlugin.GUID + "_" + "Joey_HealingDrone_HealAllies_Effect";
+
+
     }
 }

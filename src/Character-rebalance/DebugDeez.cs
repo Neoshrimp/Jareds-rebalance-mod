@@ -234,5 +234,32 @@ namespace Character_rebalance
             }
         }
 
+        public static void ObjectTraverse(object o)
+        {
+            var newT = Traverse.Create(o);
+            newT.Fields().ForEach(f =>
+            {
+                var fval = newT.Field(f).GetValue();
+                {
+                    if (fval == null)
+                        fval = "is null";
+                    if (fval is string && (string)fval == string.Empty)
+                        fval = "\"\"";
+                    logger.LogInfo($"{f} = {fval}");
+                }
+            });
+        }
+
+        [HarmonyPatch(typeof(SkillTargetTooltip), nameof(SkillTargetTooltip.InputInfo))]
+        class ttPatch
+        {
+            static void Postfix(SkillTargetTooltip __instance)
+            {
+
+                Debug.Log(__instance.Text.font);
+                ObjectTraverse(__instance.Text);
+            }
+        }
+
     }
 }

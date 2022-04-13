@@ -31,7 +31,7 @@ namespace Character_rebalance
                     if (list[i].opcode == OpCodes.Sub && i + 1 < list.Count && list[i + 1].opcode == OpCodes.Callvirt 
                         && ((MethodInfo)list[i + 1].operand).Equals(AccessTools.Method(typeof(List<Sprite>), "get_Item")))
                     {
-                        
+                        // makes sure index doesn't go out of bounds
                         yield return list[i];
                         yield return new CodeInstruction(OpCodes.Ldarg_0);
                         yield return new CodeInstruction(OpCodes.Ldfld, AccessTools.Field(typeof(PartyInventory), "BattlePotionSprites"));
