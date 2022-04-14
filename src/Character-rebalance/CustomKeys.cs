@@ -1,17 +1,4 @@
-﻿using GameDataEditor;
-using HarmonyLib;
-using I2.Loc;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Reflection;
-using System.Reflection.Emit;
-using UnityEngine;
-using Debug = UnityEngine.Debug;
-
-
-namespace Character_rebalance
+﻿namespace Character_rebalance
 {
     public class CustomKeys
     {
@@ -27,6 +14,6 @@ namespace Character_rebalance
 
         static public readonly string SkillEffect_Joey_HealingDrone_HealAllies_Effect = CharacterRebalancePlugin.GUID + "_" + "Joey_HealingDrone_HealAllies_Effect";
 
-
+        static public readonly string ClassName_Joey_HealthPatch_Ex = "Extended_Joey_HealthPatch";
     }
 }

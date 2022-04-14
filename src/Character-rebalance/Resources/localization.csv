@@ -6,6 +6,9 @@ SkillExtended/Joey_CP_ExtraPot_Ex_Desc,Text,,,"Cost reduced by 1.
 Draw 1 skill. 
 1 more potion can be used this combat.",,,
 Skill/S_Joey_11_Desc,Text,,,"Heal all allies for &h (55%).
-
 Deal &d (40% of <b>healing power</b>) damage to targeted enemy for every other active ally buff (rounded up) plus each unique debuff the target has.",,,
 Skill/S_Joey_11_Tooltip,Text,,,"Hit count: ",,,
+Skill/S_Joey_12_ExDesc,Text,,,"Gains <b>Swiftness</b> if potion was used this battle.
+",,,
+Skill/S_Joey_4_Desc,Text,,,Block <b>any</b> Debuffs that were not resisted for 1 turn.,,,
+Buff/B_Joey_4_T_1_Desc,Text,,,Blocks all Debuffs,,,

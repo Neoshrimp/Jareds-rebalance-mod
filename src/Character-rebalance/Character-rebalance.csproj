@@ -75,6 +75,7 @@
   <ItemGroup>
     <Compile Include="CharacterRebalancePlugin.cs" />
     <Compile Include="BugFixPatches.cs" />
+    <Compile Include="Extended_Joey_HealthPatch.cs" />
     <Compile Include="UIextras.cs" />
     <Compile Include="Extended_Joey_HealingDrone_Ex.cs" />
     <Compile Include="debug_Skill_Ex.cs" />

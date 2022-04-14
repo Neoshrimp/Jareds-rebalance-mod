@@ -58,6 +58,27 @@ namespace Character_rebalance
                     ____PathParticle = "Particle/Joey/Joey_5";
                     ____Particle = new GDESkillData(GDEItemKeys.Skill_S_Joey_5).Particle;
                 }
+                // health-augmenting patch
+                else if (__instance.Key == GDEItemKeys.Skill_S_Joey_12)
+                {
+                    __instance.NotCount = false;
+
+                    dict.TryGetString("Description", out string ogDesc, GDEItemKeys.Skill_S_Joey_12);
+                    __instance.Description = CustomLoc.MainFile.GetTranslation(CustomLoc.TermKey(GDESchemaKeys.Skill, GDEItemKeys.Skill_S_Joey_12, CustomLoc.TermType.ExDesc))
+                        + ogDesc;
+
+                    __instance.SkillExtended = new List<string>() { CustomKeys.ClassName_Joey_HealthPatch_Ex };
+                }
+                // protecting gas
+                else if (__instance.Key == GDEItemKeys.Skill_S_Joey_4)
+                {
+                    __instance.Disposable = true;
+                    __instance.NoBasicSkill = false;
+                    __instance.UseAp = 2;
+
+                    __instance.Description = CustomLoc.MainFile.GetTranslation(CustomLoc.TermKey(GDESchemaKeys.Skill, GDEItemKeys.Skill_S_Joey_4, CustomLoc.TermType.Desc));
+
+                }
             }
         }
 
@@ -85,7 +106,17 @@ namespace Character_rebalance
                     __instance.DMG_Per = 0;
                     __instance.DMG_Base = 1;
                 }
-
+                // health-augmenting patch
+                else if (__instance.Key == GDEItemKeys.SkillEffect_SE_Joey_12_T)
+                {
+                    __instance.HEAL_Per = 110;
+                }
+                // protecting gas
+                else if (__instance.Key == GDEItemKeys.SkillEffect_SE_Joey_4_T)
+                {
+                    __instance.HEAL_Per = 70;
+                    __instance.Buffs = new List<GDEBuffData>() { new GDEBuffData(GDEItemKeys.Buff_B_Joey_T_3) };
+                }
             }
         }
 
@@ -94,11 +125,41 @@ namespace Character_rebalance
         {
             static void Postfix(GDEBuffData __instance)
             {
+                // weakening smog embrittlement
                 if (__instance.Key == GDEItemKeys.Buff_B_Joey_T_8)
                 {
                     __instance.TagPer = 100;
                 }
-            
+                // protecting gas
+                if (__instance.Key == GDEItemKeys.Buff_B_Joey_4_T_1)
+                {
+                    __instance.Description = CustomLoc.MainFile.GetTranslation(CustomLoc.TermKey(GDESchemaKeys.Buff, GDEItemKeys.Buff_B_Joey_4_T_1, CustomLoc.TermType.Desc));
+                    __instance.LifeTime = 1;
+                }
+
+            }
+        }
+
+        [HarmonyPatch(typeof(BattleChar), nameof(BattleChar.BuffAdd))]
+        class ProtectingGasBuffPatch
+        {
+            static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
+            {
+                var list = instructions.ToList();
+                int c = list.Count;
+
+                for(int i = 0; i < c; i++)
+                {
+
+                    if (list[i].opcode == OpCodes.Callvirt && ((MethodInfo)list[i].operand).Equals(AccessTools.Method(typeof(Buff), nameof(Buff.SelfStackDestroy)))
+                        && list[Math.Max(i - 3, 0)].operand.ToString() == "System.String Buff_B_Joey_4_T_1")
+                    {
+                        Debug.Log(list[Math.Max(i - 3, 0)].operand.ToString());
+                        list[i] = new CodeInstruction(OpCodes.Pop);
+                    }
+                }
+
+                return list.AsEnumerable();
             }
         }
 
