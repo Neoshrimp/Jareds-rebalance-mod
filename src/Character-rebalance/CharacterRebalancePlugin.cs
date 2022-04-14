@@ -28,16 +28,11 @@ namespace Character_rebalance
 
         public static BepInEx.Logging.ManualLogSource logger;
 
-        private static Assembly _gameAssembly;
 
         void Awake()
         {
             CustomLoc.InitLocalizationCSV();
             logger = Logger;
-            _gameAssembly = Assembly.GetAssembly(typeof(FieldSystem));
-
-            Debug.Log(_gameAssembly);
-            
             harmony.PatchAll();
         }
         void OnDestroy()
@@ -46,13 +41,6 @@ namespace Character_rebalance
                 harmony.UnpatchAll(GUID);
         }
 
-        static Assembly GameAssembly
-        {
-            get
-            {
-                return _gameAssembly;
-            }
-        }
 
 
     }

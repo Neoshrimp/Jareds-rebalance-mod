@@ -56,7 +56,7 @@ public class Extended_Joey_HealingDrone_Ex : Skill_Extended
 		this.BChar.ParticleOut(this.MySkill, healSkill, healTargets);
 
 		int num = hitsFromBufffs()+hitsFromTarget(Targets[0]);
-		BattleSystem.DelayInputAfter(this.Effect(Targets[0], num));
+		BattleSystem.DelayInput(this.Effect(Targets[0], num));
 		
 	}
 	int hitsFromBufffs()
@@ -83,10 +83,11 @@ public class Extended_Joey_HealingDrone_Ex : Skill_Extended
 
 	public IEnumerator Effect(BattleChar target, int num)
 	{
+		yield return new WaitForSeconds(0.33f);
 
+		Debug.Log("enumcall" + num.ToString());
 		for (int i = 0; i < num; i++)
 		{
-			yield return new WaitForSeconds(UnityEngine.Random.Range(0.08f, 0.1f));
 
 			// some fck gymnastics to make sure skill targets enemies after death
 			Skill damageSkill = new Skill();
@@ -97,6 +98,8 @@ public class Extended_Joey_HealingDrone_Ex : Skill_Extended
 			damageSkill.FreeUse = true;
 			damageSkill.PlusHit = true;
 
+
+
 			if (target.IsDead && BattleSystem.instance.EnemyTeam.AliveChars.Count != 0)
 			{
 				this.BChar.ParticleOut(this.MySkill, damageSkill, BattleSystem.instance.EnemyTeam.AliveChars.Random<BattleChar>());
@@ -105,6 +108,9 @@ public class Extended_Joey_HealingDrone_Ex : Skill_Extended
 			{
 				this.BChar.ParticleOut(this.MySkill, damageSkill, target);
 			}
+
+			// fck multi hit is jank and waiting any less might result in stolen hits if target dies mid dmg
+			yield return new WaitForSeconds(0.35f);
 		}
 	}
 

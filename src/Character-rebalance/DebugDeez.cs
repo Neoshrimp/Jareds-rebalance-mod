@@ -250,7 +250,7 @@ namespace Character_rebalance
             });
         }
 
-        [HarmonyPatch(typeof(SkillTargetTooltip), nameof(SkillTargetTooltip.InputInfo))]
+        //[HarmonyPatch(typeof(SkillTargetTooltip), nameof(SkillTargetTooltip.InputInfo))]
         class ttPatch
         {
             static void Postfix(SkillTargetTooltip __instance)
@@ -260,6 +260,12 @@ namespace Character_rebalance
                 ObjectTraverse(__instance.Text);
             }
         }
+
+
+/*        [HarmonyPatch]
+        class load*/
+
+
 
     }
 }

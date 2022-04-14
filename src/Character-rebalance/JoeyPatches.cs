@@ -55,7 +55,6 @@ namespace Character_rebalance
                     __instance.Description = CustomLoc.MainFile.GetTranslation(CustomLoc.TermKey(
                         GDESchemaKeys.Skill, GDEItemKeys.Skill_S_Joey_11, CustomLoc.TermType.Desc));
 
-
                     ____PathParticle = "Particle/Joey/Joey_5";
                     ____Particle = new GDESkillData(GDEItemKeys.Skill_S_Joey_5).Particle;
                 }

@@ -47,12 +47,9 @@ namespace Character_rebalance
             {
                 textMesh = gameObject.GetComponent<TextMeshProUGUI>();
 
-                //CharacterRebalancePlugin.gameAssembly.
+                textMesh.font = Resources.Load<TMP_FontAsset>("font/NANUMGOTHIC SDF");
                 textMesh.text = info;
 
-                Debug.Log("Mine");
-                Debug.Log(textMesh.font);
-                DebugDeez.ObjectTraverse(textMesh);
             }
 
             public TextMeshProUGUI textMesh;
