@@ -262,9 +262,44 @@ namespace Character_rebalance
         }
 
 
-/*        [HarmonyPatch]
-        class load*/
+        //[HarmonyPatch(typeof(FieldStore), "Init")]
+        class IsUnlockPatch
+        {
+            static void Prefix()
+            {
 
+                if (UnityEngine.Input.GetKeyDown(UnityEngine.KeyCode.T))
+                {
+                    UnityEngine.Debug.Log("is unlock");
+                    SaveManager.savemanager._NowData.unlockList.PublicSkillKey.ForEach(s => UnityEngine.Debug.Log(s));
+                }
+            }
+        }
+
+
+        //[HarmonyPatch(typeof(PlayData), nameof(PlayData.DataBaseInit))]
+        class ReAddCommonParryAttackPatch
+        {
+            static void Postfix()
+            {
+                Debug.Log("init");
+                //PlayData._ALLSKILLLIST.RemoveAll(s => s.Category.Key == new GDESkillCategoryData(GDEItemKeys.SkillCategory_PublicSkill).Key);
+
+                PlayData._ALLSKILLLIST.FindAll(s => s.Category.Key == GDEItemKeys.SkillCategory_PublicSkill).ForEach(s => Debug.Log(s.Key));
+
+
+                //PlayData._ALLSKILLLIST.Add(new GDESkillData(GDEItemKeys.Skill_S_Public_10));
+                //PlayData._ALLSKILLLIST.Add(new GDESkillData(GDEItemKeys.Skill_S_Public_11));
+                //PlayData._ALLSKILLLIST.Add(new GDESkillData(GDEItemKeys.Skill_S_Public_34));
+
+
+
+
+
+                //PlayData._ALLSKILLLIST.Add(new GDESkillData(GDEItemKeys.Skill_S_LianUnlock));
+            }
+
+        }
 
 
     }

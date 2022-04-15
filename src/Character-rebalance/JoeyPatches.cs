@@ -154,7 +154,6 @@ namespace Character_rebalance
                     if (list[i].opcode == OpCodes.Callvirt && ((MethodInfo)list[i].operand).Equals(AccessTools.Method(typeof(Buff), nameof(Buff.SelfStackDestroy)))
                         && list[Math.Max(i - 3, 0)].operand.ToString() == "System.String Buff_B_Joey_4_T_1")
                     {
-                        Debug.Log(list[Math.Max(i - 3, 0)].operand.ToString());
                         list[i] = new CodeInstruction(OpCodes.Pop);
                     }
                 }
