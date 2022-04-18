@@ -53,7 +53,7 @@ namespace Character_rebalance
 
                     __instance.SkillExtended = new List<string>() { CustomKeys.ClassName_Joey_HealingDrone_Ex };
                     __instance.Description = CustomLoc.MainFile.GetTranslation(CustomLoc.TermKey(
-                        GDESchemaKeys.Skill, GDEItemKeys.Skill_S_Joey_11, CustomLoc.TermType.Desc));
+                        GDESchemaKeys.Skill, GDEItemKeys.Skill_S_Joey_11, CustomLoc.TermType.Description));
 
                     ____PathParticle = "Particle/Joey/Joey_5";
                     ____Particle = new GDESkillData(GDEItemKeys.Skill_S_Joey_5).Particle;
@@ -64,7 +64,7 @@ namespace Character_rebalance
                     __instance.NotCount = false;
 
                     dict.TryGetString("Description", out string ogDesc, GDEItemKeys.Skill_S_Joey_12);
-                    __instance.Description = CustomLoc.MainFile.GetTranslation(CustomLoc.TermKey(GDESchemaKeys.Skill, GDEItemKeys.Skill_S_Joey_12, CustomLoc.TermType.ExDesc))
+                    __instance.Description = CustomLoc.MainFile.GetTranslation(CustomLoc.TermKey(GDESchemaKeys.Skill, GDEItemKeys.Skill_S_Joey_12, CustomLoc.TermType.ExtraDesc))
                         + ogDesc;
 
                     __instance.SkillExtended = new List<string>() { CustomKeys.ClassName_Joey_HealthPatch_Ex };
@@ -76,7 +76,7 @@ namespace Character_rebalance
                     __instance.NoBasicSkill = false;
                     __instance.UseAp = 2;
 
-                    __instance.Description = CustomLoc.MainFile.GetTranslation(CustomLoc.TermKey(GDESchemaKeys.Skill, GDEItemKeys.Skill_S_Joey_4, CustomLoc.TermType.Desc));
+                    __instance.Description = CustomLoc.MainFile.GetTranslation(CustomLoc.TermKey(GDESchemaKeys.Skill, GDEItemKeys.Skill_S_Joey_4, CustomLoc.TermType.Description));
 
                 }
             }
@@ -133,7 +133,7 @@ namespace Character_rebalance
                 // protecting gas
                 if (__instance.Key == GDEItemKeys.Buff_B_Joey_4_T_1)
                 {
-                    __instance.Description = CustomLoc.MainFile.GetTranslation(CustomLoc.TermKey(GDESchemaKeys.Buff, GDEItemKeys.Buff_B_Joey_4_T_1, CustomLoc.TermType.Desc));
+                    __instance.Description = CustomLoc.MainFile.GetTranslation(CustomLoc.TermKey(GDESchemaKeys.Buff, GDEItemKeys.Buff_B_Joey_4_T_1, CustomLoc.TermType.Description));
                     __instance.LifeTime = 1;
                 }
 
@@ -323,7 +323,7 @@ namespace Character_rebalance
                     ____PathParticle = "";
 
                     __instance.Des = CustomLoc.MainFile.GetTranslation(CustomLoc.TermKey(
-                        GDESchemaKeys.SkillExtended, CustomLoc.StripGuid(CustomKeys.SkillExtended_Joey_CP_ExtraPot_Ex), CustomLoc.TermType.Desc));
+                        GDESchemaKeys.SkillExtended, CustomLoc.StripGuid(CustomKeys.SkillExtended_Joey_CP_ExtraPot_Ex), CustomLoc.TermType.Description));
 
                     __instance.ClassName = CustomKeys.ClassName_Joey_CP_ExtraPot_Ex;
 

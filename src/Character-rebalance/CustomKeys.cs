@@ -15,5 +15,11 @@
         static public readonly string SkillEffect_Joey_HealingDrone_HealAllies_Effect = CharacterRebalancePlugin.GUID + "_" + "Joey_HealingDrone_HealAllies_Effect";
 
         static public readonly string ClassName_Joey_HealthPatch_Ex = "Extended_Joey_HealthPatch";
+
+        static public readonly string ClassName_Lian_RelentlessSwipe_Ex = "Extended_Lian_RelentlessSwipe";
+
+        static public readonly string Buff_Lucy_TurnEventObserver = CharacterRebalancePlugin.GUID + "_" + "Lucy_TurnEventObserver";
+
+        static public readonly string ClassName_TurnEventObserver_Buff = "TurnEventObserver";
     }
 }

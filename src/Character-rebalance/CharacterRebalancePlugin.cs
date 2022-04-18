@@ -43,5 +43,65 @@ namespace Character_rebalance
 
 
 
+        [HarmonyPatch(typeof(BattleSystem), nameof(BattleSystem.BattleInit))]
+        class AddObserverPatch
+        {
+            static void Postfix(BattleSystem __instance)
+            {
+                if(BattleSystem.instance.AllyTeam.LucyChar != null)
+                {
+                    BattleSystem.instance.AllyTeam.LucyChar.BuffAdd(CustomKeys.Buff_Lucy_TurnEventObserver, BattleSystem.instance.AllyTeam.LucyChar, true, 0, false, -1, false);
+                }
+            }
+        }
+
+        // removes black bar under Lucy's portrait if she doesn't have any visible buffs
+        [HarmonyPatch(typeof(LucyM), "Update")]
+        class BattleLucyUIPatch
+        {
+            static void Postfix(LucyM __instance)
+            {
+                if (BattleSystem.instance?.AllyTeam?.LucyChar != null)
+                {
+                    if ((BattleSystem.instance.AllyTeam.LucyChar.GetBuffs(BattleChar.GETBUFFTYPE.ALL, false, false)).Count == 0)
+                    {
+                        __instance.Ani.SetBool("On", false);
+                    }
+                }
+            }
+        }
+
+
+        [HarmonyPatch(typeof(GDEBuffData), nameof(GDEBuffData.LoadFromSavedData))]
+        class CreateTurnEventObserverBuffPatch
+        {
+            static void Postfix(GDEBuffData __instance, ref string ____PathAllyBuffEffect, ref string ____PathEnemyBuffEffect)
+            {
+                if (__instance.Key == CustomKeys.Buff_Lucy_TurnEventObserver)
+                {
+                    __instance.ClassName = CustomKeys.ClassName_TurnEventObserver_Buff;
+                    __instance.Cantdisable = true;
+                    __instance.Hide = true;
+
+                    __instance.MaxStack = 1;
+
+                    __instance.BuffSoundEffect = "";
+                    __instance.Icon = new Texture2D(1, 1);
+
+                    __instance.Name = "Turn Event Observer";
+                    __instance.Description = "";
+
+                    ____PathAllyBuffEffect = "";
+                    ____PathEnemyBuffEffect = "";
+
+
+                    __instance.Tick = new GDESkillEffectData("null");
+                    __instance.BuffTag = new GDEBuffTagData("null");
+
+                }
+            }
+        }
+
+
     }
 }

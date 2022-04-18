@@ -15,8 +15,8 @@ namespace Character_rebalance
 		public enum TermType
 		{
 			Name,
-			Desc,
-			ExDesc,
+			Description,
+			ExtraDesc,
 			Tooltip
 		}
 

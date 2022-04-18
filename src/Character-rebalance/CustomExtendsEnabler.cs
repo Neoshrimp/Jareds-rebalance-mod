@@ -49,7 +49,67 @@ public class CustomExtendsEnabler
 			return false;
 		}
 
+	}
 
+	[HarmonyPatch(typeof(Buff), nameof(Buff.DataToBuff))]
+
+	class BuffClassPatch
+	{
+		static bool Prefix(ref Buff __result, GDEBuffData _BuffData, BattleChar Char, BattleChar Use, int LifeTime = -1, bool view = false)
+		{
+			Type customExType = Assembly.GetExecutingAssembly().GetType(_BuffData.ClassName);
+
+			if (ReferenceEquals(customExType, null))
+			{
+				return true;
+			}
+
+			Buff buff = (Buff)Assembly.GetExecutingAssembly().CreateInstance(customExType.Name);
+
+			buff.BuffData = _BuffData;
+			buff.BChar = Char;
+			StackBuff stackBuff = new StackBuff();
+			if (Char != null)
+			{
+				buff.MyChar = Char.Info;
+			}
+			else
+			{
+				buff.BChar = Use;
+				buff.MyChar = Use.Info;
+			}
+			if (buff.BuffData.LifeTime != 0f)
+			{
+				if (LifeTime != -1)
+				{
+					stackBuff.RemainTime = LifeTime;
+					buff.LifeTime = (int)buff.BuffData.LifeTime;
+				}
+				else
+				{
+					stackBuff.RemainTime = (int)buff.BuffData.LifeTime;
+					buff.LifeTime = (int)buff.BuffData.LifeTime;
+				}
+			}
+			else
+			{
+				buff.TimeUseless = true;
+			}
+			buff.SkillCautionView = _BuffData.UseSkillDebuff;
+			if (_BuffData.Barrier >= 1)
+			{
+				buff.BarrierHP = _BuffData.Barrier;
+			}
+			stackBuff.UseState = Use;
+			buff.StackInfo.Add(stackBuff);
+			buff.CantDisable = buff.BuffData.Cantdisable;
+			buff.View = view;
+			buff.Init();
+
+			__result = buff;
+
+			return false;
+		}
 	}
 
 }

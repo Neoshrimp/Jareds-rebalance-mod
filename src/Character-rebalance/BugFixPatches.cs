@@ -19,7 +19,6 @@ namespace Character_rebalance
         [HarmonyPatch(typeof(PartyInventory), "Update")]
         class PotionSpriteIndexOutOfRangeFix
         {
-
             static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
             {
 

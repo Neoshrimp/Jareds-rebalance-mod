@@ -17,14 +17,6 @@ public class Extended_Joey_HealingDrone_Ex : Skill_Extended
 		string finalDesc = base.DescExtended(desc);
 		finalDesc = finalDesc.Replace("&h", ((int)(this.BChar.GetStat.reg * JoeyPatches.healingDroneHeal)).ToString());
 		finalDesc = finalDesc.Replace("&d", ((int)(this.BChar.GetStat.reg * JoeyPatches.healingDroneDmg)).ToString());
-/*		int buffHits = hitsFromBufffs();
-		finalDesc = finalDesc.Replace("&a", buffHits >= 0 ? buffHits.ToString() : "?");
-		int debuffHits = hitsFromTarget(descTarget);
-		finalDesc = finalDesc.Replace("&b", debuffHits >= 0 ? debuffHits.ToString() : "?");
-		if (buffHits >= 0 && debuffHits >= 0)
-			finalDesc = finalDesc.Replace("&c", ((int)(this.BChar.GetStat.reg * JoeyPatches.healingDroneDmg) * (buffHits + debuffHits)).ToString());
-		else
-			finalDesc = finalDesc.Replace("&c", "?");*/
 
 		return finalDesc;
 	}

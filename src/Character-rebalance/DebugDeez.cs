@@ -17,6 +17,32 @@ namespace Character_rebalance
     {
         public static BepInEx.Logging.ManualLogSource logger = CharacterRebalancePlugin.logger;
 
+
+        /*            GDEDataManager.GetAllDataKeysBySchema("Skill", out List<string> keys);
+
+
+            logger.LogInfo("{");
+            foreach (var sk in keys)
+            {
+                logger.LogInfo($"\"{sk}\":\"{LocalizeManager.DBFile.GetTranslation(CustomLoc.TermKey("Skill", sk, CustomLoc.TermType.Name))}\",");
+            }
+            logger.LogInfo("}");*/
+
+
+        /*            GDEDataManager.GetAllDataKeysBySchema(GDESchemaKeys.EnemyQueue, out List<string> keys);
+
+                    foreach (var qk in keys)
+                    {
+                        var qd = new GDEEnemyQueueData(qk);
+                        var s = "[";
+                        qd.Enemys.ForEach(e => s += "\"" + e.name + "\",");
+                        s += "]";
+
+                        logger.LogInfo($"\"{qk}\":{s},");
+                    }*/
+
+
+
         //[HarmonyPatch]
         class dd
         {
@@ -299,6 +325,15 @@ namespace Character_rebalance
                 //PlayData._ALLSKILLLIST.Add(new GDESkillData(GDEItemKeys.Skill_S_LianUnlock));
             }
 
+        }
+
+        //[HarmonyPatch(typeof(Extended_Public_10), "FixedUpdate")]
+        class DisableDeadEnd
+        {
+            static bool Prefix()
+            {
+                return false;
+            }
         }
 
 
