@@ -15,6 +15,11 @@ public class CustomExtendsEnabler
 		[HarmonyPrefix]
 		static bool DataToExtendedPrefix(GDESkillExtendedData _Data, ref Skill_Extended __result)
 		{
+			if (_Data.ClassName == null || _Data.ClassName == "" || _Data.ClassName.Trim() == "")
+			{
+				return true;
+			}
+
 			Type customExType = Assembly.GetExecutingAssembly().GetType(_Data.ClassName);
 
 			if (ReferenceEquals(customExType, null))
@@ -39,6 +44,11 @@ public class CustomExtendsEnabler
 		[HarmonyPrefix]
 		static bool DataToExtendedC(string ClassKey, ref Skill_Extended __result)
 		{
+			if (ClassKey == null || ClassKey == "" || ClassKey.Trim() == "")
+			{
+				return true;
+			}
+
 			Type customExType = Assembly.GetExecutingAssembly().GetType(ClassKey);
 
 			if (ReferenceEquals(customExType, null))
@@ -52,17 +62,25 @@ public class CustomExtendsEnabler
 	}
 
 	[HarmonyPatch(typeof(Buff), nameof(Buff.DataToBuff))]
-
 	class BuffClassPatch
 	{
 		static bool Prefix(ref Buff __result, GDEBuffData _BuffData, BattleChar Char, BattleChar Use, int LifeTime = -1, bool view = false)
 		{
+
+			if (_BuffData.ClassName == null || _BuffData.ClassName == "" || _BuffData.ClassName.Trim() == "")
+			{
+				return true;
+			}
+
+
 			Type customExType = Assembly.GetExecutingAssembly().GetType(_BuffData.ClassName);
+
 
 			if (ReferenceEquals(customExType, null))
 			{
 				return true;
 			}
+
 
 			Buff buff = (Buff)Assembly.GetExecutingAssembly().CreateInstance(customExType.Name);
 

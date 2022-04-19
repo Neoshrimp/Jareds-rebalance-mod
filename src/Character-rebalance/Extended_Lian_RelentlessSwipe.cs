@@ -14,7 +14,6 @@ using Debug = UnityEngine.Debug;
 class Extended_Lian_RelentlessSwipe : Skill_Extended, IP_DamageTake
 {
 
-    // 2do. check encyclopedia char nullpo
     public void DamageTake(BattleChar User, int Dmg, bool Cri, ref bool resist, bool NODEF = false, bool NOEFFECT = false, BattleChar Target = null)
     {
         if (!NODEF)

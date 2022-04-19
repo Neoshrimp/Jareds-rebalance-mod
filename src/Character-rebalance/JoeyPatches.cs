@@ -18,11 +18,12 @@ namespace Character_rebalance
         [HarmonyPatch(typeof(GDECharacterData), nameof(GDECharacterData.LoadFromDict))]
         class GdeCharactersPatch
         {
-            static void Postfix(GDECharacterData __instance)
+            static void Postfix(GDECharacterData __instance, Dictionary<string, object> dict)
             {
                 if (__instance.Key == GDEItemKeys.Character_Joey)
                 {
-                    __instance.DODGE = new Vector2(8, __instance.DODGE.y);
+                    dict.TryGetVector2("DODGE", out Vector2 ogDODGE);
+                    __instance.DODGE = new Vector2(8, ogDODGE.y);
                 }
             }
         }

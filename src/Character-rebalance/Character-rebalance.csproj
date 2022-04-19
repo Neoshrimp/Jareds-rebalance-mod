@@ -79,13 +79,14 @@
   <ItemGroup>
     <Compile Include="CharacterRebalancePlugin.cs" />
     <Compile Include="BugFixPatches.cs" />
+    <Compile Include="Extended_Helia_Solarbolt.cs" />
+    <Compile Include="HeliaPatches.cs" />
     <Compile Include="TurnEventObserver.cs" />
     <Compile Include="Extended_Lian_RelentlessSwipe.cs" />
     <Compile Include="LianPatches.cs" />
     <Compile Include="Extended_Joey_HealthPatch.cs" />
     <Compile Include="UIextras.cs" />
     <Compile Include="Extended_Joey_HealingDrone_Ex.cs" />
-    <Compile Include="debug_Skill_Ex.cs" />
     <Compile Include="CustomExtendsEnabler.cs" />
     <Compile Include="Extended_Joey_CP_ExtraPot.cs" />
     <Compile Include="JoeyPatches.cs" />

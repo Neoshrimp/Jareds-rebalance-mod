@@ -21,5 +21,9 @@
         static public readonly string Buff_Lucy_TurnEventObserver = CharacterRebalancePlugin.GUID + "_" + "Lucy_TurnEventObserver";
 
         static public readonly string ClassName_TurnEventObserver_Buff = "TurnEventObserver";
+
+        static public readonly string ClassName_Extended_Helia_Solarbolt = "Extended_Helia_Solarbolt";
+
+
     }
 }

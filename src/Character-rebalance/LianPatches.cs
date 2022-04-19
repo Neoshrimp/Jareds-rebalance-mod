@@ -20,16 +20,17 @@ namespace Character_rebalance
         [HarmonyPatch(typeof(GDECharacterData), nameof(GDECharacterData.LoadFromDict))]
         class GdeCharactersPatch
         {
-            static void Postfix(GDECharacterData __instance)
+            static void Postfix(GDECharacterData __instance, Dictionary<string, object> dict)
             {
                 if (__instance.Key == GDEItemKeys.Character_Lian)
                 {
-                    __instance.ATK = new Vector2(15, __instance.ATK.y);
+                    dict.TryGetVector2("ATK", out Vector2 ogATK);
+                    __instance.ATK = new Vector2(15, ogATK.y);
                 }
             }
         }
 
-        
+
 
 
         [HarmonyPatch(typeof(GDESkillData), nameof(GDESkillData.LoadFromDict))]
@@ -92,7 +93,7 @@ namespace Character_rebalance
             }
         }
 
-        
+
 
 
         // in theory should add Parry Attack to skill pool on the run where Lian is unlocked but NOT tested
