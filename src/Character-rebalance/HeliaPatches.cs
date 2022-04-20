@@ -54,6 +54,9 @@ namespace Character_rebalance
                 else if (__instance.Key == GDEItemKeys.Skill_S_TW_Red_1)
                 {
                     __instance.SkillExtended = new List<string> { CustomKeys.ClassName_Extended_Helia_Solarbolt };
+
+                    dict.TryGetString("Description", out string ogDesc, GDEItemKeys.Skill_S_TW_Red_1);
+                    __instance.Description = ogDesc + CustomLoc.MainFile.GetTranslation(CustomLoc.TermKey(GDESchemaKeys.Skill, GDEItemKeys.Skill_S_TW_Red_1, CustomLoc.TermType.ExtraDesc));
                 }
             }
         }

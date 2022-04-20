@@ -12,7 +12,7 @@ using UnityEngine;
 using Debug = UnityEngine.Debug;
 
 
-class Extended_Joey_HealthPatch : S_Joey_12
+public class Extended_Joey_HealthPatch : S_Joey_12
 {
 
     public override void Init()

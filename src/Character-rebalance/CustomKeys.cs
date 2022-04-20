@@ -24,6 +24,6 @@
 
         static public readonly string ClassName_Extended_Helia_Solarbolt = "Extended_Helia_Solarbolt";
 
-
+        static public readonly string ClassName_Extended_Solarbolt_APchange = "Extended_Solarbolt_APchange";
     }
 }

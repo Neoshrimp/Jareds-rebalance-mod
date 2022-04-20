@@ -79,6 +79,7 @@
   <ItemGroup>
     <Compile Include="CharacterRebalancePlugin.cs" />
     <Compile Include="BugFixPatches.cs" />
+    <Compile Include="Extended_Solarbolt_APchange.cs" />
     <Compile Include="Extended_Helia_Solarbolt.cs" />
     <Compile Include="HeliaPatches.cs" />
     <Compile Include="TurnEventObserver.cs" />

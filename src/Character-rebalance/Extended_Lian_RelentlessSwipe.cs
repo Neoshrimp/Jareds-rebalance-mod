@@ -11,7 +11,7 @@ using System.Reflection.Emit;
 using UnityEngine;
 using Debug = UnityEngine.Debug;
 
-class Extended_Lian_RelentlessSwipe : Skill_Extended, IP_DamageTake
+public class Extended_Lian_RelentlessSwipe : Skill_Extended, IP_DamageTake
 {
 
     public void DamageTake(BattleChar User, int Dmg, bool Cri, ref bool resist, bool NODEF = false, bool NOEFFECT = false, BattleChar Target = null)

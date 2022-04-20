@@ -17,6 +17,7 @@ public class CustomExtendsEnabler
 		{
 			if (_Data.ClassName == null || _Data.ClassName == "" || _Data.ClassName.Trim() == "")
 			{
+				UnityEngine.Debug.LogWarning(_Data.Key + ": Skill_Exteneded ClassName probably shouldn't be empty");
 				return true;
 			}
 
@@ -46,6 +47,7 @@ public class CustomExtendsEnabler
 		{
 			if (ClassKey == null || ClassKey == "" || ClassKey.Trim() == "")
 			{
+				UnityEngine.Debug.LogError("Skill_Exteneded ClassName probably shouldn't be empty");
 				return true;
 			}
 
@@ -61,7 +63,33 @@ public class CustomExtendsEnabler
 
 	}
 
-	[HarmonyPatch(typeof(Buff), nameof(Buff.DataToBuff))]
+    [HarmonyPatch(typeof(Skill), nameof(Skill.ExtendedFind))]
+    class ExtendedFindPatch
+    {
+		static bool Prefix(Skill __instance, ref Skill_Extended __result, string ExtendedName, bool NoError = true)
+		{
+			Type customExType = Assembly.GetExecutingAssembly().GetType(ExtendedName);
+
+			if (ReferenceEquals(customExType, null))
+			{
+				return true;
+			}
+
+			foreach (Skill_Extended skill_Extended in __instance.AllExtendeds)
+			{
+				if (skill_Extended.Name == customExType.Name)
+				{
+					__result = skill_Extended;
+					return false;
+				}
+			}
+			__result = null;
+			return false;
+
+		}
+    }
+
+    [HarmonyPatch(typeof(Buff), nameof(Buff.DataToBuff))]
 	class BuffClassPatch
 	{
 		static bool Prefix(ref Buff __result, GDEBuffData _BuffData, BattleChar Char, BattleChar Use, int LifeTime = -1, bool view = false)
