@@ -58,6 +58,28 @@ namespace Character_rebalance
                     dict.TryGetString("Description", out string ogDesc, GDEItemKeys.Skill_S_TW_Red_1);
                     __instance.Description = ogDesc + CustomLoc.MainFile.GetTranslation(CustomLoc.TermKey(GDESchemaKeys.Skill, GDEItemKeys.Skill_S_TW_Red_1, CustomLoc.TermType.ExtraDesc));
                 }
+                // tears of the sun
+                else if (__instance.Key == GDEItemKeys.Skill_S_TW_Red_R0)
+                {
+                    __instance.SkillExtended = new List<string> { CustomKeys.ClassName_Extended_Helia_Tears_of_the_Sun };
+
+                    dict.TryGetString("Description", out string ogDesc, GDEItemKeys.Skill_S_TW_Red_R0);
+                    __instance.Description = CustomLoc.MainFile.GetTranslation(CustomLoc.TermKey(GDESchemaKeys.Skill, GDEItemKeys.Skill_S_TW_Red_R0, CustomLoc.TermType.ExtraDesc)) + ogDesc;
+
+                }
+                // Selenelion
+                else if (__instance.Key == GDEItemKeys.Skill_S_TW_Red_R0_0)
+                {
+                    __instance.Except = false;
+                    __instance.Disposable = true;
+
+                    dict.TryGetStringList("SkillExtended", out List<string> ogSkEx, GDEItemKeys.Skill_S_TW_Red_R0_0);
+                    ogSkEx.Add(CustomKeys.ClassName_Extended_Twins_Selenelion);
+                    __instance.SkillExtended = ogSkEx;
+
+                    dict.TryGetString("Description", out string ogDesc, GDEItemKeys.Skill_S_TW_Red_R0_0);
+                    __instance.Description = CustomLoc.MainFile.GetTranslation(CustomLoc.TermKey(GDESchemaKeys.Skill, GDEItemKeys.Skill_S_TW_Red_R0_0, CustomLoc.TermType.ExtraDesc)) + ogDesc;
+                }
             }
         }
 
@@ -71,6 +93,18 @@ namespace Character_rebalance
                 {
                     __instance.DMG_Per = 80;
                 }
+                // solar bolt
+                else if (__instance.Key == GDEItemKeys.SkillEffect_SE_TW_Red_1_T)
+                {
+                    __instance.DMG_Per = 170;
+                }
+                // selenelion
+                else if (__instance.Key == GDEItemKeys.SkillEffect_SE_TW_Red_R0_0_T)
+                {
+                    __instance.DMG_Base = 60;
+                }
+
+
             }
         }
 

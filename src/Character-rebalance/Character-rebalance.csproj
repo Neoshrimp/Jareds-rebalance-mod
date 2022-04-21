@@ -79,6 +79,8 @@
   <ItemGroup>
     <Compile Include="CharacterRebalancePlugin.cs" />
     <Compile Include="BugFixPatches.cs" />
+    <Compile Include="Extended_Twins_Selenelion.cs" />
+    <Compile Include="Extended_Helia_Tears_of_the_Sun.cs" />
     <Compile Include="Extended_Solarbolt_APchange.cs" />
     <Compile Include="Extended_Helia_Solarbolt.cs" />
     <Compile Include="HeliaPatches.cs" />

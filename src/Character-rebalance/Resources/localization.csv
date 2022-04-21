@@ -15,3 +15,8 @@ Buff/B_Joey_4_T_1_Description,Text,,,Blocks all Debuffs,,,
 Skill/S_Lian_6_Description,Text,,,"If an Ally has taken direct (non-<color=purple>Pain</color>) damage this turn, increase cost by 1 and <b>crit</b> chance by 60%.",,,
 Skill/S_TW_Red_1_ExtraDesc,Text,,,"
 In battle, if this skill is <b>fixed</b>, reduce its cost by 2.",,,
+Skill/S_TW_Red_R0_ExtraDesc,Text,,,"Increase <b>crit</b> chance by 100% if user has <b>Lunar Curtain</b> buff.
+",,,
+Skill/S_TW_Red_R0_0_ExtraDesc,Text,,,"Ignores Armor.
+
+",,,
