@@ -8,7 +8,7 @@ using System.Text;
 using UnityEngine;
 
 // 2do. maybe fix bug with multiple Tears of the same kind
-class Extended_Helia_Tears_of_the_Sun : S_TW_Red_R0
+public class Extended_Helia_Tears_of_the_Sun : S_TW_Red_R0
 {
 
 

@@ -32,5 +32,8 @@
 
         static public readonly string ClassName_Extended_Helia_Flame_Arrow = "Extended_Helia_Flame_Arrow";
 
+        static public readonly string ClassName_Extended_Selena_Bloody_Moon = "Extended_Selena_Bloody_Moon";
+        // ok ClassName consts are redundant. Just use nameof(Type) lol
+        static public readonly string ClassName_Extended_Selena_PowerOfTheFullMoon = "Extended_Selena_PowerOfTheFullMoon";
     }
 }

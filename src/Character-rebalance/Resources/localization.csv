@@ -23,3 +23,9 @@ Skill/S_TW_Red_R0_0_ExtraDesc,Text,,,"Ignores Armor.
 Buff/B_Joey_10_T_Name,Text,,,Debuff success rate increased,,,
 Skill/S_TW_Red_0_Description,Text,,,"View the next 2 skills to be drawn. Cast Flame Arrow number of times equal to the sum of the revealed skills cost without Overload.
 Repeated Flame Arrows deal half damage",,,
+Skill/S_TW_Blue_6_ExtraDesc,Text,,,"
+Gains <b>Swiftness</b> if any enemy is afflicted with <b>Solar Flame</b> debuff.",,,
+Skill/S_TW_Blue_0_ExtraDesc,Text,,,"
+In battle, if this skill is <b>fixed</b>, reduce its cost by 1",,,
+Skill/S_TW_Blue_R0_ExtraDesc,Text,,,"Increase <b>crit</b> chance by 100% if any enemy is afflicted with <b>Solar Flame</b> debuff.
+",,,

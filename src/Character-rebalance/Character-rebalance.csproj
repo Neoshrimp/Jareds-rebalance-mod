@@ -79,6 +79,11 @@
   <ItemGroup>
     <Compile Include="CharacterRebalancePlugin.cs" />
     <Compile Include="BugFixPatches.cs" />
+    <Compile Include="Extended_Selena_TearsOfTheMoon.cs" />
+    <Compile Include="General_APchange.cs" />
+    <Compile Include="Extended_PowerOfTheFullMoon_APchange.cs" />
+    <Compile Include="Extended_Selena_PowerOfTheFullMoon.cs" />
+    <Compile Include="Extended_Selena_Bloody_Moon.cs" />
     <Compile Include="Extended_Helia_Flame_Arrow.cs" />
     <Compile Include="Selena_Patches.cs" />
     <Compile Include="Extended_Twins_Selenelion.cs" />
