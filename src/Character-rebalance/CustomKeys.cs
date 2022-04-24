@@ -30,5 +30,7 @@
 
         static public readonly string ClassName_Extended_Twins_Selenelion = "Extended_Twins_Selenelion";
 
+        static public readonly string ClassName_Extended_Helia_Flame_Arrow = "Extended_Helia_Flame_Arrow";
+
     }
 }

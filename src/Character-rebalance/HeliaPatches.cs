@@ -80,6 +80,13 @@ namespace Character_rebalance
                     dict.TryGetString("Description", out string ogDesc, GDEItemKeys.Skill_S_TW_Red_R0_0);
                     __instance.Description = CustomLoc.MainFile.GetTranslation(CustomLoc.TermKey(GDESchemaKeys.Skill, GDEItemKeys.Skill_S_TW_Red_R0_0, CustomLoc.TermType.ExtraDesc)) + ogDesc;
                 }
+                // flame arrow
+                else if (__instance.Key == GDEItemKeys.Skill_S_TW_Red_0)
+                {
+                    __instance.NoBasicSkill = false;
+                    __instance.SkillExtended = new List<string>() { CustomKeys.ClassName_Extended_Helia_Flame_Arrow };
+                    __instance.Description = CustomLoc.MainFile.GetTranslation(CustomLoc.TermKey(GDESchemaKeys.Skill, GDEItemKeys.Skill_S_TW_Red_0, CustomLoc.TermType.Description));
+                }
             }
         }
 
@@ -102,6 +109,11 @@ namespace Character_rebalance
                 else if (__instance.Key == GDEItemKeys.SkillEffect_SE_TW_Red_R0_0_T)
                 {
                     __instance.DMG_Base = 60;
+                }
+                // flame arrow
+                else if (__instance.Key == GDEItemKeys.SkillEffect_SE_Tw_Red_0_T)
+                {
+                    __instance.DMG_Per = 80;
                 }
 
 

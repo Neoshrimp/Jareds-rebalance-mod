@@ -56,6 +56,7 @@ namespace Character_rebalance
                 else if (__instance.Key == GDEItemKeys.Skill_S_Lian_0)
                 {
                     __instance.Track = true;
+                    __instance.Effect_Self = new GDESkillEffectData(GDEItemKeys.SkillEffect_SE_Priest_4_0_T);
                 }
                 // relentless swipe
                 else if (__instance.Key == GDEItemKeys.Skill_S_Lian_6)

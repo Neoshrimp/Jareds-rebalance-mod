@@ -118,6 +118,11 @@ namespace Character_rebalance
                     __instance.HEAL_Per = 70;
                     __instance.Buffs = new List<GDEBuffData>() { new GDEBuffData(GDEItemKeys.Buff_B_Joey_T_3) };
                 }
+                // paralysing dart
+                else if (__instance.Key == GDEItemKeys.SkillEffect_SE_Joey_T_5)
+                {
+                    __instance.BuffPlusTagPer = new List<int>() { 120 };
+                }
             }
         }
 
@@ -132,10 +137,15 @@ namespace Character_rebalance
                     __instance.TagPer = 100;
                 }
                 // protecting gas
-                if (__instance.Key == GDEItemKeys.Buff_B_Joey_4_T_1)
+                else if (__instance.Key == GDEItemKeys.Buff_B_Joey_4_T_1)
                 {
                     __instance.Description = CustomLoc.MainFile.GetTranslation(CustomLoc.TermKey(GDESchemaKeys.Buff, GDEItemKeys.Buff_B_Joey_4_T_1, CustomLoc.TermType.Description));
                     __instance.LifeTime = 1;
+                }
+                // healing ray
+                else if (__instance.Key == GDEItemKeys.Buff_B_Joey_10_T)
+                {
+                    __instance.Name = CustomLoc.MainFile.GetTranslation(CustomLoc.TermKey(GDESchemaKeys.Buff, GDEItemKeys.Buff_B_Joey_10_T, CustomLoc.TermType.Name));
                 }
 
             }
@@ -163,6 +173,15 @@ namespace Character_rebalance
             }
         }
 
+
+        [HarmonyPatch(typeof(B_Joey_10_T), nameof(B_Joey_10_T.BuffStat))]
+        class HealingRayBuffPatch
+        {
+            static void Postfix(B_Joey_10_T __instance)
+            {
+                __instance.PlusStat.HIT_CC = (float)(15 * __instance.StackNum);
+            }
+        }
 
         [HarmonyPatch(typeof(Extended_Joey_11_0), nameof(Extended_Joey_11_0.Init))]
         class HealingDroneDamageExtendedPatch
