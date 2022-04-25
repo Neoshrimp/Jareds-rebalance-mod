@@ -4,8 +4,10 @@ using System;
 using System.Reflection;
 
 
+
 public class CustomExtendsEnabler
 {
+
 	[HarmonyPatch(typeof(Skill_Extended))]
 	class DateToExtenedPatches
 	{
@@ -17,9 +19,11 @@ public class CustomExtendsEnabler
 		{
 			if (_Data.ClassName == null || _Data.ClassName == "" || _Data.ClassName.Trim() == "")
 			{
-				UnityEngine.Debug.LogWarning(_Data.Key + ": Skill_Exteneded ClassName probably shouldn't be empty");
+				UnityEngine.Debug.LogWarning(_Data.Key + " : Skill_Exteneded ClassName probably shouldn't be empty");
 				return true;
 			}
+
+
 
 			Type customExType = Assembly.GetExecutingAssembly().GetType(_Data.ClassName);
 
@@ -57,15 +61,16 @@ public class CustomExtendsEnabler
 			{
 				return true;
 			}
+
 			__result = (Skill_Extended)Assembly.GetExecutingAssembly().CreateInstance(customExType.Name);
 			return false;
 		}
 
 	}
 
-    [HarmonyPatch(typeof(Skill), nameof(Skill.ExtendedFind))]
-    class ExtendedFindPatch
-    {
+	[HarmonyPatch(typeof(Skill), nameof(Skill.ExtendedFind))]
+	class ExtendedFindPatch
+	{
 		static bool Prefix(Skill __instance, ref Skill_Extended __result, string ExtendedName, bool NoError = true)
 		{
 			Type customExType = Assembly.GetExecutingAssembly().GetType(ExtendedName);
@@ -87,9 +92,9 @@ public class CustomExtendsEnabler
 			return false;
 
 		}
-    }
+	}
 
-    [HarmonyPatch(typeof(Buff), nameof(Buff.DataToBuff))]
+	[HarmonyPatch(typeof(Buff), nameof(Buff.DataToBuff))]
 	class BuffClassPatch
 	{
 		static bool Prefix(ref Buff __result, GDEBuffData _BuffData, BattleChar Char, BattleChar Use, int LifeTime = -1, bool view = false)
@@ -159,4 +164,5 @@ public class CustomExtendsEnabler
 	}
 
 }
+
 

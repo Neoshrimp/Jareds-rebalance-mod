@@ -15,7 +15,7 @@ Buff/B_Joey_4_T_1_Description,Text,,,Blocks all Debuffs,,,
 Skill/S_Lian_6_Description,Text,,,"If an Ally has taken direct (non-<color=purple>Pain</color>) damage this turn, increase cost by 1 and <b>crit</b> chance by 60%.",,,
 Skill/S_TW_Red_1_ExtraDesc,Text,,,"
 In battle, if this skill is <b>fixed</b>, reduce its cost by 2.",,,
-Skill/S_TW_Red_R0_ExtraDesc,Text,,,"Increase <b>crit</b> chance by 100% if user has <b>Lunar Curtain</b> buff.
+Skill/S_TW_Red_R0_ExtraDesc,Text,,,"Increase <b>crit</b> chance by 100% if user has <color=blue><b>Lunar Curtain</b></color> buff.
 ",,,
 Skill/S_TW_Red_R0_0_ExtraDesc,Text,,,"Ignores Armor.
 
@@ -24,8 +24,10 @@ Buff/B_Joey_10_T_Name,Text,,,Debuff success rate increased,,,
 Skill/S_TW_Red_0_Description,Text,,,"View the next 2 skills to be drawn. Cast Flame Arrow number of times equal to the sum of the revealed skills cost without Overload.
 Repeated Flame Arrows deal half damage",,,
 Skill/S_TW_Blue_6_ExtraDesc,Text,,,"
-Gains <b>Swiftness</b> if any enemy is afflicted with <b>Solar Flame</b> debuff.",,,
+Gains <b>Swiftness</b> if any enemy is afflicted with <color=orange><b>Solar Flame</b></color> debuff.",,,
 Skill/S_TW_Blue_0_ExtraDesc,Text,,,"
 In battle, if this skill is <b>fixed</b>, reduce its cost by 1",,,
-Skill/S_TW_Blue_R0_ExtraDesc,Text,,,"Increase <b>crit</b> chance by 100% if any enemy is afflicted with <b>Solar Flame</b> debuff.
+Skill/S_TW_Blue_R0_ExtraDesc,Text,,,"Increase <b>crit</b> chance by 100% if any enemy is afflicted with <color=orange><b>Solar Flame</b></color> debuff.
 ",,,
+Skill/S_ShadowPriest_7_Description,Text,,,"If the target is afflicted with <color=purple><b>Encroachment</b></color> debuff this skill gains <b>Swiftness</b>.",,,
+Skill/S_ShadowPriest_8_Description,Text,,,"In battle, if this skill is <b>fixed</b>, reduce its cost by 1.",,,

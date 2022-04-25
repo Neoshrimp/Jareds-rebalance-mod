@@ -13,7 +13,7 @@ using Debug = UnityEngine.Debug;
 
 namespace Character_rebalance
 {
-    class Selena_Patches
+    class SelenaPatches
     {
         [HarmonyPatch(typeof(GDESkillData), nameof(GDESkillData.LoadFromDict))]
         class GdeSkillPatch
