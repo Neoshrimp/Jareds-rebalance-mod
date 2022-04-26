@@ -46,9 +46,14 @@ public class Extended_Joey_HealingDrone_Ex : Skill_Extended
 		healSkill.isExcept = true;
 		healSkill.FreeUse = true;
 		this.BChar.ParticleOut(this.MySkill, healSkill, healTargets);
-
+		
 		int num = hitsFromBufffs()+hitsFromTarget(Targets[0]);
-		BattleSystem.DelayInput(this.Effect(Targets[0], num));
+		
+		for (int i = 0; i < num; i++)
+		{
+			BattleSystem.DelayInputAfter(this.Effect(Targets[0]));
+		}
+
 		
 	}
 	int hitsFromBufffs()
@@ -73,37 +78,31 @@ public class Extended_Joey_HealingDrone_Ex : Skill_Extended
 		return target.GetBuffs(BattleChar.GETBUFFTYPE.ALLDEBUFF, false, false).Count;
 	}
 
-	public IEnumerator Effect(BattleChar target, int num)
+	public IEnumerator Effect(BattleChar target)
 	{
-		yield return new WaitForSeconds(0.33f);
 
-		Debug.Log("enumcall" + num.ToString());
-		for (int i = 0; i < num; i++)
-		{
+		//yield return new WaitForSecondsRealtime(0.1f);
+		yield return new WaitForSeconds(0.1f);
 
-			// some fck gymnastics to make sure skill targets enemies after death
-			Skill damageSkill = new Skill();
-			damageSkill.Init(new GDESkillData(GDEItemKeys.Skill_S_Joey_11_0), this.BChar, this.BChar.MyTeam);
-			damageSkill.ExtendedAdd(new Extended_Joey_11_0());
+		// ok so problem probably was double adding same skill extend
+		Skill damageSkill = Skill.TempSkill(GDEItemKeys.Skill_S_Joey_11_0, this.BChar, this.BChar.MyTeam);
 
-			damageSkill.isExcept = true;
-			damageSkill.FreeUse = true;
-			damageSkill.PlusHit = true;
+		damageSkill.FreeUse = true;
+		damageSkill.PlusHit = true;
 
 
-
-			if (target.IsDead && BattleSystem.instance.EnemyTeam.AliveChars.Count != 0)
-			{
-				this.BChar.ParticleOut(this.MySkill, damageSkill, BattleSystem.instance.EnemyTeam.AliveChars.Random<BattleChar>());
-			}
-			else
-			{
-				this.BChar.ParticleOut(this.MySkill, damageSkill, target);
-			}
-
-			// fck multi hit is jank and waiting any less might result in stolen hits if target dies mid dmg
-			yield return new WaitForSeconds(0.35f);
+        if (!target.IsDead)
+        {
+			Debug.Log("Not dead");
+			this.BChar.ParticleOut(this.MySkill, damageSkill, target);
 		}
+		else
+        {
+			Debug.Log("Dead");
+			this.BChar.ParticleOut(this.MySkill, damageSkill, BattleSystem.instance.EnemyTeam.AliveChars.Random<BattleChar>());
+        }
+
+
 	}
 
 }

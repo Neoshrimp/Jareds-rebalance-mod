@@ -96,7 +96,7 @@
     <Compile Include="Extends\Extended_Solarbolt_APchange.cs" />
     <Compile Include="Extends\Extended_Helia_Solarbolt.cs" />
     <Compile Include="CharPatches\HeliaPatches.cs" />
-    <Compile Include="TurnEventObserver.cs" />
+    <Compile Include="Extends\TurnEventObserver.cs" />
     <Compile Include="Extends\Extended_Lian_RelentlessSwipe.cs" />
     <Compile Include="CharPatches\LianPatches.cs" />
     <Compile Include="Extends\Extended_Joey_HealthPatch.cs" />
