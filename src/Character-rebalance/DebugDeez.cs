@@ -338,14 +338,5 @@ namespace Character_rebalance
         }
 
 
-        [HarmonyPatch(typeof(S_ShadowPriest_9), "Attack")]
-        class soulstrikeDebug
-        {
-            static void Prefix(BattleChar Target)
-            {
-                Debug.Log("Target is dead " + Target.IsDead);
-            }
-        }
-
     }
 }

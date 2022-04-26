@@ -48,5 +48,43 @@ namespace Character_rebalance
             }
         }
 
+
+        [HarmonyPatch(typeof(B_ShadowPriest_8_T), nameof(B_ShadowPriest_8_T.SelfdestroyPlus))]
+        class AbosrbSoulBugfixPatch
+        {
+            static bool Prefix(B_ShadowPriest_8_T __instance)
+            {
+                if (__instance.MainThurible != null)
+                {
+                    GameObject gameObject = Misc.UIInst(__instance.BChar.BattleInfo.EffectView);
+                    if (__instance.BChar.Info.Ally)
+                    {
+                        gameObject.transform.position = __instance.BChar.GetPos();
+                    }
+                    else
+                    {
+                        gameObject.transform.position = __instance.BChar.GetTopPos();
+                    }
+                    gameObject.GetComponent<EffectView>().TextOut(__instance.BChar.Info.Ally, ScriptLocalization.CharText_ShadowPriest.Charge);
+                }
+                return false;
+            }
+        }
+
+
+        [HarmonyPatch(typeof(Buff), nameof(Buff.StackDestroy))]
+        class AbosrbSoulBugfixBuffPatch
+        {
+            static void Prefix(Buff __instance)
+            {
+                if (__instance is B_ShadowPriest_8_T absSoul)
+                {
+                    if (absSoul.MainThurible != null)
+                        absSoul.MainThurible.ChargeNow++;
+                }
+            }
+
+        }
+
     }
 }
