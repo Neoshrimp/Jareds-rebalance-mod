@@ -50,7 +50,21 @@ namespace Character_rebalance
 
                     __instance.SkillExtended = new List<string>() { nameof(Extended_Charon_AbsorbSoul) };
                 }
-                
+                // shadow pillars
+                else if (__instance.Key == GDEItemKeys.Skill_S_ShadowPriest_2)
+                {
+                    dict.TryGetString("Description", out string ogDesc, GDEItemKeys.Skill_S_ShadowPriest_2);
+                    __instance.Description = CustomLoc.MainFile.GetTranslation(CustomLoc.TermKey(GDESchemaKeys.Skill, GDEItemKeys.Skill_S_ShadowPriest_2, CustomLoc.TermType.ExtraDesc)) + ogDesc;
+                }
+                // soul strike
+                else if (__instance.Key == GDEItemKeys.Skill_S_ShadowPriest_9)
+                {
+                    dict.TryGetString("Description", out string ogDesc, GDEItemKeys.Skill_S_ShadowPriest_9);
+                    __instance.Description = CustomLoc.MainFile.GetTranslation(CustomLoc.TermKey(GDESchemaKeys.Skill, GDEItemKeys.Skill_S_ShadowPriest_9, CustomLoc.TermType.ExtraDesc)) + ogDesc + CustomLoc.MainFile.GetTranslation(CustomLoc.TermKey(GDESchemaKeys.Skill, GDEItemKeys.Skill_S_ShadowPriest_9, CustomLoc.TermType.Description));
+
+                }
+
+
 
 
             }
@@ -70,6 +84,21 @@ namespace Character_rebalance
             }
         }
 
+
+        [HarmonyPatch(typeof(GDESkillEffectData), nameof(GDESkillEffectData.LoadFromDict))]
+        class GdeSkillEffectPatch
+        {
+            static void Postfix(GDESkillEffectData __instance)
+            {
+                // soul strike
+                if (__instance.Key == GDEItemKeys.SkillEffect_SE_ShadowPriest_9_T)
+                {
+                    __instance.DMG_Per = 50;
+                }
+
+
+            }
+        }
 
 
         [HarmonyPatch(typeof(Skill_Extended), nameof(Skill_Extended.Init))]
@@ -116,6 +145,57 @@ namespace Character_rebalance
                 }
             }
         }
+
+        [HarmonyPatch(typeof(SkillExtended_ShadowPriest_2), "Init")]
+        class ShadowPillarsPatch
+        {
+            static void Postfix(SkillExtended_ShadowPriest_2 __instance)
+            {
+                __instance.PlusSkillStat.Penetration = 100f;
+            }
+        }
+
+        [HarmonyPatch(typeof(S_ShadowPriest_9), nameof(S_ShadowPriest_9.SkillUseSingle))]
+        class SoulsStrikePatch
+        {
+            static bool Prefix(Skill SkillD, List<BattleChar> Targets, S_ShadowPriest_9 __instance)
+            {
+                int num = 0;
+                foreach (BattleEnemy battleEnemy in BattleSystem.instance.EnemyList)
+                {
+                    foreach (Buff buff in battleEnemy.GetBuffs(BattleChar.GETBUFFTYPE.DOT, false, false))
+                    {
+                        battleEnemy.BuffAdd(buff.BuffData.Key, buff.Usestate_L, false, 500, false, buff.StackInfo[buff.StackInfo.Count - 1].RemainTime, false);
+                        num += buff.StackNum;
+                    }
+                }
+
+                foreach (BattleAlly ba in BattleSystem.instance.AllyList)
+                {
+                    foreach (Buff buff in ba.GetBuffs(BattleChar.GETBUFFTYPE.DOT, false, false))
+                    {
+                        ba.BuffAdd(buff.BuffData.Key, buff.Usestate_L, false, 500, false, buff.StackInfo[buff.StackInfo.Count - 1].RemainTime, false);
+                    }
+
+                }
+
+                int repeats = 1;
+                if (__instance?.MainThurible.ChargeNow >= 2)
+                {
+                    repeats = 2;
+                    __instance.MainThurible.ChargeNow -= 2;
+                }
+                for (int r = 0; r < repeats; r++)
+                {
+                    for (int i = 0; i < num; i++)
+                    {
+                        BattleSystem.DelayInputAfter(__instance.Attack(Targets[0]));
+                    }
+                }
+                return false;
+            }
+        }
+
 
 
 

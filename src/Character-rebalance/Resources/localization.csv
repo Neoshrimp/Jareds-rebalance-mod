@@ -31,3 +31,10 @@ Skill/S_TW_Blue_R0_ExtraDesc,Text,,,"Increase <b>crit</b> chance by 100% if any 
 ",,,
 Skill/S_ShadowPriest_7_Description,Text,,,"If the target is afflicted with <color=purple><b>Encroachment</b></color> debuff this skill gains <b>Swiftness</b>.",,,
 Skill/S_ShadowPriest_8_Description,Text,,,"In battle, if this skill is <b>fixed</b>, reduce its cost by 1.",,,
+Skill/S_ShadowPriest_2_ExtraDesc,Text,,,"Ignores Armor
+
+",,,
+Skill/S_ShadowPriest_9_ExtraDesc,Text,,,"Increase all <sprite=1>debuff stacks by 1 on <b>every</b> character including allies.
+",,,
+Skill/S_ShadowPriest_9_Description,Text,,,"
+If Soul Thurible has 2 charges consume them both and repeat the <b>damaging</b> effect <b>again</b>.",,,
