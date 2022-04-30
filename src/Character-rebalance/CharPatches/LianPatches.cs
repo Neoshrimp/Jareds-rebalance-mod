@@ -94,7 +94,31 @@ namespace Character_rebalance
             }
         }
 
+        [HarmonyPatch(typeof(GDEBuffData), nameof(GDEBuffData.LoadFromDict))]
+        class GdeBuffPatch
+        {
+            // relentless swipe
+            static void Postfix(GDEBuffData __instance)
+            {
+                if (__instance.Key == GDEItemKeys.Buff_B_Lian_6_T)
+                {
+                    __instance.MaxStack = 1;
+                    __instance.Icon = new GDEBuffData(GDEItemKeys.Buff_B_MissChain_0_T).Icon;
+                }
+            }
+        }
 
+        [HarmonyPatch(typeof(B_Lian_6_T), nameof(B_Lian_6_T.Init))]
+        class RelentlessSwipeDebuffPatch
+        {
+            static void Postfix(B_Lian_6_T __instance)
+            {
+                __instance.PlusStat.dod = 0;
+                __instance.PlusStat.def = -12f*__instance.StackNum;
+
+
+            }
+        }
 
 
         // in theory should add Parry Attack to skill pool on the run where Lian is unlocked but NOT tested

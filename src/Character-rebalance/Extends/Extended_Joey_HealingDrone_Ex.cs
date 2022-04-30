@@ -93,12 +93,10 @@ public class Extended_Joey_HealingDrone_Ex : Skill_Extended
 
         if (!target.IsDead)
         {
-			Debug.Log("Not dead");
 			this.BChar.ParticleOut(this.MySkill, damageSkill, target);
 		}
 		else
         {
-			Debug.Log("Dead");
 			this.BChar.ParticleOut(this.MySkill, damageSkill, BattleSystem.instance.EnemyTeam.AliveChars.Random<BattleChar>());
         }
 

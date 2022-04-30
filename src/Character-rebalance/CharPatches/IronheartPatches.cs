@@ -60,6 +60,19 @@ namespace Character_rebalance.CharPatches
                     __instance.SkillExtended = new List<string>() { nameof(Extended_Ironheart_ShieldOfRetribution) };
                     __instance.Description = CustomLoc.MainFile.GetTranslation(CustomLoc.TermKey(GDESchemaKeys.Skill, GDEItemKeys.Skill_S_Prime_11, CustomLoc.TermType.Description));
 
+                    dict.TryGetCustomList("PlusKeyWordsKey", out List<GDESkillKeywordData> ogPlusKeyWords);
+                    ogPlusKeyWords.Add(new GDESkillKeywordData(CustomKeys.SkillKeyword_Keyword_Swiftness));
+                    __instance.PlusKeyWords = ogPlusKeyWords;
+                }
+                // innocent armor
+                else if (__instance.Key == GDEItemKeys.Skill_S_Prime_3)
+                {
+                    dict.TryGetStringList("SkillExtended", out List<string> ogSkEx, GDEItemKeys.Skill_S_Prime_3);
+                    ogSkEx.Add(nameof(ExtendedExtra_Ironheart_InnocentArmor));
+                    __instance.SkillExtended = ogSkEx;
+
+                    dict.TryGetString("Description", out string ogDesc, GDEItemKeys.Skill_S_Prime_3);
+                    __instance.Description = CustomLoc.MainFile.GetTranslation(CustomLoc.TermKey(GDESchemaKeys.Skill, GDEItemKeys.Skill_S_Prime_3, CustomLoc.TermType.ExtraDesc)) + ogDesc;
                 }
             }
         }

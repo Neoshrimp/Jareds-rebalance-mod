@@ -30,6 +30,10 @@ namespace Character_rebalance
                     dict.TryGetStringList("SkillExtended", out List<string> ogSkillExtended, GDEItemKeys.Skill_S_ShadowPriest_7);
                     ogSkillExtended.Add(nameof(Extended_Charon_SoulStigma));
                     __instance.SkillExtended = ogSkillExtended;
+
+                    dict.TryGetCustomList("PlusKeyWordsKey", out List<GDESkillKeywordData> ogPlusKeyWords);
+                    ogPlusKeyWords.Add(new GDESkillKeywordData(CustomKeys.SkillKeyword_Keyword_Swiftness));
+                    __instance.PlusKeyWords = ogPlusKeyWords;
                 }
                 // dark heal
                 else if (__instance.Key == GDEItemKeys.Skill_S_ShadowPriest_0)
@@ -74,12 +78,17 @@ namespace Character_rebalance
         [HarmonyPatch(typeof(GDEBuffData), nameof(GDEBuffData.LoadFromDict))]
         class GdeBuffPatch
         {
-            static void Postfix(GDEBuffData __instance)
+            static void Postfix(GDEBuffData __instance, Dictionary<object, object> dict)
             {
                 // vigil of darkness
                 if (__instance.Key == GDEItemKeys.Buff_B_ShadowPriest_4_T)
                 {
                     __instance.TagPer = 108;
+
+                    dict.TryGetString("Description", out string ogDesc, GDEItemKeys.Buff_B_ShadowPriest_4_T);
+                    __instance.Description = ogDesc + CustomLoc.MainFile.GetTranslation(CustomLoc.TermKey(GDESchemaKeys.Buff, GDEItemKeys.Buff_B_ShadowPriest_4_T, CustomLoc.TermType.ExtraDesc));
+
+
                 }
             }
         }
@@ -97,6 +106,33 @@ namespace Character_rebalance
                 }
 
 
+            }
+        }
+
+        [HarmonyPatch(typeof(B_ShadowPriest_4_T), "Hit")]
+        class VigilOfDarknessPatch
+        {
+            static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
+            {
+                var list = instructions.ToList();
+                int c = list.Count;
+
+                for (int i = 0; i < c; i++)
+                {
+
+                    if (list[Math.Min(i+4, c-1)].opcode == OpCodes.Callvirt && ((MethodInfo)list[Math.Min(i + 4, c - 1)].operand).Equals(AccessTools.Method(typeof(BattleChar), nameof(BattleChar.BuffAdd))))
+                    {
+                        list[i] = new CodeInstruction(OpCodes.Ldc_I4, 500);
+                    }
+                    // label not marked exception
+                    /*else if (list[i].opcode == OpCodes.Newobj && ((ConstructorInfo)list[i].operand).Equals(AccessTools.Constructor(typeof(NotImplementedException), new Type[] { })) 
+                        || list[i].opcode == OpCodes.Throw)
+                    {
+                        list[i] = new CodeInstruction(OpCodes.Nop);
+                    }*/
+                }
+
+                return list.AsEnumerable();
             }
         }
 

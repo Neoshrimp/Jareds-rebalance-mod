@@ -69,6 +69,10 @@ namespace Character_rebalance
                         + ogDesc;
 
                     __instance.SkillExtended = new List<string>() { CustomKeys.ClassName_Joey_HealthPatch_Ex };
+
+                    dict.TryGetCustomList("PlusKeyWordsKey", out List<GDESkillKeywordData> ogPlusKeyWords);
+                    ogPlusKeyWords.Add(new GDESkillKeywordData(CustomKeys.SkillKeyword_Keyword_Swiftness));
+                    __instance.PlusKeyWords = ogPlusKeyWords;
                 }
                 // protecting gas
                 else if (__instance.Key == GDEItemKeys.Skill_S_Joey_4)

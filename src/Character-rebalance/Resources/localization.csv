@@ -38,5 +38,10 @@ Skill/S_ShadowPriest_9_ExtraDesc,Text,,,"Increase all <sprite=1>debuff stacks by
 ",,,
 Skill/S_ShadowPriest_9_Description,Text,,,"
 If Soul Thurible has 2 charges consume them both and repeat the <b>damaging</b> effect <b>again</b>.",,,
-Skill/S_Prime_11_Description,Text,,,"Whenever a healing skill is played while this skill is under Countdown, cast Shield of Retribution prioritizing the targeted enemy.
+Buff/B_ShadowPriest_4_T_ExtraDesc,Text,,,"
+Encroachment gained this way cannot be resisted.",,,
+Skill/S_Prime_11_Description,Text,,,"Gains <b>Swiftness</b> if there is a party barrier.
+Whenever a healing skill is played while this skill is under Countdown, cast Shield of Retribution prioritizing the targeted enemy.
 This effect can occur up to 4 times (&a remaining).",,,
+Skill/S_Prime_3_ExtraDesc,Text,,,"In battle, if this skill is <b>fixed</b>, reduce its cost by 1.
+",,,

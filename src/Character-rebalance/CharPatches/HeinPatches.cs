@@ -94,6 +94,32 @@ namespace Character_rebalance
             }
         }
 
+        
+
+        [HarmonyPatch(typeof(GDEBuffData), nameof(GDEBuffData.LoadFromDict))]
+        class GdeBuffPatch
+        {
+            // identify weakness
+            static void Postfix(GDEBuffData __instance)
+            {
+                if (__instance.Key == GDEItemKeys.Buff_B_Hein_T_2)
+                {
+                    __instance.TagPer = 110;
+                }
+            }
+        }
+
+        [HarmonyPatch(typeof(B_Hein_T_2), nameof(B_Hein_T_2.Init))]
+        class IdWeaknessDebuffPatch
+        {
+            static void Postfix(B_Hein_T_2 __instance)
+            {
+                __instance.PlusStat.def = -__instance.Usestate_L.GetStat.atk * 2.1f;
+
+            }
+        }
+
+
         [HarmonyPatch(typeof(Skill_Extended), nameof(Skill_Extended.Init))]
         class SkillExInitPatch
         {

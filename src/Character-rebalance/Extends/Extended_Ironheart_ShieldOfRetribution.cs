@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 
+//2do. maybe remove particle effect when skill is counting
 public class Extended_Ironheart_ShieldOfRetribution : Skill_Extended, IP_SkillUse_Team
 {
 
@@ -19,11 +20,24 @@ public class Extended_Ironheart_ShieldOfRetribution : Skill_Extended, IP_SkillUs
         hitsLeft = 4;
     }
 
+    public override void FixedUpdate()
+    {
+        base.FixedUpdate();
+        if (BChar.MyTeam.partybarrier.BarrierHP > 0)
+        {
+            NotCount = true;
+            SkillParticleOn();
+        }
+        else 
+        {
+            NotCount = false;
+            SkillParticleOff();
+        }
+    }
 
     public override void SkillUseHand(BattleChar Target)
     {
         base.SkillUseHand(Target);
-        Debug.Log(Target?.Info.KeyData);
         this.target = Target;
     }
 
@@ -31,6 +45,8 @@ public class Extended_Ironheart_ShieldOfRetribution : Skill_Extended, IP_SkillUs
     {
         base.Init();
         this.CountingExtedned = true;
+        this.SkillParticleObject = new GDESkillExtendedData(GDEItemKeys.SkillExtended_Public_10_Ex).Particle;
+
     }
 
     public IEnumerator Attack()

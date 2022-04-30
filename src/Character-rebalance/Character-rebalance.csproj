@@ -81,12 +81,14 @@
     <Compile Include="BugFixPatches.cs" />
     <Compile Include="CharPatches\CharonPatches.cs" />
     <Compile Include="CharPatches\IronheartPatches.cs" />
-    <Compile Include="Extends\Extended_Ironhear_ShieldOfRetribution.cs" />
+    <Compile Include="Extends\ExtendedExtra_Ironheart_InnocentArmor.cs" />
+    <Compile Include="Extends\Extended_Ironheart_ShieldOfRetribution.cs" />
     <Compile Include="Extends\Extended_AbsorbSoul_APchange.cs" />
     <Compile Include="Extends\Extended_Charon_AbsorbSoul.cs" />
     <Compile Include="Extends\Extended_ConditionOnTargeting.cs" />
     <Compile Include="Extends\Extended_Charon_SoulStigma.cs" />
     <Compile Include="Extends\Extended_Selena_TearsOfTheMoon.cs" />
+    <Compile Include="Extends\Extended_InnocentArmor_APchange.cs" />
     <Compile Include="Extends\General_APchange.cs" />
     <Compile Include="Extends\Extended_PowerOfTheFullMoon_APchange.cs" />
     <Compile Include="Extends\Extended_Selena_PowerOfTheFullMoon.cs" />

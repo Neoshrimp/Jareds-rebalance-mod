@@ -36,6 +36,10 @@ namespace Character_rebalance
                     dict.TryGetStringList("SkillExtended", out List<string> ogSkillExtended, GDEItemKeys.Skill_S_TW_Blue_6);
                     ogSkillExtended.Add(CustomKeys.ClassName_Extended_Selena_Bloody_Moon);
                     __instance.SkillExtended = ogSkillExtended;
+
+                    dict.TryGetCustomList("PlusKeyWordsKey", out List<GDESkillKeywordData> ogPlusKeyWords);
+                    ogPlusKeyWords.Add(new GDESkillKeywordData(CustomKeys.SkillKeyword_Keyword_Swiftness));
+                    __instance.PlusKeyWords = ogPlusKeyWords;
                 }
                 // dark moon
                 else if (__instance.Key == GDEItemKeys.Skill_S_TW_Blue_8)
@@ -63,6 +67,10 @@ namespace Character_rebalance
                     dict.TryGetStringList("SkillExtended", out List<string> ogSkillExtended, GDEItemKeys.Skill_S_TW_Blue_R0);
                     ogSkillExtended.Add(nameof(Extended_Selena_TearsOfTheMoon));
                     __instance.SkillExtended = ogSkillExtended;
+
+                    dict.TryGetCustomList("PlusKeyWordsKey", out List<GDESkillKeywordData> ogPlusKeyWords);
+                    ogPlusKeyWords.Add(new GDESkillKeywordData(CustomKeys.SkillKeyword_Keyword_Swiftness));
+                    __instance.PlusKeyWords = ogPlusKeyWords;
                 }
 
 

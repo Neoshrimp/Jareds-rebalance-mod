@@ -2,6 +2,7 @@
 using BepInEx.Configuration;
 using GameDataEditor;
 using HarmonyLib;
+using I2.Loc;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -41,6 +42,28 @@ namespace Character_rebalance
                 harmony.UnpatchAll(GUID);
         }
 
+        [HarmonyPatch(typeof(GDESkillKeywordData), nameof(GDESkillKeywordData.LoadFromSavedData))]
+        class CustomKeywordTooltips
+        {
+            static void Postfix(GDESkillKeywordData __instance)
+            {
+                if (__instance.Key == CustomKeys.SkillKeyword_Keyword_Swiftness)
+                {
+                    __instance.Name = "<b>" + ScriptLocalization.Battle_Keyword.Quick + "</b>";
+                    if (SaveManager.NowData.GameOptions.Difficulty == 1)
+                    {
+                        __instance.Desc = ScriptLocalization.Battle_Keyword.Quick_Desc_Casual;
+                    }
+                    else
+                    {
+                        __instance.Desc = ScriptLocalization.Battle_Keyword.Quick_Desc;
+                    }
+
+                }
+            }
+
+
+        }
 
 
         [HarmonyPatch(typeof(BattleSystem), nameof(BattleSystem.BattleInit))]
