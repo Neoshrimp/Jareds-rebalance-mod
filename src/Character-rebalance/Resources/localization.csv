@@ -1,4 +1,4 @@
-Key,Type,Description,Korean,English,Japanese,Chinese,Chinese-TW [zh-tw]
+﻿Key,Type,Description,Korean,English,Japanese,Chinese,Chinese-TW [zh-tw]
 Skill/S_Hein_11_ExtraDesc,Text,,," 
 Gains <b>Swiftness</b> and cost is reduced by <b>2</b> when bonus damage is at maximum.",,,
 Skill/Joey_CP_ExtraPot_Name,Text,,,Chugging Dust,,,
@@ -45,3 +45,7 @@ Whenever a healing skill is played while this skill is under Countdown, cast Shi
 This effect can occur up to 4 times (&a remaining).",,,
 Skill/S_Prime_3_ExtraDesc,Text,,,"In battle, if this skill is <b>fixed</b>, reduce its cost by 1.
 ",,,
+Skill/S_Trisha_5_Description,Text,,"그림자 분신 상태일 경우, 무작위 적 하나를 기절 (<sprite=2> &a%) 시키고, 2턴간 자신의 크리티컬 확률을 25% 증가시킵니다.","If you are in Double Team, Stun(<sprite=2> &a%) a random enemy and gain 25% Critical Chance for 2 turns.","影分身状態である場合、ランダムな敵1体スタン状態(<sprite=2> &a%)にして、2ターンの間自分のクリティカル率を25アップさせる。","处于影子分身状态时，眩晕（<sprite=2> &a%）随机一个敌人，并增加自身  25 % 的暴击率（持续 2 回合）。","處於影子分身狀態時，眩暈（<sprite=2> &a%）隨機一個敵人，並增加自身  25 % 的暴擊率（持續 2 回合）。"
+Skill/S_Trisha_0_ExtraDesc,Text,,," Or recast this skill if facing a single enemy but only once (times remaining: &a).
+Gains <b>Critical</b> if facing a single enemy.",,,
+Skill/S_Sizz_0_Description,Text,,,"Transfer ally Combined Arms buffs to the target. Add 'Eve, Help!' skill to your hand. No more than 3 copies can be created this way (&c left)",,,

@@ -38,5 +38,8 @@
 
         static public readonly string SkillKeyword_Keyword_Swiftness = CharacterRebalancePlugin.GUID + "_" + "Keyword_Swiftness";
 
+        static public readonly string SkillKeyword_Keyword_Critical = CharacterRebalancePlugin.GUID + "_" + "Keyword_Critical";
+
+
     }
 }

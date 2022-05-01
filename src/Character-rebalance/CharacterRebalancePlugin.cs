@@ -60,6 +60,11 @@ namespace Character_rebalance
                     }
 
                 }
+                else if (__instance.Key == CustomKeys.SkillKeyword_Keyword_Critical)
+                {
+                    __instance.Name = "<b>" + ScriptLocalization.Battle_Keyword.Fatal + "</b>";
+                    __instance.Desc = ScriptLocalization.Battle_Keyword.Fatal_Desc;
+                }
             }
 
 
