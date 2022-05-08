@@ -179,7 +179,6 @@ namespace Character_rebalance
 
                 static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
                 {
-                    var list = instructions.ToList();
                     foreach (var ci in instructions)
                     {
                         if (ci.opcode == OpCodes.Ldc_R4 && (float)ci.operand == 0.5f)
