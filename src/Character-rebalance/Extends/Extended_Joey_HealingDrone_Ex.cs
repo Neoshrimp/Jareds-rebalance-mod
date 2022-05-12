@@ -11,7 +11,7 @@ public class Extended_Joey_HealingDrone_Ex : Skill_Extended
 {
 	public string hitCountLoc = "";
 
-	public override string DescExtended(string desc)
+/*	public override string DescExtended(string desc)
 
 	{
 		string finalDesc = base.DescExtended(desc);
@@ -20,7 +20,7 @@ public class Extended_Joey_HealingDrone_Ex : Skill_Extended
 
 		return finalDesc;
 	}
-
+*/
     public override void Special_PointerEnter(BattleChar Char)
     {
         base.Special_PointerEnter(Char);

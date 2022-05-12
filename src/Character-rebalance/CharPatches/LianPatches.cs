@@ -94,7 +94,7 @@ namespace Character_rebalance
             }
         }
 
-        [HarmonyPatch(typeof(GDEBuffData), nameof(GDEBuffData.LoadFromDict))]
+        //[HarmonyPatch(typeof(GDEBuffData), nameof(GDEBuffData.LoadFromDict))]
         class GdeBuffPatch
         {
             // relentless swipe

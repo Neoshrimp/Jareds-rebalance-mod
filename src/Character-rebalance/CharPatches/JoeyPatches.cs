@@ -155,22 +155,52 @@ namespace Character_rebalance
             }
         }
 
-        [HarmonyPatch(typeof(BattleChar), nameof(BattleChar.BuffAdd))]
+/*        [HarmonyPatch(typeof(BattleChar), nameof(BattleChar.BuffAdd))]
+        [HarmonyPriority(Priority.First)]
+        [HarmonyDebug]*/
         class ProtectingGasBuffPatch
         {
             static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
             {
+
+                Debug.Log("BuffAdd transpiler");
                 var list = instructions.ToList();
                 int c = list.Count;
-
+                bool nopMode = false;
                 for(int i = 0; i < c; i++)
                 {
 
-                    if (list[i].opcode == OpCodes.Callvirt && ((MethodInfo)list[i].operand).Equals(AccessTools.Method(typeof(Buff), nameof(Buff.SelfStackDestroy)))
-                        && list[Math.Max(i - 3, 0)].operand.ToString() == "System.String Buff_B_Joey_4_T_1")
+                    /*                    if (list[i].opcode == OpCodes.Callvirt && ((MethodInfo)list[i].operand).Equals(AccessTools.Method(typeof(Buff), nameof(Buff.SelfStackDestroy)))
+                                            //&& list[Math.Max(i - 3, 0)].operand.ToString() == "System.String Buff_B_Joey_4_T_1")
+                                            && ((FieldInfo)list[Math.Max(i - 3, 0)].operand).Equals(AccessTools.Field(typeof(GDEItemKeys), nameof(GDEItemKeys.Buff_B_Joey_4_T_1))))
+
+                                        {
+                                            Debug.Log("mod ci");
+                                            //list[i] = new CodeInstruction(OpCodes.Pop);
+
+                                            list[i] = new CodeInstruction(OpCodes.Nop);
+
+                                        }*/
+
+                    if (list[i].opcode == OpCodes.Ldarg_0 && list[Math.Max(i - 4, 0)].opcode == OpCodes.Ldsfld 
+                        && ((FieldInfo)list[Math.Max(i - 4, 0)].operand).Equals(AccessTools.Field(typeof(GDEItemKeys), nameof(GDEItemKeys.Buff_B_Joey_4_T_1))))
                     {
-                        list[i] = new CodeInstruction(OpCodes.Pop);
+                        Debug.Log("nop on");
+                        nopMode = true;
                     }
+                    if (list[i].opcode == OpCodes.Callvirt && ((MethodInfo)list[i].operand).Equals(AccessTools.Method(typeof(Buff), nameof(Buff.SelfStackDestroy))))
+                    {
+                        Debug.Log("nop off");
+
+                        nopMode = false;
+                        list[i] = new CodeInstruction(OpCodes.Nop);
+                    }
+                    if (nopMode)
+                    {
+                        list[i] = new CodeInstruction(OpCodes.Nop);
+                    }
+
+
                 }
 
                 return list.AsEnumerable();

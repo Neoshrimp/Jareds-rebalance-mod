@@ -90,7 +90,7 @@ namespace Character_rebalance.CharPatches
             }
         }
 
-        [HarmonyPatch(typeof(GDEBuffData), nameof(GDEBuffData.LoadFromDict))]
+        //[HarmonyPatch(typeof(GDEBuffData), nameof(GDEBuffData.LoadFromDict))]
         class GdeBuffPatch
         {
             static void Postfix(GDEBuffData __instance)

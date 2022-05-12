@@ -16,7 +16,7 @@ using Debug = UnityEngine.Debug;
 
 namespace Character_rebalance
 {
-    [BepInPlugin(GUID, "", version)]
+    [BepInPlugin(GUID, "Jared's Character rebalance", version)]
     [BepInProcess("ChronoArk.exe")]
     public class CharacterRebalancePlugin : BaseUnityPlugin
     {
@@ -34,6 +34,7 @@ namespace Character_rebalance
         {
             CustomLoc.InitLocalizationCSV();
             logger = Logger;
+            Harmony.DEBUG = true;
             harmony.PatchAll();
         }
         void OnDestroy()
@@ -42,7 +43,7 @@ namespace Character_rebalance
                 harmony.UnpatchAll(GUID);
         }
 
-        [HarmonyPatch(typeof(GDESkillKeywordData), nameof(GDESkillKeywordData.LoadFromSavedData))]
+        //[HarmonyPatch(typeof(GDESkillKeywordData), nameof(GDESkillKeywordData.LoadFromSavedData))]
         class CustomKeywordTooltips
         {
             static void Postfix(GDESkillKeywordData __instance)
@@ -71,7 +72,7 @@ namespace Character_rebalance
         }
 
 
-        [HarmonyPatch(typeof(BattleSystem), nameof(BattleSystem.BattleInit))]
+        //[HarmonyPatch(typeof(BattleSystem), nameof(BattleSystem.BattleInit))]
         class AddObserverPatch
         {
             static void Postfix(BattleSystem __instance)
@@ -84,7 +85,7 @@ namespace Character_rebalance
         }
 
         // removes black bar under Lucy's portrait if she doesn't have any visible buffs
-        [HarmonyPatch(typeof(LucyM), "Update")]
+        //[HarmonyPatch(typeof(LucyM), "Update")]
         class BattleLucyUIPatch
         {
             static void Postfix(LucyM __instance)
@@ -100,7 +101,7 @@ namespace Character_rebalance
         }
 
 
-        [HarmonyPatch(typeof(GDEBuffData), nameof(GDEBuffData.LoadFromSavedData))]
+        //[HarmonyPatch(typeof(GDEBuffData), nameof(GDEBuffData.LoadFromSavedData))]
         class CreateTurnEventObserverBuffPatch
         {
             static void Postfix(GDEBuffData __instance, ref string ____PathAllyBuffEffect, ref string ____PathEnemyBuffEffect)

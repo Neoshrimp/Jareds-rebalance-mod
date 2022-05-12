@@ -1,9 +1,10 @@
-﻿using GameDataEditor;
+﻿/*using GameDataEditor;
 using HarmonyLib;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Reflection.Emit;
+using UnityEngine;
 
 public class CustomExtendsEnabler
 {
@@ -19,7 +20,7 @@ public class CustomExtendsEnabler
 		{
 			if (_Data.ClassName == null || _Data.ClassName == "" || _Data.ClassName.Trim() == "")
 			{
-				UnityEngine.Debug.LogWarning(_Data.Key + " : Skill_Exteneded ClassName probably shouldn't be empty");
+				UnityEngine.Debug.LogWarning(_Data.Key + " : Skill_Extended ClassName probably shouldn't be empty");
 				return true;
 			}
 
@@ -53,9 +54,9 @@ public class CustomExtendsEnabler
 
 		}
 
-/*        [HarmonyPatch(nameof(Skill_Extended.DataToExtendedC))]
+*//*        [HarmonyPatch(nameof(Skill_Extended.DataToExtendedC))]
         [HarmonyTranspiler]
-        [HarmonyDebug]*/
+        [HarmonyDebug]*//*
         static IEnumerable<CodeInstruction> DataToExtendedCTranspiler(IEnumerable<CodeInstruction> instructions)
 		{
 			foreach (var ci in instructions)
@@ -80,7 +81,7 @@ public class CustomExtendsEnabler
 		{
 			if (ClassKey == null || ClassKey == "" || ClassKey.Trim() == "")
 			{
-				UnityEngine.Debug.LogError("Skill_Exteneded ClassName probably shouldn't be empty");
+				UnityEngine.Debug.LogError("Skill_Extended ClassName probably shouldn't be empty");
 				return true;
 			}
 
@@ -123,10 +124,41 @@ public class CustomExtendsEnabler
 
 		}
 	}
-    // this modafuka is the culprit. game needs to be restarted for it to take effect. curious
-    [HarmonyPatch(typeof(Buff), nameof(Buff.DataToBuff))]
-    [HarmonyDebug]
-    class BuffClassPatch
+
+
+*//*	[HarmonyPatch(typeof(Buff), nameof(Buff.DataToBuff))]
+	[HarmonyPriority(Priority.Last)]
+	class dd2
+	{
+		static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
+		{
+			Debug.Log("main transpiler");
+			return instructions;
+		}
+	}
+
+
+	[HarmonyPatch(typeof(Buff), nameof(Buff.DataToBuff))]
+	[HarmonyPriority(Priority.Normal)]
+	[HarmonyDebug]
+	class dd
+	{
+		static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
+		{
+			Debug.Log("last transpiler");
+			return instructions;
+		}
+
+
+	}*//*
+
+
+
+
+	// this modafuka is the culprit. game needs to be restarted for it to take effect. curious
+	//[HarmonyPatch(typeof(Buff), nameof(Buff.DataToBuff))]
+	//[HarmonyDebug]
+	class BuffClassPatch
 	{
 			
 
@@ -134,16 +166,20 @@ public class CustomExtendsEnabler
         [HarmonyTranspiler]
         static IEnumerable<CodeInstruction> DataToBuffTranspiler(IEnumerable<CodeInstruction> instructions)
 		{
-/*			yield return new CodeInstruction(OpCodes.Ldarg_0);
-			yield return new CodeInstruction(OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(GDEBuffData), "ClassName"));
 
-			yield return new CodeInstruction(OpCodes.Call, AccessTools.Method(typeof(DateToExtenedPatches), "LoadExtended"));
-			yield return new CodeInstruction(OpCodes.Pop);*/
+			Debug.Log("Main transpiler");
+
+			*//*			yield return new CodeInstruction(OpCodes.Ldarg_0);
+						yield return new CodeInstruction(OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(GDEBuffData), "ClassName"));
+
+						yield return new CodeInstruction(OpCodes.Call, AccessTools.Method(typeof(DateToExtenedPatches), "LoadExtended"));
+						yield return new CodeInstruction(OpCodes.Pop);*//*
 
 			foreach (var ci in instructions)
 			{
+
 				yield return ci;
-/*                if (ci.opcode == OpCodes.Call && ((MethodInfo)ci.operand).Equals(AccessTools.Method(typeof(Type), "GetType", new Type[] { typeof(string) })))
+*//*                if (ci.opcode == OpCodes.Call && ((MethodInfo)ci.operand).Equals(AccessTools.Method(typeof(Type), "GetType", new Type[] { typeof(string) })))
                 {
 
                     yield return ci;
@@ -151,7 +187,7 @@ public class CustomExtendsEnabler
                 else
                 {
                     yield return ci;
-                }*/
+                }*//*
 
             }
 
@@ -160,7 +196,7 @@ public class CustomExtendsEnabler
 		}
 
 		//[HarmonyPrefix]
-	/*	static bool DataToBuffPrefix(ref Buff __result, GDEBuffData _BuffData, BattleChar Char, BattleChar Use, int LifeTime = -1, bool view = false)
+	*//*	static bool DataToBuffPrefix(ref Buff __result, GDEBuffData _BuffData, BattleChar Char, BattleChar Use, int LifeTime = -1, bool view = false)
 		{
 
 			if (_BuffData.Key == GDEItemKeys.Buff_B_Sizz_0_T)
@@ -235,9 +271,10 @@ public class CustomExtendsEnabler
 			__result = buff;
 
 			return false;
-		}*/
+		}*//*
 	}
 
 }
 
 
+*/

@@ -96,7 +96,7 @@ namespace Character_rebalance
 
         
 
-        [HarmonyPatch(typeof(GDEBuffData), nameof(GDEBuffData.LoadFromDict))]
+        //[HarmonyPatch(typeof(GDEBuffData), nameof(GDEBuffData.LoadFromDict))]
         class GdeBuffPatch
         {
             // identify weakness
@@ -153,7 +153,7 @@ namespace Character_rebalance
             static float hpDrain = 0.3f;
 
 
-            [HarmonyPatch(typeof(GDEBuffData), nameof(GDEBuffData.LoadFromDict))]
+            //[HarmonyPatch(typeof(GDEBuffData), nameof(GDEBuffData.LoadFromDict))]
             class GdeBuffPatch
             {
                 // rage
