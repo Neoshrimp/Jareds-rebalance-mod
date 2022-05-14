@@ -1,4 +1,4 @@
-﻿using GameDataEditor;
+﻿/*using GameDataEditor;
 using HarmonyLib;
 using System;
 using System.Reflection;
@@ -166,3 +166,4 @@ public class CustomExtendsEnabler
 }
 
 
+*/

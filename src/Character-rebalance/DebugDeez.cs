@@ -338,5 +338,58 @@ namespace Character_rebalance
         }
 
 
+        //[HarmonyPatch(typeof(GDESkillData), nameof(GDESkillData.LoadFromSavedData))]
+        class NewSkillPatch
+        {
+            
+            static void Postfix(GDESkillData __instance, ref GameObject ____Particle, ref string ____PathParticle)
+            {
+                var dataKeysBySchemaRef = AccessTools.FieldRefAccess<GDEDataManager, Dictionary<string, HashSet<string>>>(AccessTools.Field(typeof(GDEDataManager), "dataKeysBySchema"));
+                var nk = "newSkill";
+
+
+
+                if (__instance.Key == nk)
+                {
+                    //dataKeysBySchemaRef()["Skill"].Add(nk);
+
+                    __instance.NoDrop = false;
+                    __instance.User = GDEItemKeys.Character_Joey;
+
+                    //__instance.User = "";
+
+
+                    __instance.Name = "new skill";
+                    __instance.Description = "deeznuts";
+
+                    __instance.KeyID = "";
+                    __instance.LucyPartyDraw = "";
+                    __instance.PlusSkillView = "";
+
+                    __instance.Target = new GDEs_targettypeData(GDEItemKeys.s_targettype_all_ally);
+
+                    ____PathParticle = "Particle/Joey/Joey_4";
+                    ____Particle = new GDESkillData(GDEItemKeys.Skill_S_Joey_11).Particle;
+
+
+                    //__instance.Effect_Target = new GDESkillEffectData(CustomKeys.SkillEffect_Joey_HealingDrone_HealAllies_Effect);
+                    __instance.Effect_Target = new GDESkillEffectData(GDEItemKeys.SkillEffect_SE_Null);
+                    __instance.Effect_Self = new GDESkillEffectData("null");
+                    __instance.Category = new GDESkillCategoryData("null");
+
+
+                    __instance.SKillExtendedItem = new List<GDESkillExtendedData>();
+                    __instance.SkillExtended = new List<string>();
+                    __instance.PlusViewBuffList = new List<GDEBuffData>();
+                    __instance.PlusKeyWords = new List<GDESkillKeywordData>();
+                    Debug.Log("new skill");
+                    GDEDataManager.GetAllDataKeysBySchema(GDESchemaKeys.Skill, out List<string> skillKeys);
+                    Debug.Log(skillKeys.Find(s => s == nk));
+
+                }
+            }
+
+        }
+
     }
 }

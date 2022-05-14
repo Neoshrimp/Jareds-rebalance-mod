@@ -37,7 +37,7 @@ namespace Character_rebalance.CharPatches
                 {
                     __instance.NotCount = true;
 
-                    __instance.SkillExtended = new List<string>() {nameof(Extended_Sizz_EveHelp)};
+                    __instance.SkillExtended = new List<string>() {typeof(Extended_Sizz_EveHelp).AssemblyQualifiedName};
 
                     __instance.Description = CustomLoc.MainFile.GetTranslation(CustomLoc.TermKey(GDESchemaKeys.Skill, GDEItemKeys.Skill_S_Sizz_0, CustomLoc.TermType.Description));
 
@@ -66,17 +66,6 @@ namespace Character_rebalance.CharPatches
             }
         }
 
-        [HarmonyPatch(typeof(Buff), "Init")]
-        class dd
-        {
-            static void Postfix(Buff __instance)
-            {
-                if (__instance is B_Sizz_0_T ca)
-                {
-                    Debug.Log(ca.StackNum);
-                }
-            }
-        }
 
 
     }

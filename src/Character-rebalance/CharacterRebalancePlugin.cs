@@ -14,6 +14,9 @@ using System.Runtime.CompilerServices;
 using UnityEngine;
 using Debug = UnityEngine.Debug;
 
+// 2do use fully qualifying type names
+// 2do neutralize extends rather than replace them
+
 namespace Character_rebalance
 {
     [BepInPlugin(GUID, "", version)]
@@ -32,7 +35,7 @@ namespace Character_rebalance
 
         void Awake()
         {
-            CustomLoc.InitLocalizationCSV();
+            CustomLoc.InitLocalizationCSV("Character_rebalance.Resources.localization.csv");
             logger = Logger;
             harmony.PatchAll();
         }
@@ -41,6 +44,142 @@ namespace Character_rebalance
             if (harmony != null)
                 harmony.UnpatchAll(GUID);
         }
+
+
+        [HarmonyPatch(typeof(GDEDataManager), nameof(GDEDataManager.BuildDataKeysBySchemaList))]
+        class RegisterCustomKeysPatch
+        {
+            static void Postfix()
+            {
+                CustomKeys.RegisterCustomKeys();
+            }
+        }
+
+
+
+        [HarmonyPatch(typeof(GDEDataManager), nameof(GDEDataManager.InitFromText))]
+        class AddFullAssemblyQualifyingNamePatch
+        {
+
+            static void AddFullName()
+            {
+                void UpdateTypeName(string typeKey, string _gameAssemblyName, Dictionary<string, object> entity)
+                {
+                    var typeName = (string)entity[typeKey];
+                    if (typeName != "" && !typeName.EndsWith(_gameAssemblyName))
+                    {
+                        entity[typeKey] = string.Concat(typeName, _gameAssemblyName);
+                    }
+                }
+
+                var gameAssemblyName = typeof(FieldSystem).AssemblyQualifiedName.Remove(0, typeof(FieldSystem).FullName.Length);
+
+                foreach (var kv in GDEDataManager.masterData)
+                {
+                    var entity = ((Dictionary<string, object>)GDEDataManager.masterData[kv.Key]);
+                    if (entity.TryGetString("_gdeSchema", out string schema))
+                    {
+                        if (schema == GDESchemaKeys.Skill)
+                        {
+                            var SkillExtenededList = (List<object>)entity["SkillExtended"];
+                            int i = 0;
+                            foreach (string s in SkillExtenededList)
+                            {
+                                if (s != "" && !s.EndsWith(gameAssemblyName))
+                                {
+                                    ((List<object>)entity["SkillExtended"])[i] = string.Concat(s, gameAssemblyName);
+                                }
+                                i++;
+                            }
+                        }
+                        else if (schema == GDESchemaKeys.SkillExtended)
+                        {
+                            UpdateTypeName("ClassName", gameAssemblyName, entity);
+                        }
+                        else if (schema == GDESchemaKeys.Buff)
+                        {
+                            UpdateTypeName("ClassName", gameAssemblyName, entity);
+                        }
+                        else if (schema == GDESchemaKeys.Character)
+                        {
+                            UpdateTypeName("PassiveClassName", gameAssemblyName, entity);
+                        }
+                        else if (schema == GDESchemaKeys.Enemy)
+                        {
+                            UpdateTypeName("AI", gameAssemblyName, entity);
+                        }
+                        else if (schema == GDESchemaKeys.EnemyQueue)
+                        {
+                            UpdateTypeName("BattleExtended", gameAssemblyName, entity);
+                        }
+                        else if (schema == GDESchemaKeys.CurseList)
+                        {
+                            // Curse. hardcoded namespace
+                            // Key as type name
+                        }
+                        else if (schema == GDESchemaKeys.EnchantList)
+                        {
+                            // Enchent. hardcoded namespace
+                            UpdateTypeName("ClassName", gameAssemblyName, entity);
+                        }
+                        else if (schema == GDESchemaKeys.Item_Active)
+                        {
+                            // AItem. hardcoded namespace
+                            UpdateTypeName("FieldUse", gameAssemblyName, entity);
+                        }
+                        else if (schema == GDESchemaKeys.Item_Consume)
+                        {
+                            // UseItem. hardcoded namespace
+                            UpdateTypeName("FieldUse", gameAssemblyName, entity);
+                        }
+                        else if (schema == GDESchemaKeys.Item_Equip)
+                        {
+                            // EItem. hardcoded namespace
+                            UpdateTypeName("Equip_Script", gameAssemblyName, entity);
+                        }
+                        else if (schema == GDESchemaKeys.Item_Passive)
+                        {
+                            // PItem. hardcoded namespace
+                            UpdateTypeName("passive_script", gameAssemblyName, entity);
+                        }
+                        else if (schema == GDESchemaKeys.Item_Potions)
+                        {
+                            // Potions. hardcoded namespace
+                            // Key as type name
+                        }
+                        else if (schema == GDESchemaKeys.Item_Scroll)
+                        {
+                            // Scrolls. hardcoded namespace
+                            // Key as type name
+                        }
+                        else if (schema == GDESchemaKeys.RandomEvent)
+                        {
+                            UpdateTypeName("Script", gameAssemblyName, entity);
+                        }
+                        
+                    }
+
+                }
+            }
+
+            static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
+            {
+                foreach (var ci in instructions)
+                {
+                    if (ci.opcode == OpCodes.Call && ((MethodInfo)ci.operand).Equals(AccessTools.Method(typeof(GDEDataManager), nameof(GDEDataManager.BuildDataKeysBySchemaList))))
+                    {
+                        yield return new CodeInstruction(OpCodes.Call, AccessTools.Method(typeof(AddFullAssemblyQualifyingNamePatch), nameof(AddFullAssemblyQualifyingNamePatch.AddFullName)));
+                        yield return ci;
+                    }
+                    else
+                    {
+                        yield return ci;
+                    }
+                }
+            }
+
+        }
+
 
         [HarmonyPatch(typeof(GDESkillKeywordData), nameof(GDESkillKeywordData.LoadFromSavedData))]
         class CustomKeywordTooltips
@@ -121,7 +260,6 @@ namespace Character_rebalance
 
                     ____PathAllyBuffEffect = "";
                     ____PathEnemyBuffEffect = "";
-
 
                     __instance.Tick = new GDESkillEffectData("null");
                     __instance.BuffTag = new GDEBuffTagData("null");

@@ -1,4 +1,8 @@
-﻿namespace Character_rebalance
+﻿using GameDataEditor;
+using HarmonyLib;
+using System.Collections.Generic;
+
+namespace Character_rebalance
 {
     public class CustomKeys
     {
@@ -35,10 +39,27 @@
         static public readonly string ClassName_Extended_Selena_Bloody_Moon = "Extended_Selena_Bloody_Moon";
         // ok ClassName consts are redundant. Just use nameof(Type) lol
         static public readonly string ClassName_Extended_Selena_PowerOfTheFullMoon = "Extended_Selena_PowerOfTheFullMoon";
-
+        // should be part of universal helper mod
         static public readonly string SkillKeyword_Keyword_Swiftness = CharacterRebalancePlugin.GUID + "_" + "Keyword_Swiftness";
 
         static public readonly string SkillKeyword_Keyword_Critical = CharacterRebalancePlugin.GUID + "_" + "Keyword_Critical";
+
+
+        public static void RegisterCustomKeys()
+        {
+            var dataKeysBySchemaRef = AccessTools.FieldRefAccess<GDEDataManager, Dictionary<string, HashSet<string>>>(AccessTools.Field(typeof(GDEDataManager), "dataKeysBySchema"));
+            if (dataKeysBySchemaRef() == null)
+                return;
+            dataKeysBySchemaRef()[GDESchemaKeys.Skill].Add(Skill_Joey_CP_ExtraPot);
+            dataKeysBySchemaRef()[GDESchemaKeys.SkillExtended].Add(SkillExtended_Joey_CP_ExtraPot_Ex);
+            dataKeysBySchemaRef()[GDESchemaKeys.Skill].Add(Skill_Joey_HealingDrone_HealAllies);
+            dataKeysBySchemaRef()[GDESchemaKeys.SkillEffect].Add(SkillEffect_Joey_HealingDrone_HealAllies_Effect);
+            dataKeysBySchemaRef()[GDESchemaKeys.Buff].Add(Buff_Lucy_TurnEventObserver);
+
+            // should be part of universal helper mod
+            dataKeysBySchemaRef()[GDESchemaKeys.SkillKeyword].Add(SkillKeyword_Keyword_Swiftness);
+            dataKeysBySchemaRef()[GDESchemaKeys.SkillKeyword].Add(SkillKeyword_Keyword_Critical);
+        }
 
 
     }

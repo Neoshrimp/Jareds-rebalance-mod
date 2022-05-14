@@ -21,10 +21,10 @@ namespace Character_rebalance
 		}
 
 
-		public static void InitLocalizationCSV()
+		public static void InitLocalizationCSV(string path)
 		{
 			// need to add EmbeddedResource tag to project config to work
-			using (var sr = new StreamReader(Assembly.GetCallingAssembly().GetManifestResourceStream("Character_rebalance.Resources.localization.csv"), Encoding.UTF8))
+			using (var sr = new StreamReader(Assembly.GetCallingAssembly().GetManifestResourceStream(path), Encoding.UTF8))
 			{
 				string csv = sr.ReadToEnd();
 				MainFile.Import_CSV("", csv, eSpreadsheetUpdateMode.Replace, ',');
