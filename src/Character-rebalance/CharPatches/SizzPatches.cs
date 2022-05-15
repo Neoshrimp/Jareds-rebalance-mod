@@ -10,6 +10,7 @@ using System.Reflection;
 using System.Reflection.Emit;
 using UnityEngine;
 using Debug = UnityEngine.Debug;
+using Character_rebalance.Extends;
 
 namespace Character_rebalance.CharPatches
 {
@@ -30,14 +31,15 @@ namespace Character_rebalance.CharPatches
                 // incise
                 else if (__instance.Key == GDEItemKeys.Skill_S_Sizz_1)
                 {
-
+                    __instance.SkillExtended = new List<string>() { typeof(Extended_SizzIncise).AssemblyQualifiedName };
+                    __instance.Description = CustomLoc.MainFile.GetTranslation(CustomLoc.TermKey(GDESchemaKeys.Skill, GDEItemKeys.Skill_S_Sizz_1, CustomLoc.TermType.Description));
                 }
                 // eve help
                 else if (__instance.Key == GDEItemKeys.Skill_S_Sizz_0)
                 {
                     __instance.NotCount = true;
 
-                    __instance.SkillExtended = new List<string>() {typeof(Extended_Sizz_EveHelp).AssemblyQualifiedName};
+                    __instance.SkillExtended = new List<string>() { typeof(Extended_Sizz_EveHelp).AssemblyQualifiedName };
 
                     __instance.Description = CustomLoc.MainFile.GetTranslation(CustomLoc.TermKey(GDESchemaKeys.Skill, GDEItemKeys.Skill_S_Sizz_0, CustomLoc.TermType.Description));
 

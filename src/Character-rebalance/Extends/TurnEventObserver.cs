@@ -28,8 +28,6 @@ public class DamageTakeEvent
     public BattleChar Target;
 }
 
-//2do investigate: [Error  : Unity Log] ArgumentException: name Parameter name: Name cannot be empty
-
 
 // alternatively Battle.instance.BattleLogs can be used but they don't contain as much information (i.e. if damage was pain or not)
 class TurnEventObserver : LucyBuff, IP_DamageTake, IP_BattleEnd

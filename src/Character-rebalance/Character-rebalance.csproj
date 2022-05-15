@@ -84,6 +84,7 @@
     <Compile Include="CharPatches\TrishaPatches.cs" />
     <Compile Include="CharPatches\IronheartPatches.cs" />
     <Compile Include="Extends\ExtendedExtra_Ironheart_InnocentArmor.cs" />
+    <Compile Include="Extends\Extended_SizzIncise.cs" />
     <Compile Include="Extends\Extended_Sizz_EveHelp.cs" />
     <Compile Include="Extends\Extended_Trisha_ShadowSlash.cs" />
     <Compile Include="Extends\Extended_Ironheart_ShieldOfRetribution.cs" />

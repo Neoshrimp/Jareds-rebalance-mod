@@ -86,5 +86,26 @@ namespace Character_rebalance
 
         }
 
+        [HarmonyPatch(typeof(P_Sizz_0), nameof(P_Sizz_0.EveAttackFree))]
+        class InciseBuffDmgPatch
+        {
+            static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
+            {
+                foreach (var ci in instructions)
+                {
+                    if (ci.opcode == OpCodes.Ldc_I4_S && (SByte)ci.operand == 40)
+                    {
+                        yield return new CodeInstruction(OpCodes.Ldc_I4_S, 25);
+                    }
+                    else
+                    {
+                        yield return ci;
+                    }
+                }
+            }
+
+        }
+
+
     }
 }

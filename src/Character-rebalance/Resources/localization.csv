@@ -49,3 +49,4 @@ Skill/S_Trisha_5_Description,Text,,"그림자 분신 상태일 경우, 무작위
 Skill/S_Trisha_0_ExtraDesc,Text,,," Or recast this skill if facing a single enemy but only once (times remaining: &a).
 Gains <b>Critical</b> if facing a single enemy.",,,
 Skill/S_Sizz_0_Description,Text,,,"Transfer ally Combined Arms buffs to the target. Add 'Eve, Help!' skill to your hand. No more than 3 copies can be created this way (&c left)",,,
+Skill/S_Sizz_1_Description,Text,,,"If the user of this skill has Eve on them when this skill is cast, Eve attacks immediately <b>without</b> consuming a stack.",,,

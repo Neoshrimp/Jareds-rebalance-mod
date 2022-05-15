@@ -14,7 +14,6 @@ using System.Runtime.CompilerServices;
 using UnityEngine;
 using Debug = UnityEngine.Debug;
 
-// 2do use fully qualifying type names
 // 2do neutralize extends rather than replace them
 
 namespace Character_rebalance
