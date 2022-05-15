@@ -51,8 +51,8 @@ namespace Character_rebalance
                 {
                     __instance.Target = new GDEs_targettypeData(GDEItemKeys.s_targettype_enemy);
                     __instance.IgnoreTaunt = true;
-
-                    __instance.SkillExtended = new List<string>() { CustomKeys.ClassName_Joey_HealingDrone_Ex };
+                    
+                    __instance.SkillExtended = new List<string>() { typeof(Extended_Joey_HealingDrone_Ex).AssemblyQualifiedName };
                     __instance.Description = CustomLoc.MainFile.GetTranslation(CustomLoc.TermKey(
                         GDESchemaKeys.Skill, GDEItemKeys.Skill_S_Joey_11, CustomLoc.TermType.Description));
 
@@ -67,8 +67,7 @@ namespace Character_rebalance
                     dict.TryGetString("Description", out string ogDesc, GDEItemKeys.Skill_S_Joey_12);
                     __instance.Description = CustomLoc.MainFile.GetTranslation(CustomLoc.TermKey(GDESchemaKeys.Skill, GDEItemKeys.Skill_S_Joey_12, CustomLoc.TermType.ExtraDesc))
                         + ogDesc;
-
-                    __instance.SkillExtended = new List<string>() { CustomKeys.ClassName_Joey_HealthPatch_Ex };
+                    __instance.SkillExtended = new List<string>() { typeof(Extended_Joey_HealthPatch).AssemblyQualifiedName };
 
                     dict.TryGetCustomList("PlusKeyWordsKey", out List<GDESkillKeywordData> ogPlusKeyWords);
                     ogPlusKeyWords.Add(new GDESkillKeywordData(CustomKeys.SkillKeyword_Keyword_Swiftness));
@@ -349,8 +348,7 @@ namespace Character_rebalance
                     __instance.Des = CustomLoc.MainFile.GetTranslation(CustomLoc.TermKey(
                         GDESchemaKeys.SkillExtended, CustomLoc.StripGuid(CustomKeys.SkillExtended_Joey_CP_ExtraPot_Ex), CustomLoc.TermType.Description));
 
-                    __instance.ClassName = CustomKeys.ClassName_Joey_CP_ExtraPot_Ex;
-
+                    __instance.ClassName = typeof(Extended_Joey_CP_ExtraPot).AssemblyQualifiedName;
                 }
             }
         }

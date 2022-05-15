@@ -28,7 +28,7 @@ namespace Character_rebalance
                     __instance.Description = CustomLoc.MainFile.GetTranslation(CustomLoc.TermKey(GDESchemaKeys.Skill, GDEItemKeys.Skill_S_ShadowPriest_7, CustomLoc.TermType.Description));
 
                     dict.TryGetStringList("SkillExtended", out List<string> ogSkillExtended, GDEItemKeys.Skill_S_ShadowPriest_7);
-                    ogSkillExtended.Add(nameof(Extended_Charon_SoulStigma));
+                    ogSkillExtended.Add(typeof(Extended_Charon_SoulStigma).AssemblyQualifiedName);
                     __instance.SkillExtended = ogSkillExtended;
 
                     dict.TryGetCustomList("PlusKeyWordsKey", out List<GDESkillKeywordData> ogPlusKeyWords);
@@ -52,7 +52,7 @@ namespace Character_rebalance
                     __instance.Basic = true;
                     __instance.Description = CustomLoc.MainFile.GetTranslation(CustomLoc.TermKey(GDESchemaKeys.Skill, GDEItemKeys.Skill_S_ShadowPriest_8, CustomLoc.TermType.Description));
 
-                    __instance.SkillExtended = new List<string>() { nameof(Extended_Charon_AbsorbSoul) };
+                    __instance.SkillExtended = new List<string>() { typeof(Extended_Charon_AbsorbSoul).AssemblyQualifiedName };
                 }
                 // shadow pillars
                 else if (__instance.Key == GDEItemKeys.Skill_S_ShadowPriest_2)

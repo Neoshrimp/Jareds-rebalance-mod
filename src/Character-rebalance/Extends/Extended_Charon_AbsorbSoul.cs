@@ -14,7 +14,7 @@ public class Extended_Charon_AbsorbSoul : Skill_Extended
         if (BattleSystem.instance != null && BChar != null && BChar is BattleAlly battleAlly)
         {
             if (battleAlly.MyBasicSkill?.buttonData?.MySkill.KeyID == MySkill.MySkill.KeyID
-                && battleAlly.MyBasicSkill.buttonData.ExtendedFind(nameof(Extended_AbsorbSoul_APchange)) == null)
+                && battleAlly.MyBasicSkill.buttonData.ExtendedFind(typeof(Extended_AbsorbSoul_APchange).AssemblyQualifiedName) == null)
             {
                 battleAlly.MyBasicSkill.buttonData.ExtendedAdd(new Extended_AbsorbSoul_APchange(-1));
             }

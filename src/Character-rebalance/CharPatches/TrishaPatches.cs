@@ -50,7 +50,7 @@ namespace Character_rebalance.CharPatches
                 // shadow slash
                 else if (__instance.Key == GDEItemKeys.Skill_S_Trisha_0)
                 {
-                    __instance.SkillExtended = new List<string>() { nameof(Extended_Trisha_ShadowSlash) };
+                    __instance.SkillExtended = new List<string>() { typeof(Extended_Trisha_ShadowSlash).AssemblyQualifiedName };
 
                     dict.TryGetString("Description", out string ogDesc, GDEItemKeys.Skill_S_Trisha_0);
                     __instance.Description = ogDesc + CustomLoc.MainFile.GetTranslation(CustomLoc.TermKey(GDESchemaKeys.Skill, GDEItemKeys.Skill_S_Trisha_0, CustomLoc.TermType.ExtraDesc));

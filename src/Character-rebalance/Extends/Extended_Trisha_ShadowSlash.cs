@@ -20,7 +20,7 @@ public class Extended_Trisha_ShadowSlash : Skill_Extended
 			Skill skill = Skill.TempSkill(GDEItemKeys.Skill_S_Trisha_0, this.BChar, this.BChar.MyTeam);
 			skill.isExcept = true;
 			skill.AutoDelete = 1;
-			var thisExtended = (Extended_Trisha_ShadowSlash)skill.ExtendedFind(nameof(Extended_Trisha_ShadowSlash));
+			var thisExtended = (Extended_Trisha_ShadowSlash)skill.ExtendedFind(typeof(Extended_Trisha_ShadowSlash).AssemblyQualifiedName);
 			if (thisExtended != null)
 				thisExtended.extraCopiesVsSingleTarget = extraCopiesVsSingleTarget + 1; 
 			this.BChar.MyTeam.Add(skill, true);

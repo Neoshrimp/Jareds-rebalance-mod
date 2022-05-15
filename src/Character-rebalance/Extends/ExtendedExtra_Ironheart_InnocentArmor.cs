@@ -13,7 +13,7 @@ public class ExtendedExtra_Ironheart_InnocentArmor : Skill_Extended
         if (BattleSystem.instance != null && BChar != null && BChar is BattleAlly battleAlly)
         {
             if (battleAlly.MyBasicSkill?.buttonData?.MySkill.KeyID == MySkill.MySkill.KeyID
-                && battleAlly.MyBasicSkill.buttonData.ExtendedFind(nameof(Extended_InnocentArmor_APchange)) == null)
+                && battleAlly.MyBasicSkill.buttonData.ExtendedFind(typeof(Extended_InnocentArmor_APchange).AssemblyQualifiedName) == null)
             {
 
                 battleAlly.MyBasicSkill.buttonData.ExtendedAdd(new Extended_InnocentArmor_APchange(-1));

@@ -15,7 +15,7 @@ public class Extended_Selena_PowerOfTheFullMoon : Skill_Extended
         if (BattleSystem.instance != null && BChar != null && BChar is BattleAlly battleAlly)
         {
             if (battleAlly.MyBasicSkill?.buttonData?.MySkill.KeyID == MySkill.MySkill.KeyID
-                && battleAlly.MyBasicSkill.buttonData.ExtendedFind(nameof(Extended_PowerOfTheFullMoon_APchange)) == null)
+                && battleAlly.MyBasicSkill.buttonData.ExtendedFind(typeof(Extended_PowerOfTheFullMoon_APchange).AssemblyQualifiedName) == null)
             {
 
                 battleAlly.MyBasicSkill.buttonData.ExtendedAdd(new Extended_PowerOfTheFullMoon_APchange(-1));

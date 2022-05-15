@@ -89,7 +89,7 @@
     <Compile Include="Extends\Extended_Ironheart_ShieldOfRetribution.cs" />
     <Compile Include="Extends\Extended_AbsorbSoul_APchange.cs" />
     <Compile Include="Extends\Extended_Charon_AbsorbSoul.cs" />
-    <Compile Include="Extends\Extended_ConditionOnTargeting.cs" />
+    <Compile Include="ConditionOnTargetingUtils.cs" />
     <Compile Include="Extends\Extended_Charon_SoulStigma.cs" />
     <Compile Include="Extends\Extended_Selena_TearsOfTheMoon.cs" />
     <Compile Include="Extends\Extended_InnocentArmor_APchange.cs" />

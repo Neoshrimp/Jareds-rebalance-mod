@@ -62,7 +62,7 @@ namespace Character_rebalance
                 else if (__instance.Key == GDEItemKeys.Skill_S_Lian_6)
                 {
                     __instance.UseAp = 2;
-                    __instance.SkillExtended = new List<string>() { CustomKeys.ClassName_Lian_RelentlessSwipe_Ex };
+                    __instance.SkillExtended = new List<string>() { typeof(Extended_Lian_RelentlessSwipe).AssemblyQualifiedName };
                     __instance.Description = CustomLoc.MainFile.GetTranslation(
                         CustomLoc.TermKey(GDESchemaKeys.Skill, GDEItemKeys.Skill_S_Lian_6, CustomLoc.TermType.Description));
                 }

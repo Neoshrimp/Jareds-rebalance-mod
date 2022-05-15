@@ -53,7 +53,7 @@ namespace Character_rebalance
                 // solarbolt
                 else if (__instance.Key == GDEItemKeys.Skill_S_TW_Red_1)
                 {
-                    __instance.SkillExtended = new List<string> { CustomKeys.ClassName_Extended_Helia_Solarbolt };
+                    __instance.SkillExtended = new List<string> { typeof(Extended_Helia_Solarbolt).AssemblyQualifiedName };
 
                     dict.TryGetString("Description", out string ogDesc, GDEItemKeys.Skill_S_TW_Red_1);
                     __instance.Description = ogDesc + CustomLoc.MainFile.GetTranslation(CustomLoc.TermKey(GDESchemaKeys.Skill, GDEItemKeys.Skill_S_TW_Red_1, CustomLoc.TermType.ExtraDesc));
@@ -61,7 +61,7 @@ namespace Character_rebalance
                 // tears of the sun
                 else if (__instance.Key == GDEItemKeys.Skill_S_TW_Red_R0)
                 {
-                    __instance.SkillExtended = new List<string> { CustomKeys.ClassName_Extended_Helia_Tears_of_the_Sun };
+                    __instance.SkillExtended = new List<string> { typeof(Extended_Helia_Tears_of_the_Sun).AssemblyQualifiedName };
 
                     dict.TryGetString("Description", out string ogDesc, GDEItemKeys.Skill_S_TW_Red_R0);
                     __instance.Description = CustomLoc.MainFile.GetTranslation(CustomLoc.TermKey(GDESchemaKeys.Skill, GDEItemKeys.Skill_S_TW_Red_R0, CustomLoc.TermType.ExtraDesc)) + ogDesc;
@@ -78,7 +78,7 @@ namespace Character_rebalance
                     __instance.Disposable = true;
 
                     dict.TryGetStringList("SkillExtended", out List<string> ogSkEx, GDEItemKeys.Skill_S_TW_Red_R0_0);
-                    ogSkEx.Add(CustomKeys.ClassName_Extended_Twins_Selenelion);
+                    ogSkEx.Add(typeof(Extended_Twins_Selenelion).AssemblyQualifiedName);
                     __instance.SkillExtended = ogSkEx;
 
                     dict.TryGetString("Description", out string ogDesc, GDEItemKeys.Skill_S_TW_Red_R0_0);
@@ -88,7 +88,7 @@ namespace Character_rebalance
                 else if (__instance.Key == GDEItemKeys.Skill_S_TW_Red_0)
                 {
                     __instance.NoBasicSkill = false;
-                    __instance.SkillExtended = new List<string>() { CustomKeys.ClassName_Extended_Helia_Flame_Arrow };
+                    __instance.SkillExtended = new List<string>() { typeof(Extended_Helia_Flame_Arrow).AssemblyQualifiedName };
                     __instance.Description = CustomLoc.MainFile.GetTranslation(CustomLoc.TermKey(GDESchemaKeys.Skill, GDEItemKeys.Skill_S_TW_Red_0, CustomLoc.TermType.Description));
                 }
             }

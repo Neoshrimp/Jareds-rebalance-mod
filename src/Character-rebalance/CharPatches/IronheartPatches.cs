@@ -57,7 +57,7 @@ namespace Character_rebalance.CharPatches
                 // shield of retribution
                 else if (__instance.Key == GDEItemKeys.Skill_S_Prime_11)
                 {
-                    __instance.SkillExtended = new List<string>() { nameof(Extended_Ironheart_ShieldOfRetribution) };
+                    __instance.SkillExtended = new List<string>() { typeof(Extended_Ironheart_ShieldOfRetribution).AssemblyQualifiedName };
                     __instance.Description = CustomLoc.MainFile.GetTranslation(CustomLoc.TermKey(GDESchemaKeys.Skill, GDEItemKeys.Skill_S_Prime_11, CustomLoc.TermType.Description));
 
                     dict.TryGetCustomList("PlusKeyWordsKey", out List<GDESkillKeywordData> ogPlusKeyWords);
@@ -68,7 +68,7 @@ namespace Character_rebalance.CharPatches
                 else if (__instance.Key == GDEItemKeys.Skill_S_Prime_3)
                 {
                     dict.TryGetStringList("SkillExtended", out List<string> ogSkEx, GDEItemKeys.Skill_S_Prime_3);
-                    ogSkEx.Add(nameof(ExtendedExtra_Ironheart_InnocentArmor));
+                    ogSkEx.Add(typeof(ExtendedExtra_Ironheart_InnocentArmor).AssemblyQualifiedName);
                     __instance.SkillExtended = ogSkEx;
 
                     dict.TryGetString("Description", out string ogDesc, GDEItemKeys.Skill_S_Prime_3);

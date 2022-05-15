@@ -20,11 +20,10 @@ public class Extended_Helia_Solarbolt: S_TW_Red_1
     {
         base.FixedUpdate();
 
-
         if (BattleSystem.instance != null && BChar != null && BChar is BattleAlly battleAlly)
         {
             if (battleAlly.MyBasicSkill?.buttonData?.MySkill.KeyID == MySkill.MySkill.KeyID
-                && battleAlly.MyBasicSkill.buttonData.ExtendedFind(CustomKeys.ClassName_Extended_Solarbolt_APchange) == null)
+                && battleAlly.MyBasicSkill.buttonData.ExtendedFind(typeof(Extended_Solarbolt_APchange).AssemblyQualifiedName) == null)
             {
 
                 battleAlly.MyBasicSkill.buttonData.ExtendedAdd(new Extended_Solarbolt_APchange(-2));
@@ -47,7 +46,7 @@ public class Extended_Helia_Solarbolt: S_TW_Red_1
             {
 
                 if (ownerCW?.BasicSkillView?.buttonData?.MySkill?.KeyID == MySkill.MySkill.KeyID 
-                    && ownerCW.BasicSkillView.buttonData.ExtendedFind(CustomKeys.ClassName_Extended_Solarbolt_APchange) == null)
+                    && ownerCW.BasicSkillView.buttonData.ExtendedFind(typeof(Extended_Solarbolt_APchange).AssemblyQualifiedName) == null)
                 {
                     ownerCW.BasicSkillView.buttonData.ExtendedAdd(new Extended_Solarbolt_APchange(-2));
                 }

@@ -19,7 +19,7 @@ using Debug = UnityEngine.Debug;
 
 namespace Character_rebalance
 {
-    [BepInPlugin(GUID, "", version)]
+    [BepInPlugin(GUID, "Jared's ", version)]
     [BepInProcess("ChronoArk.exe")]
     public class CharacterRebalancePlugin : BaseUnityPlugin
     {
@@ -246,7 +246,7 @@ namespace Character_rebalance
             {
                 if (__instance.Key == CustomKeys.Buff_Lucy_TurnEventObserver)
                 {
-                    __instance.ClassName = CustomKeys.ClassName_TurnEventObserver_Buff;
+                    __instance.ClassName = typeof(TurnEventObserver).AssemblyQualifiedName;
                     __instance.Cantdisable = true;
                     __instance.Hide = true;
 

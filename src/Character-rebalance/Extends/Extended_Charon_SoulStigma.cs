@@ -5,7 +5,7 @@ using System.Text;
 using UnityEngine;
 using GameDataEditor;
 
-public class Extended_Charon_SoulStigma : Extended_ConditionOnTargeting
+public class Extended_Charon_SoulStigma : Skill_Extended
 {
     public override void Special_PointerEnter(BattleChar Char)
     {
@@ -15,13 +15,13 @@ public class Extended_Charon_SoulStigma : Extended_ConditionOnTargeting
         {
             NotCount = true;
             SkillParticleOn();
-            SwiftnessUpdateManaCrytalUI();
+            ConditionOnTargetingUtils.SwiftnessUpdateManaCrytalUI(MySkill.AP, MySkill.Master.Overload);
         }
         else
         {
             NotCount = false;
             SkillParticleOff();
-            ResetManaCrystalUI();
+            ConditionOnTargetingUtils.ResetManaCrystalUI(MySkill.AP);
         }
     }
 

@@ -34,7 +34,7 @@ namespace Character_rebalance
                     __instance.Description = ogDesc + CustomLoc.MainFile.GetTranslation(CustomLoc.TermKey(GDESchemaKeys.Skill, GDEItemKeys.Skill_S_TW_Blue_6, CustomLoc.TermType.ExtraDesc));
 
                     dict.TryGetStringList("SkillExtended", out List<string> ogSkillExtended, GDEItemKeys.Skill_S_TW_Blue_6);
-                    ogSkillExtended.Add(CustomKeys.ClassName_Extended_Selena_Bloody_Moon);
+                    ogSkillExtended.Add( typeof(Extended_Selena_Bloody_Moon).AssemblyQualifiedName );
                     __instance.SkillExtended = ogSkillExtended;
 
                     dict.TryGetCustomList("PlusKeyWordsKey", out List<GDESkillKeywordData> ogPlusKeyWords);
@@ -53,7 +53,7 @@ namespace Character_rebalance
                     __instance.Description = ogDesc + CustomLoc.MainFile.GetTranslation(CustomLoc.TermKey(GDESchemaKeys.Skill, GDEItemKeys.Skill_S_TW_Blue_0, CustomLoc.TermType.ExtraDesc));
 
                     dict.TryGetStringList("SkillExtended", out List<string> ogSkillExtended, GDEItemKeys.Skill_S_TW_Blue_0);
-                    ogSkillExtended.Add(CustomKeys.ClassName_Extended_Selena_PowerOfTheFullMoon);
+                    ogSkillExtended.Add( typeof(Extended_Selena_PowerOfTheFullMoon).AssemblyQualifiedName );
                     __instance.SkillExtended = ogSkillExtended;
                 }
                 // tears of the moon
@@ -65,7 +65,7 @@ namespace Character_rebalance
 
 
                     dict.TryGetStringList("SkillExtended", out List<string> ogSkillExtended, GDEItemKeys.Skill_S_TW_Blue_R0);
-                    ogSkillExtended.Add(nameof(Extended_Selena_TearsOfTheMoon));
+                    ogSkillExtended.Add(typeof(Extended_Selena_TearsOfTheMoon).AssemblyQualifiedName);
                     __instance.SkillExtended = ogSkillExtended;
 
                     dict.TryGetCustomList("PlusKeyWordsKey", out List<GDESkillKeywordData> ogPlusKeyWords);
