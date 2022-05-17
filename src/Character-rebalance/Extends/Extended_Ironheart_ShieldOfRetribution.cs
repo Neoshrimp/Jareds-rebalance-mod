@@ -35,6 +35,7 @@ public class Extended_Ironheart_ShieldOfRetribution : Skill_Extended, IP_SkillUs
         }
     }
 
+    // 2do. check fixed
     public override void SkillUseHand(BattleChar Target)
     {
         base.SkillUseHand(Target);

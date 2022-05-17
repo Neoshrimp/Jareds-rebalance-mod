@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace Character_rebalance.Extends
 {
-    public class Extended_SizzIncise : Skill_Extended
+    public class Extended_Sizz_Incise : Skill_Extended
     {
 
         public override void SkillUseSingle(Skill SkillD, List<BattleChar> Targets)

@@ -31,7 +31,7 @@ namespace Character_rebalance.CharPatches
                 // incise
                 else if (__instance.Key == GDEItemKeys.Skill_S_Sizz_1)
                 {
-                    __instance.SkillExtended = new List<string>() { typeof(Extended_SizzIncise).AssemblyQualifiedName };
+                    __instance.SkillExtended = new List<string>() { typeof(Extended_Sizz_Incise).AssemblyQualifiedName };
                     __instance.Description = CustomLoc.MainFile.GetTranslation(CustomLoc.TermKey(GDESchemaKeys.Skill, GDEItemKeys.Skill_S_Sizz_1, CustomLoc.TermType.Description));
                 }
                 // eve help
@@ -40,13 +40,27 @@ namespace Character_rebalance.CharPatches
                     __instance.NotCount = true;
 
                     __instance.SkillExtended = new List<string>() { typeof(Extended_Sizz_EveHelp).AssemblyQualifiedName };
-
                     __instance.Description = CustomLoc.MainFile.GetTranslation(CustomLoc.TermKey(GDESchemaKeys.Skill, GDEItemKeys.Skill_S_Sizz_0, CustomLoc.TermType.Description));
 
 
                 }
-
-
+                // time to move
+                else if (__instance.Key == GDEItemKeys.Skill_S_Sizz_6)
+                {
+                    dict.TryGetStringList("SkillExtended", out List<string> ogSkillExtended, GDEItemKeys.Skill_S_Sizz_6);
+                    ogSkillExtended.Add(typeof(Extended_Sizz_TimeToMove).AssemblyQualifiedName);
+                    __instance.SkillExtended = ogSkillExtended;
+                }
+                // sacrifice
+                else if (__instance.Key == GDEItemKeys.Skill_S_Sizz_4)
+                {
+                    __instance.Track = true;
+                }
+                // marionette
+                else if (__instance.Key == GDEItemKeys.Skill_S_Sizz_10)
+                {
+                    __instance.UseAp = 0;
+                }
 
             }
         }
@@ -64,10 +78,47 @@ namespace Character_rebalance.CharPatches
                 {
                     __instance.HEAL_Per = 45;
                 }
+                // patch up
+                else if (__instance.Key == GDEItemKeys.SkillEffect_SE_Sizz_3_TBT)
+                {
+                    __instance.HEAL_Per = 30;
+                }
+                // time to move
+                else if (__instance.Key == GDEItemKeys.SkillEffect_SE_Sizz_6_T)
+                {
+                    __instance.HEAL_Per = 65;
+                }
+                else if (__instance.Key == GDEItemKeys.SkillEffect_SE_Sizz_6_1_T)
+                {
+                    __instance.HEAL_Per = 35;
+                }
+                // sacrifice
+                else if (__instance.Key == GDEItemKeys.SkillEffect_SE_Sizz_4_T)
+                {
+                    __instance.DMG_Per = 135;
+                }
+
+
 
             }
         }
 
+        [HarmonyPatch(typeof(GDEBuffData), nameof(GDEBuffData.LoadFromDict))]
+        class GdeBuffPatch
+        {
+            // patch up
+            static void Postfix(GDEBuffData __instance)
+            {
+                if (__instance.Key == GDEItemKeys.Buff_B_Sizz_3_T)
+                {
+
+                    __instance.ClassName = typeof(Extended_Sizz_PatchUpBuff).AssemblyQualifiedName;
+                    __instance.MaxStack = 1;
+                }
+            }
+        }
+
+        
 
 
     }
