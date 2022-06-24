@@ -171,17 +171,5 @@ namespace Azar_Patch
             }
         }
 
-        //[HarmonyPatch(typeof(Extended_Azar_7))]
-        //class Exclude_Patch
-        //{
-        //    [HarmonyPatch(nameof(Extended_Azar_7.SkillUseSingleAfter))]
-        //    [HarmonyPostfix]
-        //    static void Postfix(Skill SkillD, List<BattleChar> Targets, Extended_Azar_7 __instance)
-        //    {
-        //        __instance.MySkill.Disposable = true;
-        //    }
-        //}
-
-
     }
 }
