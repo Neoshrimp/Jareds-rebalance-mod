@@ -86,6 +86,7 @@ namespace Character_rebalance
 
         }
 
+        // 2do double patching
         [HarmonyPatch(typeof(P_Sizz_0), nameof(P_Sizz_0.EveAttackFree))]
         class InciseBuffDmgPatch
         {
@@ -93,7 +94,7 @@ namespace Character_rebalance
             {
                 foreach (var ci in instructions)
                 {
-                    if (ci.opcode == OpCodes.Ldc_I4_S && (SByte)ci.operand == 40)
+                    if (ci.Is(OpCodes.Ldc_I4_S, 40))
                     {
                         yield return new CodeInstruction(OpCodes.Ldc_I4_S, 25);
                     }

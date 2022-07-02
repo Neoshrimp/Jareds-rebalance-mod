@@ -205,6 +205,7 @@ namespace Character_rebalance
             }
         }
 
+        // 2do double patching
         [HarmonyPatch(typeof(B_Joey_T_8), nameof(B_Joey_T_8.Init))]
         class WeakeningSmogDebuffPatch
         {
@@ -212,7 +213,7 @@ namespace Character_rebalance
             {
                 foreach (var ci in instructions)
                 {
-                    if (ci.opcode == OpCodes.Ldc_I4_S && (sbyte)ci.operand == -4)
+                    if (ci.Is(OpCodes.Ldc_I4_S, -4))
                     {
                         yield return new CodeInstruction(OpCodes.Ldc_I4_S, -10);
                     }

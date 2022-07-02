@@ -77,6 +77,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CharPatches\AzarPatches.cs" />
     <Compile Include="CharacterRebalancePlugin.cs" />
     <Compile Include="BugFixPatches.cs" />
     <Compile Include="CharPatches\CharonPatches.cs" />
@@ -87,7 +88,6 @@
     <Compile Include="Extends\Extended_Sizz_Incise.cs" />
     <Compile Include="Extends\Extended_Sizz_EveHelp.cs" />
     <Compile Include="Extends\Extended_Sizz_PatchUpBuff.cs" />
-    <Compile Include="Extends\Extended_Sizz_TimeToMove.cs" />
     <Compile Include="Extends\Extended_Trisha_ShadowSlash.cs" />
     <Compile Include="Extends\Extended_Ironheart_ShieldOfRetribution.cs" />
     <Compile Include="Extends\Extended_AbsorbSoul_APchange.cs" />

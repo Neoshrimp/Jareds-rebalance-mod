@@ -37,19 +37,19 @@ namespace Character_rebalance.CharPatches
                 // eve help
                 else if (__instance.Key == GDEItemKeys.Skill_S_Sizz_0)
                 {
-                    __instance.NotCount = true;
-
                     __instance.SkillExtended = new List<string>() { typeof(Extended_Sizz_EveHelp).AssemblyQualifiedName };
                     __instance.Description = CustomLoc.MainFile.GetTranslation(CustomLoc.TermKey(GDESchemaKeys.Skill, GDEItemKeys.Skill_S_Sizz_0, CustomLoc.TermType.Description));
+                    
+                    dict.TryGetCustomList("PlusKeyWordsKey", out List<GDESkillKeywordData> ogPlusKeyWords);
+                    ogPlusKeyWords.Add(new GDESkillKeywordData(CustomKeys.SkillKeyword_Keyword_Swiftness));
+                    __instance.PlusKeyWords = ogPlusKeyWords;
 
 
                 }
                 // time to move
                 else if (__instance.Key == GDEItemKeys.Skill_S_Sizz_6)
                 {
-                    dict.TryGetStringList("SkillExtended", out List<string> ogSkillExtended, GDEItemKeys.Skill_S_Sizz_6);
-                    ogSkillExtended.Add(typeof(Extended_Sizz_TimeToMove).AssemblyQualifiedName);
-                    __instance.SkillExtended = ogSkillExtended;
+                    __instance.NotCount = true;
                 }
                 // sacrifice
                 else if (__instance.Key == GDEItemKeys.Skill_S_Sizz_4)

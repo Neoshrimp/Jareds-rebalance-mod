@@ -6,7 +6,6 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 
-//2do. maybe remove particle effect when skill is counting
 public class Extended_Ironheart_ShieldOfRetribution : Skill_Extended, IP_SkillUse_Team
 {
 
@@ -23,7 +22,7 @@ public class Extended_Ironheart_ShieldOfRetribution : Skill_Extended, IP_SkillUs
     public override void FixedUpdate()
     {
         base.FixedUpdate();
-        if (BChar.MyTeam.partybarrier.BarrierHP > 0)
+        if (BChar.MyTeam.partybarrier.BarrierHP > 0 && !MySkill.IsNowCounting)
         {
             NotCount = true;
             SkillParticleOn();
@@ -35,12 +34,6 @@ public class Extended_Ironheart_ShieldOfRetribution : Skill_Extended, IP_SkillUs
         }
     }
 
-    // 2do. check fixed
-    public override void SkillUseHand(BattleChar Target)
-    {
-        base.SkillUseHand(Target);
-        this.target = Target;
-    }
 
     public override void Init()
     {
@@ -49,8 +42,7 @@ public class Extended_Ironheart_ShieldOfRetribution : Skill_Extended, IP_SkillUs
         this.SkillParticleObject = new GDESkillExtendedData(GDEItemKeys.SkillExtended_Public_10_Ex).Particle;
 
     }
-
-    public IEnumerator Attack()
+    public IEnumerator Attack(BattleChar target)
     {
         yield return new WaitForSecondsRealtime(0.2f);
         Skill Temp = Skill.TempSkill(GDEItemKeys.Skill_S_Prime_11, this.BChar, this.BChar.MyTeam);
@@ -72,11 +64,11 @@ public class Extended_Ironheart_ShieldOfRetribution : Skill_Extended, IP_SkillUs
         if (this.hitsLeft >= 1 && this.MySkill.IsNowCounting && skill.IsHeal && BattleSystem.instance.EnemyList.Count != 0)
         {
             this.hitsLeft--;
-            BattleSystem.DelayInput(this.Attack());
+            BattleSystem.DelayInput(this.Attack(MySkill.MyButton.castskill.Target));
         }
     }
 
-    BattleChar target;
+
 
     int hitsLeft = 4;
 }

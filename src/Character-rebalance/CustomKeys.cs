@@ -44,7 +44,7 @@ namespace Character_rebalance
 
         static public readonly string SkillKeyword_Keyword_Critical = CharacterRebalancePlugin.GUID + "_" + "Keyword_Critical";
 
-
+        //2do full gdedata subscription
         public static void RegisterCustomKeys()
         {
             var dataKeysBySchemaRef = AccessTools.FieldRefAccess<GDEDataManager, Dictionary<string, HashSet<string>>>(AccessTools.Field(typeof(GDEDataManager), "dataKeysBySchema"));
