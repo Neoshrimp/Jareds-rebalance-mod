@@ -86,7 +86,6 @@ namespace Character_rebalance
 
         }
 
-        // 2do double patching
         [HarmonyPatch(typeof(P_Sizz_0), nameof(P_Sizz_0.EveAttackFree))]
         class InciseBuffDmgPatch
         {

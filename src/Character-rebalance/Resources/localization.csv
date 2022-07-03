@@ -54,4 +54,11 @@ Transfer ally's Combined Arms buffs to the target. Add 'Eve, Help!' skill with S
 Skill/S_Sizz_1_Description,Text,,,"If the user of this skill has Eve on them when this skill is cast, Eve attacks immediately <b>without</b> consuming a stack.",,,
 SkillExtended/S_Azar_7_Description,Text,,,"&a uses left",,,
 SkillExtended/S_Azar_7_Name,Text,,,"Uses left",,,
-
+Skill/S_SilverStein_6_ExtraDesc,Text,,,"If the target has Mark of Silverstein this skill gains <b>Swiftness</b>.
+",,,
+Skill/S_SilverStein_4_Description,Text,,,"When this skill is in hand, its damage is increased by &a after ending your turn. 
+If any enemy a has Mark of Silverstein increase damage by &b instead.
+The rate of increase becomes slower as this skill accumulates more damage.
+After casting this skill, bonus damage is reset. 
+The accumulated damage persists until the <b>end of the stage</b>. 
+The bonus damage is shared between different copies of Overcharged Shot. ",,,

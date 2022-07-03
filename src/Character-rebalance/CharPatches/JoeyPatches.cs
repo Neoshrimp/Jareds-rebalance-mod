@@ -205,7 +205,6 @@ namespace Character_rebalance
             }
         }
 
-        // 2do double patching
         [HarmonyPatch(typeof(B_Joey_T_8), nameof(B_Joey_T_8.Init))]
         class WeakeningSmogDebuffPatch
         {

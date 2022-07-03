@@ -13,23 +13,12 @@ using I2.Loc;
 
 namespace Character_rebalance
 {
-    [BepInPlugin(GUID, "Azar Patch", version)]
-    [BepInProcess("ChronoArk.exe")]
-    public class RareSkillsPlugin : BaseUnityPlugin
+    public class AzarPatches
     {
         public const string GUID = "org.windy.chronoark.cardmod.skillbalance";
         public const string version = "1.1.0";
         private static readonly Harmony harmony = new Harmony(GUID);
 
-        void Awake()
-        {
-            harmony.PatchAll();
-        }
-        void OnDestroy()
-        {
-            if (harmony != null)
-                harmony.UnpatchAll(GUID);
-        }
 
         // modify gdata.json
         [HarmonyPatch(typeof(GDEDataManager), nameof(GDEDataManager.InitFromText))]
