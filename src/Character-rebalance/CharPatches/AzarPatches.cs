@@ -26,7 +26,7 @@ namespace Character_rebalance
         {
 
             // dont change method signature or traspiler will break
-            static void GdataModification()
+            static private void GdataModification()
             {
                 // Accuracy +2%
                 ((GDEDataManager.masterData["Azar"] as Dictionary<string, object>)["HIT"] as Dictionary<string, object>)["x"] = 98;

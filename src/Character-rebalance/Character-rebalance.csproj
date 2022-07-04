@@ -81,6 +81,7 @@
     <Compile Include="CharacterRebalancePlugin.cs" />
     <Compile Include="BugFixPatches.cs" />
     <Compile Include="CharPatches\CharonPatches.cs" />
+    <Compile Include="CharPatches\JohanPatches.cs" />
     <Compile Include="CharPatches\MissChainPatches.cs" />
     <Compile Include="CharPatches\SilversteinPatches.cs" />
     <Compile Include="CharPatches\SizzPatches.cs" />
