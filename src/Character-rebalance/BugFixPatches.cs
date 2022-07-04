@@ -106,6 +106,32 @@ namespace Character_rebalance
 
         }
 
+        [HarmonyPatch(typeof(Extended_MissChain_T_4), nameof(Extended_MissChain_T_4.SkillUseSingleAfter))]
+        class PlayingWithFireBugFix
+        {
+            static bool Prefix(Extended_MissChain_T_4 __instance)
+            {
+                if (__instance.Fire)
+                {
+		            BattleSystem.DelayInput(__instance.FireEffect());
+                }
+                return false;
+            }
+        }
+
+        [HarmonyPatch(typeof(S_MissChain_11), nameof(S_MissChain_11.SkillUseSingle))]
+        class ShredBugFix
+        {
+            static bool Prefix(S_MissChain_11 __instance)
+            {
+                if (__instance.BChar.BuffFind(GDEItemKeys.Buff_B_MissChain_P, false))
+                    return true;
+                return false;
+            }
+        }
+
+
+
 
     }
 }
