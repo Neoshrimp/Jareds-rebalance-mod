@@ -120,12 +120,12 @@ namespace Character_rebalance
                 for (int i = 0; i < c; i++)
                 {
 
-                    if (list[Math.Min(i+4, c-1)].opcode == OpCodes.Callvirt && ((MethodInfo)list[Math.Min(i + 4, c - 1)].operand).Equals(AccessTools.Method(typeof(BattleChar), nameof(BattleChar.BuffAdd))))
+                    if (list[Math.Min(i + 4, c - 1)].opcode == OpCodes.Callvirt && ((MethodInfo)list[Math.Min(i + 4, c - 1)].operand).Equals(AccessTools.Method(typeof(BattleChar), nameof(BattleChar.BuffAdd))))
                     {
                         list[i] = new CodeInstruction(OpCodes.Ldc_I4, 500);
                     }
                     // label not marked exception
-                    /*else if (list[i].opcode == OpCodes.Newobj && ((ConstructorInfo)list[i].operand).Equals(AccessTools.Constructor(typeof(NotImplementedException), new Type[] { })) 
+/*                    else if (list[i].opcode == OpCodes.Newobj && ((ConstructorInfo)list[i].operand).Equals(AccessTools.Constructor(typeof(NotImplementedException), new Type[] { }))
                         || list[i].opcode == OpCodes.Throw)
                     {
                         list[i] = new CodeInstruction(OpCodes.Nop);

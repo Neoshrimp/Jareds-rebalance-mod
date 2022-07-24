@@ -114,7 +114,7 @@ namespace Character_rebalance
             static void Postfix(B_Lian_6_T __instance)
             {
                 __instance.PlusStat.dod = 0;
-                __instance.PlusStat.def = -12f*__instance.StackNum;
+                __instance.PlusStat.def = -12f * __instance.StackNum;
 
 
             }

@@ -51,7 +51,7 @@ namespace Character_rebalance
                 {
                     __instance.Target = new GDEs_targettypeData(GDEItemKeys.s_targettype_enemy);
                     __instance.IgnoreTaunt = true;
-                    
+
                     __instance.SkillExtended = new List<string>() { typeof(Extended_Joey_HealingDrone_Ex).AssemblyQualifiedName };
                     __instance.Description = CustomLoc.MainFile.GetTranslation(CustomLoc.TermKey(
                         GDESchemaKeys.Skill, GDEItemKeys.Skill_S_Joey_11, CustomLoc.TermType.Description));
@@ -162,7 +162,7 @@ namespace Character_rebalance
                 var list = instructions.ToList();
                 int c = list.Count;
 
-                for(int i = 0; i < c; i++)
+                for (int i = 0; i < c; i++)
                 {
 
                     if (list[i].opcode == OpCodes.Callvirt && ((MethodInfo)list[i].operand).Equals(AccessTools.Method(typeof(Buff), nameof(Buff.SelfStackDestroy)))
@@ -372,16 +372,16 @@ namespace Character_rebalance
                         // adds our ExtraPot skill to selection of possible effects
                         yield return ci;
                         yield return new CodeInstruction(OpCodes.Ldloc_0);
-                        yield return new CodeInstruction(OpCodes.Ldsfld, AccessTools.Field(typeof(CustomKeys),"Skill_Joey_CP_ExtraPot"));
+                        yield return new CodeInstruction(OpCodes.Ldsfld, AccessTools.Field(typeof(CustomKeys), "Skill_Joey_CP_ExtraPot"));
                         yield return new CodeInstruction(OpCodes.Ldarg_0);
                         yield return new CodeInstruction(OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(Passive_Char), "BChar"));
                         yield return new CodeInstruction(OpCodes.Ldarg_0);
                         yield return new CodeInstruction(OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(Passive_Char), "BChar"));
                         yield return new CodeInstruction(OpCodes.Ldfld, AccessTools.Field(typeof(BattleChar), "MyTeam"));
-                        yield return new CodeInstruction(OpCodes.Call, AccessTools.Method(typeof(Skill), "TempSkill", new Type[] { typeof(string), typeof(BattleChar), typeof(BattleTeam)}));
+                        yield return new CodeInstruction(OpCodes.Call, AccessTools.Method(typeof(Skill), "TempSkill", new Type[] { typeof(string), typeof(BattleChar), typeof(BattleTeam) }));
                         yield return new CodeInstruction(OpCodes.Callvirt, AccessTools.Method(typeof(List<Skill>), "Add"));
                     }
-                    else 
+                    else
                     {
                         yield return ci;
                     }

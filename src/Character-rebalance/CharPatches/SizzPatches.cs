@@ -41,7 +41,7 @@ namespace Character_rebalance.CharPatches
                 {
                     __instance.SkillExtended = new List<string>() { typeof(Extended_Sizz_EveHelp).AssemblyQualifiedName };
                     __instance.Description = CustomLoc.MainFile.GetTranslation(CustomLoc.TermKey(GDESchemaKeys.Skill, GDEItemKeys.Skill_S_Sizz_0, CustomLoc.TermType.Description));
-                    
+
                     dict.TryGetCustomList("PlusKeyWordsKey", out List<GDESkillKeywordData> ogPlusKeyWords);
                     ogPlusKeyWords.Add(new GDESkillKeywordData(CustomKeys.SkillKeyword_Keyword_Swiftness));
                     __instance.PlusKeyWords = ogPlusKeyWords;
@@ -120,7 +120,7 @@ namespace Character_rebalance.CharPatches
             }
         }
 
-        
+
 
 
     }

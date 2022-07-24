@@ -64,13 +64,13 @@ namespace Character_rebalance.CharPatches
                 {
                     __instance.Track = true;
                 }
-                
+
 
 
             }
         }
 
-        
+
 
 
         [HarmonyPatch(typeof(GDESkillEffectData), nameof(GDESkillEffectData.LoadFromDict))]
@@ -89,7 +89,7 @@ namespace Character_rebalance.CharPatches
                     __instance.Buffs = new List<GDEBuffData>() { new GDEBuffData(GDEItemKeys.Buff_B_CamouflageCloak) };
                 }
 
-                    
+
 
 
             }

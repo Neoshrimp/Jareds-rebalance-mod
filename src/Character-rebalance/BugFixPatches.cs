@@ -25,9 +25,9 @@ namespace Character_rebalance
                 var list = instructions.ToList();
 
 
-                for (int i=0; i < list.Count; i++)
+                for (int i = 0; i < list.Count; i++)
                 {
-                    if (list[i].opcode == OpCodes.Sub && i + 1 < list.Count && list[i + 1].opcode == OpCodes.Callvirt 
+                    if (list[i].opcode == OpCodes.Sub && i + 1 < list.Count && list[i + 1].opcode == OpCodes.Callvirt
                         && ((MethodInfo)list[i + 1].operand).Equals(AccessTools.Method(typeof(List<Sprite>), "get_Item")))
                     {
                         // makes sure index doesn't go out of bounds
@@ -113,7 +113,7 @@ namespace Character_rebalance
             {
                 if (__instance.Fire)
                 {
-		            BattleSystem.DelayInput(__instance.FireEffect());
+                    BattleSystem.DelayInput(__instance.FireEffect());
                 }
                 return false;
             }

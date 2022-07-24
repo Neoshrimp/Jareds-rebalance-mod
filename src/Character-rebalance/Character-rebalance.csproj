@@ -90,6 +90,7 @@
     <Compile Include="CharPatches\IronheartPatches.cs" />
     <Compile Include="Extends\ExtendedExtra_Ironheart_InnocentArmor.cs" />
     <Compile Include="Extends\Extended_Chain_Zoom.cs" />
+    <Compile Include="Extends\Extended_Narhan_MentalShock.cs" />
     <Compile Include="Extends\Extended_Silverstein_FreezeBomb.cs" />
     <Compile Include="Extends\Extended_Sizz_Incise.cs" />
     <Compile Include="Extends\Extended_Sizz_EveHelp.cs" />

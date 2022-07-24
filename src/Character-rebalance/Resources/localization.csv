@@ -63,3 +63,20 @@ After casting this skill, bonus damage is reset.
 The accumulated damage persists until the <b>end of the stage</b>. 
 The bonus damage is shared between different copies of Overcharged Shot. ",,,
 Skill/S_MissChain_0_Description,,,"<color=#FFA636FF>Burnnn!: Gains <b>Ignore Taunt</b> and applies an extra Armor Reduced! stack.</color>",,,
+Skill/S_Control_0_Description,Text,,,"Deal <b>(&a)</b> damage to characters on both sides of the target based on your Max. Health.
+Targeting <b>wraps around</b>. 
+If there's one enemy, deal <b>(&b)</b> extra damage. 
+Additional hits crit if primary target has 'Identified!' debuff. 
+If targeted enemies already have 'Identified!' apply an additional stack of it.",,,
+Skill/S_Control_5_Description,,,"Deal (&a) extra damage based on your Max. Health. 
+Critical hits against enemies with 'Identified!' debuff. 
+<b>After attacking</b>, apply 'Identified!' debuff to the target.
+Additionally, if the target is killed by this skill, apply 'Identified!' to a random enemy prioritizing enemies who haven't acted yet.
+",,,
+Buff/B_Control_6_T_ExtraDesc,Text,,," Sleep is not removed if target has 'Identified!' debuff.",,,
+Skill/S_Control_11_Description,Text,,,"Draw a skill. 
+Apply 'Identified!' debuff on the target. If the target had no 'Identified!' debuff apply additional 'Identified!' stack. 
+For the next 3 turns, all allies can target enemies with 'Identified!'/CC debuff regardless of taunt status."
+Skill/S_Control_1_Description,Text,,,"(<sprite=2>&a%)Stun characters on both sides of the target. 
+Targeting wraps around.
+If facing one enemy, attempt to stun them twice.",,,

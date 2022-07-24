@@ -391,5 +391,25 @@ namespace Character_rebalance
 
         }
 
+        [HarmonyPatch(typeof(StageSystem), nameof(StageSystem.CheatChack))]
+        class debugBattlePatch
+        {
+            static void Postfix(StageSystem __instance)
+            {
+
+                string cheatChat = PlayData.CheatChat;
+                switch (cheatChat)
+                {
+                    case "bs":
+                        __instance.CheatEnabled();
+                        //first bool is normalBattle
+                        FieldSystem.instance.BattleStart(new GDEEnemyQueueData(GDEItemKeys.EnemyQueue_Queue_S3_PharosLeader), __instance.StageData.BattleMap.Key, false, false, string.Empty, string.Empty);
+
+                        break;
+
+                }
+            }
+        }
+
     }
 }

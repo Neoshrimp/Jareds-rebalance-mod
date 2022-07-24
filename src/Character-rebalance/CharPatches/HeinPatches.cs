@@ -55,7 +55,7 @@ namespace Character_rebalance
                     // gets original value of the description. Changes here should never be incremental to current values as that will make them grow indefinitely 
                     dict.TryGetString("Description", out string ogDesc, GDEItemKeys.Skill_S_Hein_11);
                     string exDesc = CustomLoc.MainFile.GetTranslation(CustomLoc.TermKey(GDESchemaKeys.Skill, GDEItemKeys.Skill_S_Hein_11, CustomLoc.TermType.ExtraDesc));
-                        //string.Concat(GDESchemaKeys.Skill, "/", GDEItemKeys.Skill_S_Hein_11, "_ExDesc"));
+                    //string.Concat(GDESchemaKeys.Skill, "/", GDEItemKeys.Skill_S_Hein_11, "_ExDesc"));
                     __instance.Description = string.Concat(ogDesc, exDesc);
 
                 }
@@ -94,7 +94,7 @@ namespace Character_rebalance
             }
         }
 
-        
+
 
         [HarmonyPatch(typeof(GDEBuffData), nameof(GDEBuffData.LoadFromDict))]
         class GdeBuffPatch
@@ -248,6 +248,7 @@ namespace Character_rebalance
                 }
             }
 
+            //2do just write custom extend
 
             // ok some biggest jank I've done to date
             // using a single static bool is fast and clean however a single field will be shared between several patched instances potentially resulting in unwanted behavior 

@@ -18,7 +18,7 @@ using Debug = UnityEngine.Debug;
 
 namespace Character_rebalance
 {
-    [BepInPlugin(GUID, "Jared's ", version)]
+    [BepInPlugin(GUID, "Jared's rebalance mod", version)]
     [BepInProcess("ChronoArk.exe")]
     public class CharacterRebalancePlugin : BaseUnityPlugin
     {
@@ -55,11 +55,10 @@ namespace Character_rebalance
         }
 
 
-
         [HarmonyPatch(typeof(GDEDataManager), nameof(GDEDataManager.InitFromText))]
         class AddFullAssemblyQualifyingNamePatch
         {
-
+            
             static void AddFullName()
             {
                 void UpdateTypeName(string typeKey, string _gameAssemblyName, Dictionary<string, object> entity)
@@ -72,6 +71,7 @@ namespace Character_rebalance
                 }
 
                 var gameAssemblyName = typeof(FieldSystem).AssemblyQualifiedName.Remove(0, typeof(FieldSystem).FullName.Length);
+
 
                 foreach (var kv in GDEDataManager.masterData)
                 {
@@ -179,6 +179,30 @@ namespace Character_rebalance
 
         }
 
+        // only Common_B_EnemyTaunt uses this jank af method
+        [HarmonyPatch(typeof(BattleChar), nameof(BattleChar.BuffScriptFind))]
+        class BuffScriptFindFixPatch
+        {
+            static bool Prefix(BattleChar __instance, string key, ref bool __result)
+            {   
+                if (key == "null")
+                {
+                    __result = false;
+                    return false;
+                }
+                foreach (Buff buff in __instance.Buffs)
+                {
+                    if ((buff.GetType().Name == key || buff.GetType().AssemblyQualifiedName == key) && !buff.DestroyBuff)
+                    {
+                        __result = true;
+                        return false;
+                    }
+                }
+                __result = false;
+                return false;
+            }
+        }
+
 
         [HarmonyPatch(typeof(GDESkillKeywordData), nameof(GDESkillKeywordData.LoadFromSavedData))]
         class CustomKeywordTooltips
@@ -214,7 +238,7 @@ namespace Character_rebalance
         {
             static void Postfix(BattleSystem __instance)
             {
-                if(BattleSystem.instance.AllyTeam.LucyChar != null)
+                if (BattleSystem.instance.AllyTeam.LucyChar != null)
                 {
                     BattleSystem.instance.AllyTeam.LucyChar.BuffAdd(CustomKeys.Buff_Lucy_TurnEventObserver, BattleSystem.instance.AllyTeam.LucyChar, true, 0, false, -1, false);
                 }
