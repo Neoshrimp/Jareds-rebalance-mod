@@ -80,3 +80,7 @@ For the next 3 turns, all allies can target enemies with 'Identified!'/CC debuff
 Skill/S_Control_1_Description,Text,,,"(<sprite=2>&a%)Stun characters on both sides of the target. 
 Targeting wraps around.
 If facing one enemy, attempt to stun them twice.",,,
+Skill/S_Phoenix_7_Description,Text,,,"Draw a skill and deal 5 damage to its owner.
+Restore all allies' healing gauge.",,,
+Skill/S_Phoenix_3_ExtraDesc,Text,,,"
+If this skill kills an enemy heal all allies for &h (40% of user's attack)."

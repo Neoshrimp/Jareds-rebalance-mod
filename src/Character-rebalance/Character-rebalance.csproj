@@ -84,6 +84,7 @@
     <Compile Include="CharPatches\JohanPatches.cs" />
     <Compile Include="CharPatches\MissChainPatches.cs" />
     <Compile Include="CharPatches\NarhanPatches.cs" />
+    <Compile Include="CharPatches\PhoenixPatches.cs" />
     <Compile Include="CharPatches\SilversteinPatches.cs" />
     <Compile Include="CharPatches\SizzPatches.cs" />
     <Compile Include="CharPatches\TrishaPatches.cs" />
@@ -91,6 +92,7 @@
     <Compile Include="Extends\ExtendedExtra_Ironheart_InnocentArmor.cs" />
     <Compile Include="Extends\Extended_Chain_Zoom.cs" />
     <Compile Include="Extends\Extended_Narhan_MentalShock.cs" />
+    <Compile Include="Extends\Extended_Phoenix_FieryWings.cs" />
     <Compile Include="Extends\Extended_Silverstein_FreezeBomb.cs" />
     <Compile Include="Extends\Extended_Sizz_Incise.cs" />
     <Compile Include="Extends\Extended_Sizz_EveHelp.cs" />
