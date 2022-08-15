@@ -276,8 +276,9 @@ namespace Character_rebalance
             });
         }
 
+        // does not contain text since 1.91
         //[HarmonyPatch(typeof(SkillTargetTooltip), nameof(SkillTargetTooltip.InputInfo))]
-        class ttPatch
+/*        class ttPatch
         {
             static void Postfix(SkillTargetTooltip __instance)
             {
@@ -285,7 +286,7 @@ namespace Character_rebalance
                 Debug.Log(__instance.Text.font);
                 ObjectTraverse(__instance.Text);
             }
-        }
+        }*/
 
 
         //[HarmonyPatch(typeof(FieldStore), "Init")]

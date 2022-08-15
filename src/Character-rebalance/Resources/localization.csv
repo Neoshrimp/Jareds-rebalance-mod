@@ -84,3 +84,8 @@ Skill/S_Phoenix_7_Description,Text,,,"Draw a skill and deal 5 damage to its owne
 Restore all allies' healing gauge.",,,
 Skill/S_Phoenix_3_ExtraDesc,Text,,,"
 If this skill kills an enemy heal all allies for &h (40% of user's attack)."
+Skill/S_Priest_0_ExtraDesc,Text,,,"Always heal user for &h (25% Healing Power) if this skill is fixed. 
+",,,
+Skill/S_Priest_1_ExtraDesc,Text,,,"Prophecy: gains <b>Swiftness</b>.",,,
+Skill/S_Priest_10_Description,,,"Heal all characters except the target for &a (50% Healing Power). 
+Prophecy: Costs 1 less.",,,

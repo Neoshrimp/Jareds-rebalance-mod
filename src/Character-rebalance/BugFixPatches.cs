@@ -56,7 +56,7 @@ namespace Character_rebalance
             {
                 if (__instance.MainThurible != null)
                 {
-                    GameObject gameObject = Misc.UIInst(__instance.BChar.BattleInfo.EffectView);
+                    GameObject gameObject = Misc.UIInst(__instance.BChar.BattleInfo.EffectViewOb);
                     if (__instance.BChar.Info.Ally)
                     {
                         gameObject.transform.position = __instance.BChar.GetPos();
