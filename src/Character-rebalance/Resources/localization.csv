@@ -87,5 +87,15 @@ If this skill kills an enemy heal all allies for &h (40% of user's attack)."
 Skill/S_Priest_0_ExtraDesc,Text,,,"Always heal user for &h (25% Healing Power) if this skill is fixed. 
 ",,,
 Skill/S_Priest_1_ExtraDesc,Text,,,"Prophecy: gains <b>Swiftness</b>.",,,
-Skill/S_Priest_10_Description,,,"Heal all characters except the target for &a (50% Healing Power). 
+Skill/S_Priest_10_Description,Text,,,"Heal all characters except the target for &a (50% Healing Power). 
 Prophecy: Costs 1 less.",,,
+Buff/B_Queen_10_T_Description,Text,,,"When you take <color=purple>Pain damage</color>, instead of taking damage heal for <b>half</b> the amount. 
+If damage was <b>directly</b> caused by an ally heal for <b>full</b> amount instead. 
+Kindly note: at the end of the turn this buff expires <b>before</b> <sprite=1> debuff tick.",,,
+Skill/S_Lucy_18_ExtraDesc,Text,,,"
+<b>Copy any upgrades and additional properties the skill might have. </b>",,,
+Skill/S_Lucy_21_Description,Text,,,"Select one skill in your hand that is not upgraded. 
+Choose one of three upgrade effects and apply it for this battle. 
+<b>Lucy skills can be upgraded too. </b>",,,
+Skill/S_Lucy_15_ExtraDesc,Text,,,"
+<b>Move this skill to the top of the deck when battle starts. </b>",,,

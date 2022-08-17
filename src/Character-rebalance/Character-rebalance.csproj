@@ -82,6 +82,7 @@
     <Compile Include="BugFixPatches.cs" />
     <Compile Include="CharPatches\CharonPatches.cs" />
     <Compile Include="CharPatches\HuzPatches.cs" />
+    <Compile Include="CharPatches\LucyCardsPatches.cs" />
     <Compile Include="Extends\Extended_Pressel_HolyLight.cs" />
     <Compile Include="CharPatches\JohanPatches.cs" />
     <Compile Include="CharPatches\MissChainPatches.cs" />
