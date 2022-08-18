@@ -81,6 +81,8 @@
     <Compile Include="CharacterRebalancePlugin.cs" />
     <Compile Include="BugFixPatches.cs" />
     <Compile Include="CharPatches\CharonPatches.cs" />
+    <Compile Include="CharPatches\CommonSkillPatches.cs" />
+    <Compile Include="Extends\Extended_DeadEnd.cs" />
     <Compile Include="CharPatches\HuzPatches.cs" />
     <Compile Include="CharPatches\LucyCardsPatches.cs" />
     <Compile Include="Extends\Extended_Pressel_HolyLight.cs" />

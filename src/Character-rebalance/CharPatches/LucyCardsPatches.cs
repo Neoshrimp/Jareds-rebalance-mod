@@ -173,7 +173,7 @@ namespace Character_rebalance.CharPatches
         {
             static bool Prefix(Skill ExceptSkill, ref bool __result)
             {
-                __result =  ExceptSkill.Enforce;
+                __result = ExceptSkill.Enforce;
                 return false;
             }
         }

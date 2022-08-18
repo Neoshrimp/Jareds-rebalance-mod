@@ -143,7 +143,7 @@ namespace Character_rebalance.CharPatches
                 }
                 return false;
             }
-            
+
         }
 
 

@@ -99,3 +99,5 @@ Choose one of three upgrade effects and apply it for this battle.
 <b>Lucy skills can be upgraded too. </b>",,,
 Skill/S_Lucy_15_ExtraDesc,Text,,,"
 <b>Move this skill to the top of the deck when battle starts. </b>",,,
+Skill/S_Public_10_ExtraDesc,Text,,,"
+Restore <b>1</b> mana each time the caster gets <b>hit</b> while this skill is on countdown. ",,,
