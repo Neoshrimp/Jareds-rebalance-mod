@@ -67,7 +67,11 @@ namespace Character_rebalance
                     __instance.Description = CustomLoc.MainFile.GetTranslation(CustomLoc.TermKey(GDESchemaKeys.Skill, GDEItemKeys.Skill_S_ShadowPriest_9, CustomLoc.TermType.ExtraDesc)) + ogDesc + CustomLoc.MainFile.GetTranslation(CustomLoc.TermKey(GDESchemaKeys.Skill, GDEItemKeys.Skill_S_ShadowPriest_9, CustomLoc.TermType.Description));
 
                 }
-
+                // dark sanctuary
+                if (__instance.Key == GDEItemKeys.Skill_S_ShadowPriest_13)
+                {
+                    __instance.NoBasicSkill = false;
+                }
 
 
 
@@ -90,6 +94,11 @@ namespace Character_rebalance
 
 
                 }
+                // dark sanctuary
+                else if (__instance.Key == GDEItemKeys.Buff_B_ShadowPriest_13_T)
+                {
+                    __instance.LifeTime = 3;
+                }
             }
         }
 
@@ -97,17 +106,61 @@ namespace Character_rebalance
         [HarmonyPatch(typeof(GDESkillEffectData), nameof(GDESkillEffectData.LoadFromDict))]
         class GdeSkillEffectPatch
         {
-            static void Postfix(GDESkillEffectData __instance)
+            static void Postfix(GDESkillEffectData __instance, Dictionary<object, object> dict)
             {
                 // soul strike
                 if (__instance.Key == GDEItemKeys.SkillEffect_SE_ShadowPriest_9_T)
                 {
                     __instance.DMG_Per = 50;
                 }
+                // dark sanctuary
+                if (__instance.Key == GDEItemKeys.SkillEffect_SE_ShadowPriest_13_T)
+                {
+                    dict.TryGetIntList("BuffPlusTagPer", out List<int> ogBuffPlusTagPer);
+                    ogBuffPlusTagPer.Add(100);
+                    ogBuffPlusTagPer.Add(100);
+                    __instance.BuffPlusTagPer = ogBuffPlusTagPer;
 
+                    dict.TryGetCustomList("Buffs", out List<GDEBuffData> ogBuffs);
+                    ogBuffs.Add(new GDEBuffData(CustomKeys.Buff_Charon_DarkPoison));
+                    ogBuffs.Add(new GDEBuffData(CustomKeys.Buff_Charon_DarkPoison));
+                    __instance.Buffs = ogBuffs;
+                }
 
             }
         }
+
+
+        [HarmonyPatch(typeof(GDEBuffData), nameof(GDEBuffData.LoadFromSavedData))]
+        class Custom_GDEBuffData
+        {
+            static void Postfix(GDEBuffData __instance, ref string ____PathAllyBuffEffect, ref string ____PathEnemyBuffEffect)
+            {
+                if (__instance.Key == CustomKeys.Buff_Charon_DarkPoison)
+                {
+                    __instance.ClassName = typeof(Buff_Charon_DarkPoison).AssemblyQualifiedName;
+                    __instance.Cantdisable = false;
+                    __instance.Hide = false;
+
+                    __instance.LifeTime = 0;
+                    __instance.MaxStack = 2;
+
+                    __instance.BuffSoundEffect = ""; // new GDEBuffData(GDEItemKeys.Buff_B_Joey_T_0).BuffSoundEffect; empty string
+                    __instance.Icon = new GDEBuffData(GDEItemKeys.Buff_B_Joey_T_0).Icon;
+
+                    __instance.Name = "Dark Miasma";
+                    __instance.Description = CustomLoc.MainFile.GetTranslation(CustomLoc.TermKey(GDESchemaKeys.Buff, CustomLoc.StripGuid(CustomKeys.Buff_Charon_DarkPoison), CustomLoc.TermType.Description)); ;
+
+                    ____PathAllyBuffEffect = "";
+                    ____PathEnemyBuffEffect = "";
+
+                    __instance.Tick = new GDESkillEffectData("null");
+                    __instance.BuffTag = new GDEBuffTagData("null");
+
+                }
+            }
+        }
+
 
         [HarmonyPatch(typeof(B_ShadowPriest_4_T), "Hit")]
         class VigilOfDarknessPatch

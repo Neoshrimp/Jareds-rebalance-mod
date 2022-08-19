@@ -101,3 +101,6 @@ Skill/S_Lucy_15_ExtraDesc,Text,,,"
 <b>Move this skill to the top of the deck when battle starts. </b>",,,
 Skill/S_Public_10_ExtraDesc,Text,,,"
 Restore <b>1</b> mana each time the caster gets <b>hit</b> while this skill is on countdown. ",,,
+Buff/Buff_Charon_DarkPoison_Description,Text,,,"Enhance buffed character.
+When the character with this buff deals damage apply <color=purple>Encroachment</color> (<sprite=1>&a%). 
+Consume 1 stack of this buff per <color=purple>Encroachment</color> applied. ",,,

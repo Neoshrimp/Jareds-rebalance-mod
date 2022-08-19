@@ -58,7 +58,7 @@ namespace Character_rebalance
         [HarmonyPatch(typeof(GDEDataManager), nameof(GDEDataManager.InitFromText))]
         class AddFullAssemblyQualifyingNamePatch
         {
-            
+
             static void AddFullName()
             {
                 void UpdateTypeName(string typeKey, string _gameAssemblyName, Dictionary<string, object> entity)
