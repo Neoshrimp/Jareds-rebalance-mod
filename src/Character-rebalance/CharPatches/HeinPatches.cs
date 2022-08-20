@@ -1,4 +1,5 @@
 ﻿using BepInEx;
+using Character_rebalance.Extends;
 using GameDataEditor;
 using HarmonyLib;
 using I2.Loc;
@@ -18,6 +19,8 @@ namespace Character_rebalance
     {
 
 
+
+
         [HarmonyPatch(typeof(GDECharacterData), nameof(GDECharacterData.LoadFromDict))]
         class GdeCharactersPatch
         {
@@ -34,6 +37,7 @@ namespace Character_rebalance
         }
 
 
+        static public float eolCritThreshold = 55f;
 
         // encyclopedia calls LoadFromDict ???? ffs
         [HarmonyPatch(typeof(GDESkillData), nameof(GDESkillData.LoadFromDict))]
@@ -58,6 +62,17 @@ namespace Character_rebalance
                     //string.Concat(GDESchemaKeys.Skill, "/", GDEItemKeys.Skill_S_Hein_11, "_ExDesc"));
                     __instance.Description = string.Concat(ogDesc, exDesc);
 
+                }
+                // end of the line
+                else if (__instance.Key == GDEItemKeys.Skill_S_Hein_9)
+                {
+
+                    dict.TryGetString("Description", out string ogDescription);
+                    __instance.Description = ogDescription.Replace("40%", eolCritThreshold.ToString() + "%");
+
+                    dict.TryGetStringList("SkillExtended", out List<string> ogSkillExtended);
+                    ogSkillExtended.Add(typeof(Extended_Hein_EndOfTheLine_Particles).AssemblyQualifiedName);
+                    __instance.SkillExtended = ogSkillExtended;
                 }
             }
         }
@@ -211,44 +226,32 @@ namespace Character_rebalance
 
         }
 
-
-
-        class EndOfTheLinePatch
+        [HarmonyPatch(typeof(S_Hein_9), nameof(S_Hein_9.SkillUseSingle))]
+        class EoLThresholdPatch
         {
-            static float critThreshold = 55f;
-
-            [HarmonyPatch(typeof(S_Hein_9), nameof(S_Hein_9.SkillUseSingle))]
-            class ThresholdPatch
+            static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
             {
-                static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
+                var list = instructions.ToList();
+                foreach (var ci in instructions)
                 {
-                    var list = instructions.ToList();
-                    foreach (var ci in instructions)
+                    if (ci.opcode == OpCodes.Ldc_R4 && (float)ci.operand == 40f)
                     {
-                        if (ci.opcode == OpCodes.Ldc_R4 && (float)ci.operand == 40f)
-                        {
-                            yield return new CodeInstruction(OpCodes.Ldc_R4, critThreshold);
-                        }
-                        else
-                        {
-                            yield return ci;
-                        }
+                        yield return new CodeInstruction(OpCodes.Ldc_R4, eolCritThreshold);
+                    }
+                    else
+                    {
+                        yield return ci;
                     }
                 }
             }
+        }
+
+        // update: this is wacko dont use
+      /*  class EndOfTheLinePatch
+        {
 
 
-            [HarmonyPatch(typeof(GDESkillData), nameof(GDESkillData.LoadFromDict))]
-            class DescPatch
-            {
-                static void Postfix(GDESkillData __instance)
-                {
-                    if (__instance.Key == GDEItemKeys.Skill_S_Hein_9)
-                        __instance.Description = __instance.Description.Replace("40%", critThreshold.ToString() + "%");
-                }
-            }
 
-            //2do just write custom extend
 
             // ok some biggest jank I've done to date
             // using a single static bool is fast and clean however a single field will be shared between several patched instances potentially resulting in unwanted behavior 
@@ -303,7 +306,7 @@ namespace Character_rebalance
                     if (__instance is S_Hein_9 Hein_9)
                     {
 
-                        if (Misc.NumToPer((float)Char.GetStat.maxhp, (float)Char.HP) <= critThreshold)
+                        if (Misc.NumToPer((float)Char.GetStat.maxhp, (float)Char.HP) <= eolCritThreshold)
                         {
                             if (refDict.TryGetValue(Hein_9.GetHashCode(), out SkillExBool outValue))
                             {
@@ -348,11 +351,11 @@ namespace Character_rebalance
                     if (__instance is S_Hein_9 Hein_9)
                     {
                         refDict.TryGetValue(Hein_9.GetHashCode(), out SkillExBool outValue);
-                        if (Misc.NumToPer((float)Hein_9.BChar.GetStat.maxhp, (float)Hein_9.BChar.HP) <= critThreshold || outValue.Bool)
+                        if (Misc.NumToPer((float)Hein_9.BChar.GetStat.maxhp, (float)Hein_9.BChar.HP) <= eolCritThreshold || outValue.Bool)
                         {
                             Hein_9.SkillParticleOn();
                         }
-                        else
+                        else    
                         {
                             Hein_9.SkillParticleOff();
                         }
@@ -360,7 +363,7 @@ namespace Character_rebalance
                 }
             }
 
-        }
+        }*/
 
 
 

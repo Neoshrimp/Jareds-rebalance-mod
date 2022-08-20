@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Character_rebalance.Extends
 {
-    public class Extended_Sizz_PatchUpBuff : Buff
+    public class Extended_Sizz_PatchUpBuff : B_Sizz_3_T
     {
         public override void BuffStat()
         {

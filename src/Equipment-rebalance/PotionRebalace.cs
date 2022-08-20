@@ -55,7 +55,7 @@ namespace Equipment_rebalance
 
                 var skills2select = skillPool.Random(5).ConvertAll<Skill>(sd => Skill.TempSkill(sd.Key, caster, caster.MyTeam));
                 BattleSystem.DelayInput(BattleSystem.I_OtherSkillSelect(skills2select, new SkillButton.SkillClickDel(FairyPotion_Patch.SkillSelect), 
-                    "select deeznuts"));
+                    "Select skill to cast"));
             }
 
             public static void SkillSelect(SkillButton Mybutton)

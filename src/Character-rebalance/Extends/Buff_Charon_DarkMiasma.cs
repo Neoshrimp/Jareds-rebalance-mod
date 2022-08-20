@@ -13,7 +13,7 @@ using Debug = UnityEngine.Debug;
 
 namespace Character_rebalance
 {
-    public class Buff_Charon_DarkPoison : Buff, IP_SkillUse_Target
+    public class Buff_Charon_DarkMiasma : Buff, IP_SkillUse_Target
     {
         public void AttackEffect(BattleChar hit, SkillParticle SP, int DMG, bool Cri)
         {

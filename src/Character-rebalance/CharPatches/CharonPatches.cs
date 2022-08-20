@@ -138,7 +138,7 @@ namespace Character_rebalance
             {
                 if (__instance.Key == CustomKeys.Buff_Charon_DarkPoison)
                 {
-                    __instance.ClassName = typeof(Buff_Charon_DarkPoison).AssemblyQualifiedName;
+                    __instance.ClassName = typeof(Buff_Charon_DarkMiasma).AssemblyQualifiedName;
                     __instance.Cantdisable = false;
                     __instance.Hide = false;
 

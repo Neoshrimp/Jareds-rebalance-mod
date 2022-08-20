@@ -80,7 +80,8 @@
     <Compile Include="CharPatches\AzarPatches.cs" />
     <Compile Include="CharacterRebalancePlugin.cs" />
     <Compile Include="BugFixPatches.cs" />
-    <Compile Include="Extends\Buff_Charon_DarkPoison.cs" />
+    <Compile Include="Extends\Extended_Hein_EndOfTheLine_Particles.cs" />
+    <Compile Include="Extends\Buff_Charon_DarkMiasma.cs" />
     <Compile Include="CharPatches\CharonPatches.cs" />
     <Compile Include="CharPatches\CommonSkillPatches.cs" />
     <Compile Include="Extends\Extended_DeadEnd.cs" />

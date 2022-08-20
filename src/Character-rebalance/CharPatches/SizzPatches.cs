@@ -13,7 +13,6 @@ using Debug = UnityEngine.Debug;
 using Character_rebalance.Extends;
 
 
-// 2do fix regen buff
 namespace Character_rebalance.CharPatches
 {
     class SizzPatches

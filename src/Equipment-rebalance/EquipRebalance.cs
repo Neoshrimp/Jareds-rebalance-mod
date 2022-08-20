@@ -6,6 +6,7 @@ using System.Runtime.CompilerServices;
 using UnityEngine;
 using System.Linq;
 using System.Reflection.Emit;
+using System;
 
 namespace Equipment_rebalance
 {
@@ -450,7 +451,6 @@ namespace Equipment_rebalance
         }
 
 
-        //TODO update description 
         [HarmonyPatch(typeof(EndlessScroll), "Enchent")]
         class MagicParchmentPatch
         {
@@ -474,7 +474,7 @@ namespace Equipment_rebalance
                 }
 
                 enchantDepth = 0;
-
+                
                 return false;
             }
 
@@ -567,27 +567,58 @@ namespace Equipment_rebalance
             }
         }
 
-        //TODO discuss implementation 
-        //TODO change description
+
+
+
         [HarmonyPatch(typeof(Extended_ForbiddenLibram), nameof(Extended_ForbiddenLibram.SkillUseSingle))]
-        class ForbiddenBibleExtendPatch
+        public class ForbiddenBibleExtendPatch
         {
-            static bool Prefix(Extended_ForbiddenLibram __instance, Skill SkillD, List<BattleChar> Targets)
+
+
+
+            public static Extended_ForbiddenBible_Item GetEquipScript(Extended_ForbiddenLibram ex)
             {
-                int heal = 50 * Random.Range(0, 6) - 100;
-                //incorrect
-                int baseHeal = __instance.MySkill.MySkill.Effect_Target.HEAL_Per;
-                float mul = 0.5f * Random.Range(0, 6);
-                Debug.Log(baseHeal);
-                Debug.Log(mul);
+                try
+                {
+                    return (Extended_ForbiddenBible_Item)((Item_Equip)ex.BChar.Info.Equip.Find(ib => ((Item_Equip)ib).ItemScript is Extended_ForbiddenBible_Item)).ItemScript;
 
-                __instance.PlusSkillPerStat.Heal = Mathf.Max((int)(baseHeal * mul - baseHeal), -baseHeal);
-                Debug.Log(__instance.PlusSkillPerStat.Heal);
+                }
+                catch(Exception e)
+                {
+                    EquipmentRebalancePlugin.logger.LogError($"Can't find Forbidden Bible equipped: {e.Message}");
+                    return new Extended_ForbiddenBible_Item();
+                }
+
+            }
 
 
-                //__instance.PlusSkillPerStat.Heal = heal; 
 
+            [HarmonyPatch(typeof(Extended_ForbiddenLibram), nameof(Extended_ForbiddenLibram.Init))]
+            [HarmonyPostfix]
 
+            static void InitPostfix(Extended_ForbiddenLibram __instance)
+            {
+                __instance.PlusPerStat.Heal = GetEquipScript(__instance).currentHealBonus;
+            }
+
+            [HarmonyPatch(typeof(Extended_ForbiddenLibram), nameof(Extended_ForbiddenLibram.SkillUseSingle))]
+            [HarmonyPrefix]
+            static bool SkillUseSinglePrefix(Extended_ForbiddenLibram __instance, Skill SkillD, List<BattleChar> Targets)
+            {
+                var equipScript = GetEquipScript(__instance);
+                __instance.PlusPerStat.Heal = equipScript.currentHealBonus;
+
+                equipScript.RollHeal();
+
+                // update heal values for other healing skills for ui effect
+                foreach (Skill skill in BattleSystem.instance.AllyTeam.Skills)
+                {
+                    var cursedExtend = skill.ExtendedFind(typeof(Extended_ForbiddenLibram).AssemblyQualifiedName, true);
+                    if (cursedExtend != null && cursedExtend != __instance && cursedExtend.BChar == __instance.BChar)
+                    {
+                        cursedExtend.PlusPerStat.Heal = equipScript.currentHealBonus;
+                    }
+                }
                 return false;
             }
         }
@@ -794,14 +825,13 @@ namespace Equipment_rebalance
             {
                 PassiveBasePatch.InitStub(__instance);
                 __instance.PlusStat.cri = 12f;
-                __instance.PlusStat.PlusCriDmg = 25f;
+                __instance.PlusStat.PlusCriDmg = 27f;
                 __instance.PlusStat.hit = 7f;
 
                 return false;
             }
         }
 
-        //TODO reconsider stats
         [HarmonyPatch(typeof(Dooooooom), "Init")]
         class DemonHunterPatch
         {
@@ -809,8 +839,8 @@ namespace Equipment_rebalance
             {
 
                 __instance.PlusPerStat.Damage = 20;
-                __instance.PlusStat.cri = -5f;
-                __instance.PlusStat.hit = 5f;
+                __instance.PlusStat.cri = 5f;
+                //__instance.PlusStat.hit = 5f;
                 PassiveBasePatch.InitStub(__instance);
 
                 return false;
@@ -833,7 +863,6 @@ namespace Equipment_rebalance
         }
 
 
-        //TODO update description
         [HarmonyPatch(typeof(CrownofThorns))]
         class CrownOfThornsPatch
         {
@@ -1007,7 +1036,6 @@ namespace Equipment_rebalance
             }
         }
 
-        // TODO change description 
         [HarmonyPatch(typeof(FoxOrb), "KillEffect")]
         class SealedOrbPatch
         {

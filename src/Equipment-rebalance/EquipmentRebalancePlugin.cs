@@ -22,7 +22,7 @@ namespace Equipment_rebalance
 
         private static readonly Harmony harmony = new Harmony(GUID);
 
-        private static BepInEx.Logging.ManualLogSource logger;
+        public static BepInEx.Logging.ManualLogSource logger;
 
         void Awake()
         {
@@ -34,6 +34,19 @@ namespace Equipment_rebalance
             if (harmony != null)
                 harmony.UnpatchAll(GUID);
         }
+
+
+
+        [HarmonyPatch(typeof(MagicThread), nameof(MagicThread.BattleStart))]
+        class MagicThread_Patch
+        {
+            static void Postfix()
+            {
+                Debug.Log("start thread");
+            }
+        }
+
+
 
 
         /// <summary>
@@ -190,5 +203,5 @@ namespace Equipment_rebalance
         }
 
 
-            }
+    }
 }

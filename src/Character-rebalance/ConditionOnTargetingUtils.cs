@@ -5,7 +5,6 @@ using System.Text;
 using UnityEngine;
 
 
-// 2do. test with pharos leader
 public class ConditionOnTargetingUtils
 {
     static public void SwiftnessUpdateManaCrytalUI(int skillAp, int overLoad)

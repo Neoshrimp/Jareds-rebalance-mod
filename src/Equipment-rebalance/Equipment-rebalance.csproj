@@ -61,8 +61,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EquipRebalance.cs" />
+    <Compile Include="Extended_ForbiddenBible_Item.cs" />
     <Compile Include="Extended_Pinwheel.cs" />
     <Compile Include="GoldenEnchantsTweaks.cs" />
+    <Compile Include="ItemDataPatches.cs" />
     <Compile Include="PotionRebalace.cs" />
     <Compile Include="RelicRebalance.cs" />
     <Compile Include="EquipmentRebalancePlugin.cs" />
