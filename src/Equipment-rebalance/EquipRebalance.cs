@@ -1023,7 +1023,7 @@ namespace Equipment_rebalance
             }
         }
 
-        [HarmonyPatch(typeof(FlameShieldGenerator), "Init")]
+/*        [HarmonyPatch(typeof(FlameShieldGenerator), "Init")]
         class BurningNightPatch
         {
             static bool Prefix(FlameShieldGenerator __instance)
@@ -1034,7 +1034,7 @@ namespace Equipment_rebalance
 
                 return false;
             }
-        }
+        }*/
 
         [HarmonyPatch(typeof(FoxOrb), "KillEffect")]
         class SealedOrbPatch

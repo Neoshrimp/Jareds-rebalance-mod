@@ -27,7 +27,7 @@ public class Extended_Sizz_EveHelp : Skill_Extended
         }
     }
 
-    public override void SkillUseSingle(Skill SkillD, List<BattleChar> Targets)
+/*    public override void SkillUseSingle(Skill SkillD, List<BattleChar> Targets)
     {
         if (castCount < maxCastCount)
         {
@@ -53,10 +53,10 @@ public class Extended_Sizz_EveHelp : Skill_Extended
                 battleChar.BuffReturn(GDEItemKeys.Buff_B_Sizz_0_T, false).SelfDestroy();
             }
         }
-    }
+    }*/
 
 
 
     public int castCount = 0;
-	int maxCastCount = 3;
+	public int maxCastCount = 3;
 }

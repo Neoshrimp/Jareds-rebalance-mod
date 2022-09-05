@@ -37,15 +37,6 @@ namespace Equipment_rebalance
 
 
 
-        [HarmonyPatch(typeof(MagicThread), nameof(MagicThread.BattleStart))]
-        class MagicThread_Patch
-        {
-            static void Postfix()
-            {
-                Debug.Log("start thread");
-            }
-        }
-
 
 
 

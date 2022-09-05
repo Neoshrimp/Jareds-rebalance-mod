@@ -121,7 +121,7 @@ namespace Equipment_rebalance
         }
 
 
-
+        //2do bug
         [HarmonyPatch(typeof(Buff), nameof(Buff.FixedUpdate))]
         class ThornyStem_Patch
         {

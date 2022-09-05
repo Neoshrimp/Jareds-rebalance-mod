@@ -38,14 +38,18 @@ namespace Character_rebalance.CharPatches
                 // eve help
                 else if (__instance.Key == GDEItemKeys.Skill_S_Sizz_0)
                 {
-                    __instance.SkillExtended = new List<string>() { typeof(Extended_Sizz_EveHelp).AssemblyQualifiedName };
+
+                    dict.TryGetStringList("SkillExtended", out List<string> ogSkillExtended);
+                    ogSkillExtended.Add(typeof(Extended_Sizz_EveHelp).AssemblyQualifiedName);
+                    __instance.SkillExtended = ogSkillExtended;
+
+                    //__instance.SkillExtended = new List<string>() { typeof(Extended_Sizz_EveHelp).AssemblyQualifiedName };
+
                     __instance.Description = CustomLoc.MainFile.GetTranslation(CustomLoc.TermKey(GDESchemaKeys.Skill, GDEItemKeys.Skill_S_Sizz_0, CustomLoc.TermType.Description));
 
                     dict.TryGetCustomList("PlusKeyWordsKey", out List<GDESkillKeywordData> ogPlusKeyWords);
                     ogPlusKeyWords.Add(new GDESkillKeywordData(CustomKeys.SkillKeyword_Keyword_Swiftness));
                     __instance.PlusKeyWords = ogPlusKeyWords;
-
-
                 }
                 // time to move
                 else if (__instance.Key == GDEItemKeys.Skill_S_Sizz_6)
@@ -117,6 +121,64 @@ namespace Character_rebalance.CharPatches
                     __instance.MaxStack = 1;
                 }
             }
+        }
+
+
+
+
+        [HarmonyPatch(typeof(Extended_S_Sizz_0), nameof(Extended_S_Sizz_0.SkillUseSingle))]
+        class EveHelp_Patch
+        {
+
+
+
+            static void AddCopy(Skill createdSkill, Extended_S_Sizz_0 currentExtend)
+            {
+                var extraExtend = (Extended_Sizz_EveHelp)currentExtend.MySkill.ExtendedFind(typeof(Extended_Sizz_EveHelp).AssemblyQualifiedName);
+
+                if (extraExtend.castCount < extraExtend.maxCastCount)
+                {
+                    var createdExtend = (Extended_Sizz_EveHelp)createdSkill.ExtendedFind(typeof(Extended_Sizz_EveHelp).AssemblyQualifiedName);
+                    if (createdExtend != null)
+                        createdExtend.castCount = extraExtend.castCount + 1;
+                    BattleSystem.instance.AllyTeam.Add(createdSkill, true);
+                }
+
+
+            }
+
+
+            static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
+            {
+
+                bool skipMode = false;
+                int skipCount = 0;
+
+                foreach (var ci in instructions)
+                {
+                    if (ci.Is(OpCodes.Ldsfld, AccessTools.Field(typeof(BattleSystem), nameof(BattleSystem.instance))))
+                    {
+                        skipMode = true;
+
+                        yield return new CodeInstruction(OpCodes.Ldloc_0);
+                        yield return new CodeInstruction(OpCodes.Ldarg_0);
+                        yield return new CodeInstruction(OpCodes.Call, AccessTools.Method(typeof(EveHelp_Patch), nameof(EveHelp_Patch.AddCopy)));
+                    }
+                    else if (skipMode)
+                    {
+                        skipCount += 1;
+                        if (skipCount >= 4)
+                            skipMode = false;
+                    }
+                    else
+                    {
+                        yield return ci;
+
+
+                    }
+                }
+            }
+                
         }
 
 
