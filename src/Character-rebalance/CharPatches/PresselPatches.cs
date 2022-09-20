@@ -1,4 +1,5 @@
 ﻿using BepInEx;
+using BepInEx.Bootstrap;
 using Character_rebalance.Extends;
 using GameDataEditor;
 using HarmonyLib;
@@ -57,6 +58,9 @@ namespace Character_rebalance.CharPatches
                     dict.TryGetString("Description", out string ogDesc);
                     __instance.Description = CustomLoc.MainFile.GetTranslation(CustomLoc.TermKey(GDESchemaKeys.Skill, GDEItemKeys.Skill_S_Priest_1, CustomLoc.TermType.ExtraDesc))
                         + ogDesc;
+
+                    if (Chainloader.PluginInfos.ContainsKey("neo.ca.gameplay.swiftnessRework"))
+                        __instance.Description = __instance.Description.Replace("Swiftness", "<b>Effortless</b>");
                 }
                 // first class to heaven
                 else if (__instance.Key == GDEItemKeys.Skill_S_Priest_2)

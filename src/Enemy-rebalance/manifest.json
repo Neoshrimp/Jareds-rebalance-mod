@@ -1,0 +1,7 @@
+{
+    "name": "JaredsRebalance_Enemies",
+    "version_number": "1.0.0",
+    "website_url": "https://github.com/Neoshrimp/Jareds-rebalance-mod/tree/master/src/Enemy-rebalance",
+    "description": "Increases maxHp of all enemies",
+    "dependencies": ["BepInEx-BepInExPack_Chrono_Ark-5.4.21"]
+}

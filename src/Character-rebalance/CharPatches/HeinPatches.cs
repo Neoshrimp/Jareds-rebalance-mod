@@ -1,4 +1,5 @@
 ﻿using BepInEx;
+using BepInEx.Bootstrap;
 using Character_rebalance.Extends;
 using GameDataEditor;
 using HarmonyLib;
@@ -61,6 +62,9 @@ namespace Character_rebalance
                     string exDesc = CustomLoc.MainFile.GetTranslation(CustomLoc.TermKey(GDESchemaKeys.Skill, GDEItemKeys.Skill_S_Hein_11, CustomLoc.TermType.ExtraDesc));
                     //string.Concat(GDESchemaKeys.Skill, "/", GDEItemKeys.Skill_S_Hein_11, "_ExDesc"));
                     __instance.Description = string.Concat(ogDesc, exDesc);
+
+                    if (Chainloader.PluginInfos.ContainsKey("neo.ca.gameplay.swiftnessRework"))
+                        __instance.Description = __instance.Description.Replace("Swiftness", "<b>Effortless</b>");
 
                 }
                 // end of the line

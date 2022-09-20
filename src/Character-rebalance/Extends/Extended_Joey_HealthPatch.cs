@@ -1,4 +1,5 @@
 ﻿using BepInEx;
+using BepInEx.Bootstrap;
 using GameDataEditor;
 using HarmonyLib;
 using I2.Loc;
@@ -33,7 +34,13 @@ public class Extended_Joey_HealthPatch : S_Joey_12
         }
     }
 
-    
+    public override string DescExtended(string desc)
+    {
+        if (Chainloader.PluginInfos.ContainsKey("neo.ca.gameplay.swiftnessRework"))
+            return base.DescExtended(desc).Replace("Swiftness", "<b>Effortless</b>");
+
+        return base.DescExtended(desc);
+    }
 
 
 }

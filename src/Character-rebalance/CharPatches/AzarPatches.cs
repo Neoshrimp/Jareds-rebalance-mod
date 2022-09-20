@@ -40,7 +40,9 @@ namespace Character_rebalance
                 (GDEDataManager.masterData["SE_Azar_10_T"] as Dictionary<string, object>)["CRI"] = 50;
 
                 // Shining Aura : Cost 1 -> 0
-                (GDEDataManager.masterData["S_Azar_11"] as Dictionary<string, object>)["UseAp"] = 0;
+                //(GDEDataManager.masterData["S_Azar_11"] as Dictionary<string, object>)["UseAp"] = 0;
+                (GDEDataManager.masterData["S_Azar_11"] as Dictionary<string, object>)["Basic"] = true;
+
 
                 // Illusion Flash : Given Tracking
                 (GDEDataManager.masterData["S_Azar_3"] as Dictionary<string, object>)["Track"] = true;
@@ -56,17 +58,22 @@ namespace Character_rebalance
                 (GDEDataManager.masterData["SE_Azar_T_0"] as Dictionary<string, object>)["DMG_Per"] = 105;
 
                 // Illusion Sword's Calling: Cost 1 -> 0, Basic
-                (GDEDataManager.masterData["S_Azar_13"] as Dictionary<string, object>)["UseAp"] = 0;
+                //(GDEDataManager.masterData["S_Azar_13"] as Dictionary<string, object>)["UseAp"] = 0;
                 (GDEDataManager.masterData["S_Azar_13"] as Dictionary<string, object>)["Basic"] = true;
 
                 // Sword of Infinity: Cost 2 -> 1
-                (GDEDataManager.masterData["S_Azar_9"] as Dictionary<string, object>)["UseAp"] = 1;
+                //(GDEDataManager.masterData["S_Azar_9"] as Dictionary<string, object>)["UseAp"] = 1;
 
                 // Dancing Sword: Given Swiftness
-                (GDEDataManager.masterData["S_Azar_12"] as Dictionary<string, object>)["NotCount"] = true;
+                //(GDEDataManager.masterData["S_Azar_12"] as Dictionary<string, object>)["NotCount"] = true;
 
                 // Blade Starfall: Countdown 2 -> 1
                 (GDEDataManager.masterData["S_Azar_2"] as Dictionary<string, object>)["Counting"] = 1;
+
+
+                //Fantasy
+                (GDEDataManager.masterData[GDEItemKeys.Skill_S_Azar_7] as Dictionary<string, object>)["Disposable"] = false;
+
             }
 
             static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)

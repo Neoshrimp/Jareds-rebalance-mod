@@ -1,4 +1,5 @@
 ﻿using BepInEx;
+using BepInEx.Bootstrap;
 using GameDataEditor;
 using HarmonyLib;
 using I2.Loc;
@@ -68,9 +69,14 @@ namespace Character_rebalance
                     ogSkillExtended.Add(typeof(Extended_Selena_TearsOfTheMoon).AssemblyQualifiedName);
                     __instance.SkillExtended = ogSkillExtended;
 
-                    dict.TryGetCustomList("PlusKeyWordsKey", out List<GDESkillKeywordData> ogPlusKeyWords);
-                    ogPlusKeyWords.Add(new GDESkillKeywordData(CustomKeys.SkillKeyword_Keyword_Swiftness));
-                    __instance.PlusKeyWords = ogPlusKeyWords;
+
+                    if (!Chainloader.PluginInfos.ContainsKey("neo.ca.gameplay.swiftnessRework"))
+                    {
+                        dict.TryGetCustomList("PlusKeyWordsKey", out List<GDESkillKeywordData> ogPlusKeyWords);
+                        ogPlusKeyWords.Add(new GDESkillKeywordData(CustomKeys.SkillKeyword_Keyword_Swiftness));
+                        __instance.PlusKeyWords = ogPlusKeyWords;
+                    }
+                        
                 }
 
 

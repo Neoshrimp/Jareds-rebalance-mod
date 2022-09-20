@@ -1,4 +1,5 @@
-﻿using GameDataEditor;
+﻿using BepInEx.Bootstrap;
+using GameDataEditor;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -11,7 +12,13 @@ public class Extended_Ironheart_ShieldOfRetribution : Skill_Extended, IP_SkillUs
 
     public override string DescExtended(string desc)
     {
-        return base.DescExtended(desc).Replace("&a", this.hitsLeft.ToString());
+
+        var r = base.DescExtended(desc).Replace("&a", this.hitsLeft.ToString());
+
+        if (Chainloader.PluginInfos.ContainsKey("neo.ca.gameplay.swiftnessRework"))
+            return r.Replace("Swiftness", "<b>Effortless</b>");
+
+        return r;
     }
     public override void HandInit()
     {

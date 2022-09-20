@@ -11,7 +11,8 @@ using System.Reflection.Emit;
 using UnityEngine;
 using Debug = UnityEngine.Debug;
 using Character_rebalance.Extends;
-
+using SwiftnessRework;
+using BepInEx.Bootstrap;
 
 namespace Character_rebalance.CharPatches
 {
@@ -50,6 +51,14 @@ namespace Character_rebalance.CharPatches
                     dict.TryGetCustomList("PlusKeyWordsKey", out List<GDESkillKeywordData> ogPlusKeyWords);
                     ogPlusKeyWords.Add(new GDESkillKeywordData(CustomKeys.SkillKeyword_Keyword_Swiftness));
                     __instance.PlusKeyWords = ogPlusKeyWords;
+
+
+                    if (Chainloader.PluginInfos.ContainsKey("neo.ca.gameplay.swiftnessRework"))
+                    {
+                        dict.TryGetCustomList("PlusKeyWords", out List<GDESkillKeywordData> ogKeyWords);
+                        ogKeyWords.Add(new GDESkillKeywordData(SwiftnessReworkPlugin.QuickKeyWordKey));
+                        __instance.PlusKeyWords = ogKeyWords;
+                    }
                 }
                 // time to move
                 else if (__instance.Key == GDEItemKeys.Skill_S_Sizz_6)
@@ -126,11 +135,9 @@ namespace Character_rebalance.CharPatches
 
 
 
-        [HarmonyPatch(typeof(Extended_S_Sizz_0), nameof(Extended_S_Sizz_0.SkillUseSingle))]
-        class EveHelp_Patch
+        //[HarmonyPatch(typeof(Extended_S_Sizz_0), nameof(Extended_S_Sizz_0.SkillUseSingle))]        
+/*        class EveHelp_Patch
         {
-
-
 
             static void AddCopy(Skill createdSkill, Extended_S_Sizz_0 currentExtend)
             {
@@ -179,7 +186,7 @@ namespace Character_rebalance.CharPatches
                 }
             }
                 
-        }
+        }*/
 
 
 

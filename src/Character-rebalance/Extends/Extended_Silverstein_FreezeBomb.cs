@@ -1,4 +1,5 @@
-﻿using GameDataEditor;
+﻿using BepInEx.Bootstrap;
+using GameDataEditor;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -39,6 +40,14 @@ namespace Character_rebalance.Extends
             base.Init();
             this.SkillParticleObject = new GDESkillExtendedData(GDEItemKeys.SkillExtended_Public_10_Ex).Particle;
 
+        }
+
+        public override string DescExtended(string desc)
+        {
+            if (Chainloader.PluginInfos.ContainsKey("neo.ca.gameplay.swiftnessRework"))
+                return base.DescExtended(desc).Replace("Swiftness", "<b>Effortless</b>");
+
+            return base.DescExtended(desc);
         }
 
     }

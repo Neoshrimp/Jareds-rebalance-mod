@@ -1,0 +1,7 @@
+{
+    "name": "JaredsRebalance_SystemTweaks",
+    "version_number": "1.0.0",
+    "website_url": "https://github.com/Neoshrimp/Jareds-rebalance-mod/tree/master/src/System-tweaks-rebalance",
+    "description": "Overall system tweaks",
+    "dependencies": ["BepInEx-BepInExPack_Chrono_Ark-5.4.21"]
+}

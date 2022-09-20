@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 using GameDataEditor;
+using BepInEx.Bootstrap;
 
 public class Extended_Charon_SoulStigma : Skill_Extended
 {
@@ -31,6 +32,14 @@ public class Extended_Charon_SoulStigma : Skill_Extended
         NotCount = false;
         SkillParticleOff();
 
+    }
+
+    public override string DescExtended(string desc)
+    {
+        if (Chainloader.PluginInfos.ContainsKey("neo.ca.gameplay.swiftnessRework"))
+            return base.DescExtended(desc).Replace("Swiftness", "<b>Effortless</b>");
+
+        return base.DescExtended(desc);
     }
 
     public override void Init()

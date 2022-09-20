@@ -1,4 +1,5 @@
-﻿using GameDataEditor;
+﻿using BepInEx.Bootstrap;
+using GameDataEditor;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,6 +21,14 @@ public class Extended_Selena_Bloody_Moon : Skill_Extended
 
 		if (!found)
 			NotCount = false;
+	}
+
+	public override string DescExtended(string desc)
+	{
+		if (Chainloader.PluginInfos.ContainsKey("neo.ca.gameplay.swiftnessRework"))
+			return base.DescExtended(desc).Replace("Swiftness", "<b>Effortless</b>");
+
+		return base.DescExtended(desc);
 	}
 
 }

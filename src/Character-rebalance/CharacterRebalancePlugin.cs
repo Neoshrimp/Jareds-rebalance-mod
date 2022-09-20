@@ -292,5 +292,30 @@ namespace Character_rebalance
         }
 
 
+        [HarmonyPatch]
+        [HarmonyPriority(Priority.Last)]
+        class NeutralizeExtends_Patch
+        {
+
+            static IEnumerable<MethodBase> TargetMethods()
+            {
+                foreach (var m in AccessTools.GetDeclaredMethods(typeof(Extended_S_Sizz_0)))
+                {
+                    yield return m;                
+                }
+            }
+
+
+            static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
+            {
+                yield return new CodeInstruction(OpCodes.Ret);
+            }
+
+        }
+
+
+
+
+
     }
 }

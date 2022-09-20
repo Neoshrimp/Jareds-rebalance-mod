@@ -1,0 +1,7 @@
+{
+    "name": "JaredsRebalance_Characters",
+    "version_number": "1.0.0",
+    "website_url": "https://github.com/Neoshrimp/Jareds-rebalance-mod/tree/master/src/Character-rebalance",
+    "description": "Overhauls characters' skills and stats",
+    "dependencies": ["BepInEx-BepInExPack_Chrono_Ark-5.4.21"]
+}

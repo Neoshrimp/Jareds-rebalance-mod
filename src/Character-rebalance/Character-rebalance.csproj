@@ -46,6 +46,9 @@
     <Reference Include="BepInEx">
       <HintPath>..\..\..\..\CAx64_libs\BepInEx.dll</HintPath>
     </Reference>
+    <Reference Include="SwiftnessRework">
+      <HintPath>..\..\..\ChronoArk-gameplay-plugins\src\SwiftnessRework\bin\Debug\SwiftnessRework.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -132,7 +135,6 @@
     <Compile Include="Extends\Extended_Joey_HealthPatch.cs" />
     <Compile Include="UIextras.cs" />
     <Compile Include="Extends\Extended_Joey_HealingDrone_Ex.cs" />
-    <Compile Include="CustomExtendsEnabler.cs" />
     <Compile Include="Extends\Extended_Joey_CP_ExtraPot.cs" />
     <Compile Include="CharPatches\JoeyPatches.cs" />
     <Compile Include="CustomKeys.cs" />
@@ -146,6 +148,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>copy /Y $(TargetPath) "C:\Program Files (x86)\Steam\steamapps\common\Chrono Ark\x64\Master\BepInEx\scripts"</PostBuildEvent>
+    <PostBuildEvent>copy /Y $(TargetPath) "C:\Program Files (x86)\Steam\steamapps\common\Chrono Ark\x64\Master\BepInEx\scripts"
+copy /Y "$(TargetPath)" "$(ProjectDir)"</PostBuildEvent>
   </PropertyGroup>
 </Project>

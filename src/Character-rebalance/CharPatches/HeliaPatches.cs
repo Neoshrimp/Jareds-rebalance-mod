@@ -66,9 +66,9 @@ namespace Character_rebalance
                     dict.TryGetString("Description", out string ogDesc, GDEItemKeys.Skill_S_TW_Red_R0);
                     __instance.Description = CustomLoc.MainFile.GetTranslation(CustomLoc.TermKey(GDESchemaKeys.Skill, GDEItemKeys.Skill_S_TW_Red_R0, CustomLoc.TermType.ExtraDesc)) + ogDesc;
 
-                    dict.TryGetCustomList("PlusKeyWordsKey", out List<GDESkillKeywordData> ogPlusKeyWords);
+/*                    dict.TryGetCustomList("PlusKeyWordsKey", out List<GDESkillKeywordData> ogPlusKeyWords);
                     ogPlusKeyWords.Add(new GDESkillKeywordData(CustomKeys.SkillKeyword_Keyword_Swiftness));
-                    __instance.PlusKeyWords = ogPlusKeyWords;
+                    __instance.PlusKeyWords = ogPlusKeyWords;*/
 
                 }
                 // Selenelion
