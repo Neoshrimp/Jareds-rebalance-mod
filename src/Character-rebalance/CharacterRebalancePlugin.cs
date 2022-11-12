@@ -54,7 +54,7 @@ namespace Character_rebalance
             }
         }
 
-
+        // actually unnecessary in current ca version for some reason
         [HarmonyPatch(typeof(GDEDataManager), nameof(GDEDataManager.InitFromText))]
         class AddFullAssemblyQualifyingNamePatch
         {
@@ -73,9 +73,12 @@ namespace Character_rebalance
                 var gameAssemblyName = typeof(FieldSystem).AssemblyQualifiedName.Remove(0, typeof(FieldSystem).FullName.Length);
 
 
-                foreach (var kv in GDEDataManager.masterData)
+                //foreach (var kv in GDEDataManager.masterData)
+                foreach(var key in VanillaEntityKeys.Find())
                 {
-                    var entity = ((Dictionary<string, object>)GDEDataManager.masterData[kv.Key]);
+                    //var entity = ((Dictionary<string, object>)GDEDataManager.masterData[kv.Key]);
+                    var entity = ((Dictionary<string, object>)GDEDataManager.masterData[key]);
+
                     if (entity.TryGetString("_gdeSchema", out string schema))
                     {
                         if (schema == GDESchemaKeys.Skill)

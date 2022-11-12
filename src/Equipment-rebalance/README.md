@@ -13,3 +13,7 @@ As for relics and potions only the very overpowered/underpowered items were twea
 ---
 [*Manual install instructions*](https://github.com/Neoshrimp/ChronoArk-gameplay-plugins#installation)  
 **Manual install is the only option for 32-bit version**
+
+*Changelist*
+
+1.0.2: Made mod compatible with ArkLib (and any mods which depend on it)

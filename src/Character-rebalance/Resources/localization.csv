@@ -50,7 +50,7 @@ Skill/S_Trisha_0_ExtraDesc,Text,,," Or recast this skill if facing a single enem
 Gains <b>Critical</b> if facing a single enemy.",,,
 Skill/S_Sizz_0_Description,Text,,,"Gains <b>Swiftness</b> if Eve has 2 stacks.
 
-Transfer ally's Combined Arms buffs to the target. Add 'Eve, Help!' skill with Swiftness to your hand. No more than 3 copies can be created this way (&c left)",,,
+Transfer ally's Combined Arms buffs to the target. Add 'Eve, Help!' skill with <b>Swiftness</b> to your hand. No more than 3 copies can be created this way (&c left)",,,
 Skill/S_Sizz_1_Description,Text,,,"If the user of this skill has Eve on them when this skill is cast, Eve attacks immediately <b>without</b> consuming a stack.",,,
 SkillExtended/S_Azar_7_Description,Text,,,"&a uses left",,,
 SkillExtended/S_Azar_7_Name,Text,,,"Uses left",,,

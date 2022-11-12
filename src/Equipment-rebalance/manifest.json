@@ -1,6 +1,6 @@
 {
     "name": "JaredsRebalance_Equipment",
-    "version_number": "1.0.0",
+    "version_number": "1.0.2",
     "website_url": "https://github.com/Neoshrimp/Jareds-rebalance-mod/tree/master/src/Equipment-rebalance",
     "description": "Equipment overhaul and rebalance",
     "dependencies": ["BepInEx-BepInExPack_Chrono_Ark-5.4.21"]

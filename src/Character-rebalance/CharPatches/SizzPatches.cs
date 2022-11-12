@@ -11,15 +11,12 @@ using System.Reflection.Emit;
 using UnityEngine;
 using Debug = UnityEngine.Debug;
 using Character_rebalance.Extends;
-using SwiftnessRework;
 using BepInEx.Bootstrap;
 
 namespace Character_rebalance.CharPatches
 {
     class SizzPatches
     {
-
-
         [HarmonyPatch(typeof(GDESkillData), nameof(GDESkillData.LoadFromDict))]
         class GdeSkillPatch
         {
@@ -55,9 +52,12 @@ namespace Character_rebalance.CharPatches
 
                     if (Chainloader.PluginInfos.ContainsKey("neo.ca.gameplay.swiftnessRework"))
                     {
+                        Debug.Log("swiftness rework found");
                         dict.TryGetCustomList("PlusKeyWords", out List<GDESkillKeywordData> ogKeyWords);
-                        ogKeyWords.Add(new GDESkillKeywordData(SwiftnessReworkPlugin.QuickKeyWordKey));
-                        __instance.PlusKeyWords = ogKeyWords;
+                        ogKeyWords.Add(new GDESkillKeywordData("neo.ca.gameplay.swiftnessRework_QuickKeyWordKey"));
+
+                        // 2do proper quick integration
+                        //ogKeyWords.Add(new GDESkillKeywordData(SwiftnessRework.SwiftnessReworkPlugin.QuickKeyWordKey));
                     }
                 }
                 // time to move

@@ -46,9 +46,6 @@
     <Reference Include="BepInEx">
       <HintPath>..\..\..\..\CAx64_libs\BepInEx.dll</HintPath>
     </Reference>
-    <Reference Include="SwiftnessRework">
-      <HintPath>..\..\..\ChronoArk-gameplay-plugins\src\SwiftnessRework\bin\Debug\SwiftnessRework.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -133,6 +130,7 @@
     <Compile Include="Extends\Extended_Lian_RelentlessSwipe.cs" />
     <Compile Include="CharPatches\LianPatches.cs" />
     <Compile Include="Extends\Extended_Joey_HealthPatch.cs" />
+    <Compile Include="VanillaEntityKeys.cs" />
     <Compile Include="UIextras.cs" />
     <Compile Include="Extends\Extended_Joey_HealingDrone_Ex.cs" />
     <Compile Include="Extends\Extended_Joey_CP_ExtraPot.cs" />

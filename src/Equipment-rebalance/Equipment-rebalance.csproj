@@ -45,9 +45,6 @@
     <Reference Include="BepInEx">
       <HintPath>..\..\..\..\CAx64_libs\BepInEx.dll</HintPath>
     </Reference>
-    <Reference Include="SwiftnessRework">
-      <HintPath>..\..\..\ChronoArk-gameplay-plugins\src\SwiftnessRework\bin\Debug\SwiftnessRework.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />

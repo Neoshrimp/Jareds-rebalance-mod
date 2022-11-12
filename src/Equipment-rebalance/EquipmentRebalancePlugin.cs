@@ -42,9 +42,10 @@ namespace Equipment_rebalance
 
         /// <summary>
         /// filthy code dupe but hopefully harmless
+        /// actually unnecessary in current ca version for some reason
         /// </summary>
 
-        [HarmonyPatch(typeof(GDEDataManager), nameof(GDEDataManager.InitFromText))]
+        //[HarmonyPatch(typeof(GDEDataManager), nameof(GDEDataManager.InitFromText))]
         class AddFullAssemblyQualifyingNamePatch
         {
 

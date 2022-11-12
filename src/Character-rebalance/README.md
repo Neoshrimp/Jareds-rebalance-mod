@@ -15,3 +15,13 @@ Thanks to **windypanda1** for implementing Azar and Johan!
 ---
 [*Manual install instructions*](https://github.com/Neoshrimp/ChronoArk-gameplay-plugins#installation)  
 **Manual install is the only option for 32-bit version**
+
+---
+
+
+*Changelist*
+
+1.0.1: Fixed a bug where this mod wouldn't work without SwiftnessRework
+
+1.0.2: Made mod compatible with ArkLib (and any mods which depend on it)
+

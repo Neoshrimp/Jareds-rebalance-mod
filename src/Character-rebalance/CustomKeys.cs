@@ -53,18 +53,18 @@ namespace Character_rebalance
 
         static void UpdateGDEDataStructures(string schema, string key, AccessTools.FieldRef<GDEDataManager, Dictionary<string, HashSet<string>>> dataKeysBySchemaRef)
         {
-
             dataKeysBySchemaRef()[schema].Add(key);
-
+            
             try
             {
+
                 var schemaType = Type.GetType("GameDataEditor." + "GDE" + schema + "Data, " + typeof(FieldSystem).Assembly);
                 var schemaCtor = AccessTools.Constructor(schemaType, new Type[] { typeof(string) });
                 var data = schemaCtor.Invoke(new string[] { key });
                 var saveToDictMethod = AccessTools.Method(schemaType, "SaveToDict", new Type[] { });
                 var dict = (Dictionary<string, object>)saveToDictMethod.Invoke(data, new object[] { });
 
-                GDEDataManager.masterData.TryAddOrUpdateValue(key, dict);
+                GDEDataManager.masterData.TryAddOrUpdateValue(key, dict);   
             }
             catch (Exception e)
             {
@@ -89,6 +89,8 @@ namespace Character_rebalance
                 UnityEngine.Debug.Log(validSchemas.Contains(fi.Name.Split('_')[0]));*//*
 
             }*/
+
+
 
             foreach (var fi in keyFieldInfo)
             {
